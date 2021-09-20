@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Sorties;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -16,9 +17,9 @@ class SortieType extends AbstractType
     {
         $builder
             ->add('nom', TextType::class, [
-                'label' => 'Title'
+                'label' => 'Nom'
             ])
-            ->add('dateHeureDebut', DateType::class, [
+            ->add('dateHeureDebut', DateTimeType::class, [
                 'html5' => true,
                 'widget' => 'single_text',
             ])
@@ -45,7 +46,7 @@ class SortieType extends AbstractType
         ],
         'multiple' => false
     ])
-            ->add('lieu')
+            ->add('lieu', TextType::class)
         ;
     }
 

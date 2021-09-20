@@ -6,6 +6,7 @@ use App\Repository\SortiesRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=SortiesRepository::class)
@@ -20,11 +21,14 @@ class Sorties
     private $id;
 
     /**
+     * @Assert\NotBlank(message="Merci de renseigner un nom à votre sortie")
+     * @Assert\Length(max=255)
      * @ORM\Column(type="string", length=255)
      */
     private $nom;
 
     /**
+     * @Assert\GreaterThan("+5 hours")
      * @ORM\Column(type="datetime")
      */
     private $dateHeureDebut;
@@ -35,6 +39,7 @@ class Sorties
     private $duree;
 
     /**
+     * @Assert\GreaterThan(propertyPath="dateHeureDebut")
      * @ORM\Column(type="datetime")
      */
     private $dateLimiteInscription;

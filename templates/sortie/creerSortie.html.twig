@@ -5,6 +5,12 @@
 {% endblock %}
 
 {% block body %}
-        <div>{{ form(sortieForm) }}</div>
+        <div>
+                {{ form_start(sortieForm) }}
+
+                {{ form_widget(sortieForm) }}
+                <button>Creer</button>
+
+                {{ form_end(sortieForm) }}</div>
 {% endblock %}
 
