@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Form\SortieType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -9,9 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 use App\Entity\Sorties;
-use App\Entity\User;
 use App\Repository\SortiesRepository;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @Route("/participation/", name="participation")
@@ -26,7 +25,7 @@ class ParticipationController extends AbstractController
     public function index(Request $request, EntityManagerInterface $entityManager, int $id, SortiesRepository $sortiesRepository): Response
     {
         $sortie = $sortiesRepository->find($id);
-        $inscriptionForm = $this->createForm(Sorties::class,$sortie);
+        $inscriptionForm = $this->createForm(SortieType::class,$sortie);
         $inscriptionForm->handleRequest($request);
         $user = $this->security->getUser();
 
@@ -36,6 +35,7 @@ class ParticipationController extends AbstractController
             $entityManager->flush();
 
             $this->addFlash('success','Votre inscription a bien été prise en compte');
+            return $this->render('sortie/liste.html.twig');
         }
 
         return $this->render('participation/inscription.html.twig', [
