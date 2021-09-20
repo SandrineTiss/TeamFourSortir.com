@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -38,7 +40,6 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @ass
      *
      */
     private $nom;
@@ -67,6 +68,28 @@ class User implements UserInterface
      * @ORM\Column(type="boolean")
      */
     private $isVerified = false;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Sorties::class, mappedBy="organisateur", orphanRemoval=true)
+     */
+    private $estOrganisateur;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Sorties::class, mappedBy="inscrits")
+     */
+    private $estInscrit;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Campus::class, inversedBy="rattaches")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $campus;
+
+    public function __construct()
+    {
+        $this->estOrganisateur = new ArrayCollection();
+        $this->estInscrit = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -217,6 +240,75 @@ class User implements UserInterface
     public function setIsVerified(bool $isVerified): self
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Sorties[]
+     */
+    public function getEstOrganisateur(): Collection
+    {
+        return $this->estOrganisateur;
+    }
+
+    public function addEstOrganisateur(Sorties $estOrganisateur): self
+    {
+        if (!$this->estOrganisateur->contains($estOrganisateur)) {
+            $this->estOrganisateur[] = $estOrganisateur;
+            $estOrganisateur->setOrganisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEstOrganisateur(Sorties $estOrganisateur): self
+    {
+        if ($this->estOrganisateur->removeElement($estOrganisateur)) {
+            // set the owning side to null (unless already changed)
+            if ($estOrganisateur->getOrganisateur() === $this) {
+                $estOrganisateur->setOrganisateur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Sorties[]
+     */
+    public function getEstInscrit(): Collection
+    {
+        return $this->estInscrit;
+    }
+
+    public function addEstInscrit(Sorties $estInscrit): self
+    {
+        if (!$this->estInscrit->contains($estInscrit)) {
+            $this->estInscrit[] = $estInscrit;
+            $estInscrit->addInscrit($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEstInscrit(Sorties $estInscrit): self
+    {
+        if ($this->estInscrit->removeElement($estInscrit)) {
+            $estInscrit->removeInscrit($this);
+        }
+
+        return $this;
+    }
+
+    public function getCampus(): ?Campus
+    {
+        return $this->campus;
+    }
+
+    public function setCampus(?Campus $campus): self
+    {
+        $this->campus = $campus;
 
         return $this;
     }
