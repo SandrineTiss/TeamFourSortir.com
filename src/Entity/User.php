@@ -57,11 +57,6 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="boolean")
      */
-    private $admin;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
     private $actif;
 
     /**
