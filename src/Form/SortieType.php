@@ -8,13 +8,12 @@ use App\Entity\Etat;
 use App\Entity\Campus;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Security\Core\Exception\CredentialsExpiredException;
+use Symfony\Component\Security\Core\User\User;
 
 class SortieType extends AbstractType
 {
@@ -53,6 +52,10 @@ class SortieType extends AbstractType
                  'multiple' => false
                      ]
             )
+             ->add('organisateur', EntityType::class, [
+                 'class' => \App\Entity\User::class,
+                 'choice_label' => 'id'
+             ])
         ;
     }
 

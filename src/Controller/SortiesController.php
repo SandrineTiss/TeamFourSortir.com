@@ -2,18 +2,20 @@
 
 namespace App\Controller;
 
-use App\Entity\Lieu;
+
 use App\Entity\Sorties;
 use App\Form\SortieType;
 use Doctrine\ORM\EntityManagerInterface;
-use phpDocumentor\Reflection\Types\This;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\User;
+use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 class SortiesController extends AbstractController
 {
+
     /**
      * @Route("/liste", name="sortie_liste")
      */
@@ -38,6 +40,8 @@ class SortiesController extends AbstractController
         $sortieForm->handleRequest($request);
 
         if($sortieForm->isSubmitted()){
+
+
 
             $entityManager->persist($sortie);
             $entityManager->flush();
