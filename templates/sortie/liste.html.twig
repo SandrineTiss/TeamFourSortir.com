@@ -2,7 +2,13 @@
 
 {% block body %}
     <section>
-        todo: afficher les sorties
+        {% for sortie in sorties %}
+        <p>
+            <a href="" title="voir les détails">
+                {{ sortie.nom }}
+            </a>
+        </p>
+        {% endfor %}
     </section>
 {% endblock %}
 

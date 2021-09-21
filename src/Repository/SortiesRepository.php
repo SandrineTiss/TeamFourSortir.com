@@ -34,6 +34,7 @@ class SortiesRepository extends ServiceEntityRepository
         return $query;
     }
 
+
     // /**
     //  * @return Sorties[] Returns an array of Sorties objects
     //  */

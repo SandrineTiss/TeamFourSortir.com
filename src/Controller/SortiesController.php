@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use App\Entity\Sorties;
 use App\Form\SortieType;
+use App\Repository\SortiesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,11 +20,12 @@ class SortiesController extends AbstractController
     /**
      * @Route("/liste", name="sortie_liste")
      */
-    public function liste(): Response
+    public function findAll(SortiesRepository $sortiesRepository): Response
     {
-        // todo: aller chercher les sortie et les passer a twig
-
-        return $this->render('sortie/liste.html.twig');
+        $sorties = $sortiesRepository->findAll();
+        return $this->render('sortie/liste.html.twig', [
+            "sorties" => $sorties
+        ]);
     }
 
     /**
