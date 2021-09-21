@@ -2,7 +2,11 @@
 
 namespace App\Form;
 
+use App\Entity\Lieu;
 use App\Entity\Sorties;
+use App\Entity\Etat;
+use App\Entity\Campus;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -10,6 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Exception\CredentialsExpiredException;
 
 class SortieType extends AbstractType
 {
@@ -29,24 +34,25 @@ class SortieType extends AbstractType
                 'widget' => 'single_text',
             ])
             ->add('nbInscriptionMax')
-            ->add('infoSortie')
-            ->add('etat', ChoiceType::class, [
-                'choices' => [
-                    'Creee' => 'Creee',
-                    'Ouverte' => 'Ouverte',
-                    'Annulee' => 'Annulee'
-                ],
+            ->add('infoSortie');
+            $builder->add('etat', EntityType::class, [
+                'class' => Etat::class,
+                'choice_label' => 'libelle',
                 'multiple' => false
-            ])
-            ->add('campus', ChoiceType::class, [
-        'choices' => [
-            'Nantes' => 'Nantes',
-            'Rennes' => 'Rennes',
-            'La Roche-Sur-Yon' => 'La Roche-Sur-Yon'
-        ],
-        'multiple' => false
-    ])
-            ->add('lieu', TextType::class)
+            ]);
+
+            $builder->add('campus', EntityType::class, [
+                'class' => Campus::class,
+                'choice_label' => 'nom',
+                'multiple' => false
+            ]);
+
+             $builder->add('lieu', EntityType::class, [
+                'class' => Lieu::class,
+                 'choice_label'=>'nom',
+                 'multiple' => false
+                     ]
+            )
         ;
     }
 

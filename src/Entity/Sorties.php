@@ -45,28 +45,33 @@ class Sorties
     private $dateLimiteInscription;
 
     /**
+     * @Assert\PositiveOrZero()
      * @ORM\Column(type="integer", nullable=true)
      */
     private $nbInscriptionMax;
 
     /**
+     * @Assert\Length(min=5)
      * @ORM\Column(type="text")
      */
     private $infoSortie;
 
     /**
+     * @Assert\Choice({"Annulee", "Creee", "Ouverte"})
      * @ORM\ManyToOne(targetEntity=Etat::class, inversedBy="sorties")
      * @ORM\JoinColumn(nullable=false)
      */
     private $etat;
 
     /**
+     *
      * @ORM\ManyToOne(targetEntity=Campus::class, inversedBy="sorties")
      * @ORM\JoinColumn(nullable=false)
      */
     private $campus;
 
     /**
+     * @Assert\NotBlank(message="Merci de renseigner un lieu à votre sortie")
      * @ORM\ManyToOne(targetEntity=Lieu::class, inversedBy="sorties")
      * @ORM\JoinColumn(nullable=false)
      */

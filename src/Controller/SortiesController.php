@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Lieu;
 use App\Entity\Sorties;
 use App\Form\SortieType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -38,11 +39,11 @@ class SortiesController extends AbstractController
 
         if($sortieForm->isSubmitted()){
 
-            $entityManager->persist();
+            $entityManager->persist($sortie);
             $entityManager->flush();
 
             $this->addFlash('success', 'Votre sortie a bien été créée');
-            return $this->redirectToRoute('sortie_liste');
+            return $this->redirectToRoute('main_accueil');
 
         }
 
