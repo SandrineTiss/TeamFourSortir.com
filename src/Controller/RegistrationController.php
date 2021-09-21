@@ -26,6 +26,7 @@ class RegistrationController extends AbstractController
         $this->emailVerifier = $emailVerifier;
     }
 
+
     /**
      * @Route("/register", name="app_register")
      */
@@ -66,7 +67,7 @@ class RegistrationController extends AbstractController
             );
         }
 
-        return $this->render('main/index.html.twig', [
+        return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
     }
