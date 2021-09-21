@@ -19,6 +19,21 @@ class SortiesRepository extends ServiceEntityRepository
         parent::__construct($registry, Sorties::class);
     }
 
+    public function participate(){
+        $queryBuilder = $this->createQueryBuilder('s');
+
+        $queryBuilder->join('s.etat', 'etat')->addSelect('etat');
+        $queryBuilder->join('s.lieu', 'lieu')->addSelect('lieu');
+        $queryBuilder->join('s.campus', 'campus')->addSelect('campus');
+        $queryBuilder->join('s.etat', 'etat')->addSelect('etat');
+        $queryBuilder->join('s.etat', 'etat')->addSelect('etat');
+
+
+        $query = $queryBuilder ->getQuery();
+
+        return $query;
+    }
+
     // /**
     //  * @return Sorties[] Returns an array of Sorties objects
     //  */

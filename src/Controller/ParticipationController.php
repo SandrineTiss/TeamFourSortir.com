@@ -25,6 +25,7 @@ class ParticipationController extends AbstractController
     public function index(Request $request, EntityManagerInterface $entityManager, int $id, SortiesRepository $sortiesRepository): Response
     {
         $sortie = $sortiesRepository->find($id);
+        // dd($sortie);
         $inscriptionForm = $this->createForm(SortieType::class,$sortie);
         $inscriptionForm->handleRequest($request);
         $user = $this->security->getUser();
