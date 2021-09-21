@@ -9,7 +9,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-use App\Entity\Sorties;
 use App\Repository\SortiesRepository;
 
 /**
@@ -17,18 +16,18 @@ use App\Repository\SortiesRepository;
  */
 class ParticipationController extends AbstractController
 {
-    private $security;
-
     /**
      * @Route("inscription/{id}", name="_inscription")
      */
     public function index(Request $request, EntityManagerInterface $entityManager, int $id, SortiesRepository $sortiesRepository): Response
     {
-        $sortie = $sortiesRepository->find($id);
-        // dd($sortie);
-        $inscriptionForm = $this->createForm(SortieType::class,$sortie);
+        $sortie = $sortiesRepository->participate($id);
+        $user = $this->getUser();
+        //dd($user);
+        $inscriptionForm = $this->createForm(SortieType::class, $sortie);
         $inscriptionForm->handleRequest($request);
-        $user = $this->security->getUser();
+
+
 
         if($inscriptionForm->isSubmitted() && $inscriptionForm->isValid()){
             $sortie->addInscrit($user);

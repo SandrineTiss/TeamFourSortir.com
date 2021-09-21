@@ -19,19 +19,51 @@ class SortiesRepository extends ServiceEntityRepository
         parent::__construct($registry, Sorties::class);
     }
 
-    public function participate(){
+    public function participate(int $id){
+
+
         $queryBuilder = $this->createQueryBuilder('s');
 
         $queryBuilder->join('s.etat', 'etat')->addSelect('etat');
+
         $queryBuilder->join('s.lieu', 'lieu')->addSelect('lieu');
+
         $queryBuilder->join('s.campus', 'campus')->addSelect('campus');
-        $queryBuilder->join('s.etat', 'etat')->addSelect('etat');
-        $queryBuilder->join('s.etat', 'etat')->addSelect('etat');
 
+        $queryBuilder->join('s.organisateur', 'organisateur')->addSelect('organisateur');
 
+        /*
+        $queryBuilder->join('s.inscrits', 'inscrits')->addSelect('inscrits');
+        */
+        $queryBuilder->where('s.id = '.$id);
         $query = $queryBuilder ->getQuery();
 
-        return $query;
+        return $query->getSingleResult();
+
+
+
+        /*
+        $entityManager = $this->getEntityManager();
+        $dql = " 
+            SELECT s 
+            FROM App\Entity\Sorties s
+            JOIN App\Entity\Etat e 
+            JOIN App\Entity\Lieu l
+            JOIN App\Entity\User u
+            JOIN App\Entity\Campus c
+            JOIN App\Entity\Ville v
+   
+            WHERE s.id=".id."
+
+        ";
+
+            
+
+        $query = $entityManager->createQuery($dql);
+        $results = $query->getResult();
+
+        return $results;
+        */
     }
 
     // /**
