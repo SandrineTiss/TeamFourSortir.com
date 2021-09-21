@@ -5,10 +5,13 @@ namespace App\DataFixtures;
 use App\Entity\Campus;
 use App\Entity\Etat;
 use App\Entity\Lieu;
+use App\Entity\Sorties;
 use App\Entity\User;
 use App\Entity\Ville;
+use Cassandra\Date;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 class AppFixtures extends Fixture
 {
@@ -100,6 +103,24 @@ class AppFixtures extends Fixture
             $lieu->setLongitude(mt_rand(10,10000));
             $manager->persist($lieu);
             $manager->flush($lieu);
+        }
+
+        // Ajout de sorties
+        for ($i = 0; $i < 20; $i++){
+            $sortie = new Sorties();
+            $sortie->setNom('nom_sortie'.$i);
+            $sortie->setCampus($campus1);
+            $sortie->setOrganisateur($user);
+            $sortie->setLieu($lieu);
+            $sortie->setDateHeureDebut(new \DateTime());
+            $date = new \DateTime(21/10/21);
+            $sortie->setDateLimiteInscription($date);
+            $sortie->setDuree($sortie->getDateHeureDebut(+5));
+            $sortie->setEtat($etat1);
+            $sortie->setInfoSortie('une info sur la sortie_'.$i);
+            $sortie->setNbInscriptionMax(15);
+            $manager->persist($sortie);
+            $manager->flush($sortie);
         }
 
     }
