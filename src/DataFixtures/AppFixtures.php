@@ -120,9 +120,9 @@ class AppFixtures extends Fixture
             $sortie->setOrganisateur($user);
             $sortie->setLieu($lieu);
             $sortie->setDateHeureDebut(new \DateTime());
-            $date = new \DateTime(21/10/21);
+            $date = new \DateTime();
             $sortie->setDateLimiteInscription($date);
-            $sortie->setDuree($sortie->getDateHeureDebut(+5));
+            $sortie->setDuree(mt_rand(1, 9));
             $sortie->setEtat($etat1);
             $sortie->setInfoSortie('une info sur la sortie_'.$i);
             $sortie->setNbInscriptionMax(15);

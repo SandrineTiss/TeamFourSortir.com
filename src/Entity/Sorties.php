@@ -34,19 +34,20 @@ class Sorties
     private $dateHeureDebut;
 
     /**
-     * @ORM\Column(type="time", nullable=true)
+     * @Assert\Positive()
+     * @ORM\Column(type="integer", nullable=false)
      */
     private $duree;
 
     /**
      * @Assert\GreaterThan(propertyPath="dateHeureDebut")
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="date")
      */
     private $dateLimiteInscription;
 
     /**
      * @Assert\Positive(message="Le nombre de places disponible doit etre supérieur à 0!")
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="integer")
      */
     private $nbInscriptionMax;
 
@@ -122,12 +123,12 @@ class Sorties
         return $this;
     }
 
-    public function getDuree(): ?\DateTimeInterface
+    public function getDuree(): ?int
     {
         return $this->duree;
     }
 
-    public function setDuree(?\DateTimeInterface $duree): self
+    public function setDuree(?int $duree): self
     {
         $this->duree = $duree;
 
