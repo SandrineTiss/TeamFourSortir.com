@@ -20,16 +20,27 @@
             <div class="col">
                 {{ form_row(sortie.dateHeureDebut, {'disabled' : 'true'}) }}
             </div>
-        </div>
-        <div class="row">
             <div class="col">
-                {{ form_row(sortie.duree, {'disabled' : 'true'}) }}
+                {{ form_row(sortie.lieu, {'disabled' : 'true'}) }}
             </div>
         </div>
+    <div class="row">
+        <div class="col">
+            {{ form_row(sortie.dateLimiteInscription, {'disabled' : 'true'}) }}
+        </div>
+        <div class="col">
+            <label>Rue :</label>
+            <input type="text" disabled="disabled" value=" {{ lieu.rue }}">
+        </div>
+    </div>
         <div class="row">
             <div class="col">
                 <label>Organisateur :</label>
-                <input type="text" disabled="disabled" value="{{ organisateur.nom }} {{ organisateur.prenom }}">
+                <input type="text" disabled="disabled" value=" {{ organisateur.nom }} {{ organisateur.prenom }}">
+            </div>
+            <div class="col">
+                <label>Code postal :</label>
+                <input type="text" disabled="disabled" value=" {{ ville.codePostal }}">
             </div>
         </div>
         <div class="row">
@@ -37,6 +48,29 @@
                 {{ form_row(sortie.infoSortie, {'disabled' : 'true'}) }}
             </div>
         </div>
+    <div class="row">
+        <div class="col">
+            {{ form_row(sortie.etat, {'disabled' : 'true'}) }}
+        </div>
+    </div>
+
+    <div>
+        <h3>Liste des participants inscrits :</h3>
+        <table>
+            <th>
+                <td>Pseudo</td>
+                <td>Nom</td>
+            </th>
+        {% for participant in inscrits %}
+            <tr>
+                <td>{{ participant.pseudo }}</td>
+                <td>{{ participant.prenom }} {{ participant.nom }}</td>
+            </tr>
+
+        {% endfor %}
+        </table>
+    </div>
+
 
 
     <button type="submit">S'inscrire à cette sortie</button>

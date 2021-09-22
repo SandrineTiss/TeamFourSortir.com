@@ -23,14 +23,11 @@ class ParticipationController extends AbstractController
     {
         $sortie = $sortiesRepository->participate($id);
         $user = $this->getUser();
-        //dd($sortie);
         $inscriptionForm = $this->createForm(SortieType::class, $sortie);
         $inscriptionForm->handleRequest($request);
 
         $nbreInscrits = sizeof($sortie->getInscrits());
-        //dd($nbreInscrits);
-        $organisateur = $sortie->getOrganisateur();
-        //dd($organisateur);
+
 
 
         if($inscriptionForm->isSubmitted() && $inscriptionForm->isValid()){
@@ -41,13 +38,19 @@ class ParticipationController extends AbstractController
             $this->addFlash('success','Votre inscription a bien été prise en compte');
             return $this->render('sortie/liste.html.twig');
         }
-        elseif ($sortie->getNbInscriptionMax = $nbreInscrits) {
+        elseif ($sortie->getNbInscriptionMax = $nbreInscrits ) {
 
         }
 
         return $this->render('participation/inscription.html.twig', [
             'sortie' => $inscriptionForm->createView(),
-            'organisateur' => $organisateur,
+            'organisateur' => $sortie->getOrganisateur(),
+            'inscrits' => $sortie->getInscrits(),
+            'lieu' => $sortie->getLieu(),
+            'ville' => $sortie->getLieu()->getVille(),
+
+
+
         ]);
     }
 }
