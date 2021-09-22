@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+        {% block body %}
+            <ul>
+                <li>Prenom : {{ app.user.prenom }}</li>
+                <br>
+                <li>nom : {{ app.user.nom }}</li>
+                <br>
+                <li>Email : {{ app.user.email }}</li>
+                <br>
+            </ul>
+
+        {% endblock %}
