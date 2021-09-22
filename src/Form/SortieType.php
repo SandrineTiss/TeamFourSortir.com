@@ -41,7 +41,7 @@ class SortieType extends AbstractType
                 'html5' => true,
                 'widget' => 'single_text',
             ])
-            ->add('nbInscriptionMax', NumberType::class, [
+            ->add('nbInscriptionMax', IntegerType::class, [
                 'label' => 'Nombre de places :'
             ])
             ->add('infoSortie', null, [
