@@ -12,6 +12,9 @@
             <div class="col">
                 {{ form_row(sortie.nom, {'disabled' : 'true'}) }}
             </div>
+            <div class="col">
+                {{ form_row(sortie.campus, {'disabled' : 'true'}) }}
+            </div>
         </div>
         <div class="row">
             <div class="col">
@@ -25,7 +28,7 @@
         </div>
         <div class="row">
             <div class="col">
-                {{ form_row(sortie.organisateur, {'disabled' : 'true'}) }}
+                {{ form_row(sortie.organisateur.nom, {'disabled' : 'true'}) }}
             </div>
         </div>
         <div class="row">
@@ -35,6 +38,6 @@
         </div>
 
 
-
+    <button type="submit">S'inscrire à cette sortie</button>
 
 {% endblock %}
