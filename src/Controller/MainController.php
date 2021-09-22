@@ -13,6 +13,6 @@ class MainController extends AbstractController
      */
     public function accueil(): Response
     {
-        return $this->render('accueil.html.twig');
+        return $this->render('main/accueil.html.twig');
     }
 }
