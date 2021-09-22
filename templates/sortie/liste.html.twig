@@ -4,7 +4,7 @@
     <section>
         {% for sortie in sorties %}
         <p>
-            <a href="" title="voir les détails">
+            <a href="{{ path('participation_inscription', {'id': sortie.id} ) }}" title="voir les détails">
                 {{ sortie.nom }}
             </a>
         </p>
