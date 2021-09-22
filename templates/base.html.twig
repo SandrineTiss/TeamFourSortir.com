@@ -14,21 +14,24 @@
     <body>
         <header class="main-header">
             <nav class="navbar">
-                <ul>
-                    <li><a href="{{ path('main_accueil') }}">Accueil</a></li>
-                    <li><a href="{{ path('sortie_liste') }}">Afficher les sorties</a></li>
-                    <li><a href="{{ path('sortie_creerSortie') }}">Creer une nouvelle sortie</a></li>
-                    <li><a href="{{ path('campus_campus') }}">Gestion des Campus</a></li>
-                    {% if(not app.user) %}
-                    <li><a href="{{ path('app_register') }}">S'inscrire</a></li>
-                    <li><a href="{{ path('app_login') }}">Se Connecter</a></li>
-                    {% endif %}
-                    {% if(app.user) %}
-                    <li><a href="{{ path('profil_user') }}">{{ app.user.prenom }}</a></li>
-                    <li><a href="{{ path('app_logout') }}">Se Deconnecter</a></li>
-                    {% endif %}
+                <div class="boxLiens">
+                    <ul>
+                        <li><a href="{{ path('main_accueil') }}">Accueil</a></li>
+                        <li><a href="{{ path('sortie_liste') }}">Afficher les sorties</a></li>
+                        <li><a href="{{ path('sortie_creerSortie') }}">Creer une nouvelle sortie</a></li>
+                        <li><a href="{{ path('campus_campus') }}">Gestion des Campus</a></li>
+                        {% if(not app.user) %}
+                            <li><a href="{{ path('app_register') }}">S'inscrire</a></li>
+                            <li><a href="{{ path('app_login') }}">Se Connecter</a></li>
+                        {% endif %}
+                        {% if(app.user) %}
+                            <li><a href="{{ path('profil_user') }}">{{ app.user.prenom }}</a></li>
+                            <li><a href="{{ path('app_logout') }}">Se Deconnecter</a></li>
+                        {% endif %}
 
-                </ul>
+                    </ul>
+                </div>
+
             </nav>
         </header>
 

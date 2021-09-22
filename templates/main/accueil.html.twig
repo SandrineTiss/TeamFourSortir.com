@@ -4,10 +4,10 @@
 
 
 {% block body %}
-   <img class="" alt="" src="{{ asset('img/sortie.png') }}"/>
+   <img class="backImageHome" alt="" src="{{ asset('img/sortie.png') }}"/>
 
    {% if(app.user) %}
-   Ravie de te revoir <strong>{{ app.user.prenom }}</strong>
+   <h1 class="msgBienvenue">Ravie de te revoir <strong>{{ app.user.prenom }}</strong></h1>
    {% endif %}
 
 {% endblock %}
