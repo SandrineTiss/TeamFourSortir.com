@@ -61,7 +61,7 @@ class SortiesController extends AbstractController
             $entityManager->flush();
 
             $this->addFlash('success', 'Votre sortie a bien été créée');
-            return $this->redirectToRoute('main_accueil');
+            return $this->redirectToRoute('sortie_details', ['id' => $sortie->getId()]);
         }
 
 
