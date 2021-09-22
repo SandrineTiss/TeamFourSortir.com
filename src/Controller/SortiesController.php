@@ -11,11 +11,22 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\User\User;
-use Symfony\Component\Security\Core\User\UserProviderInterface;
+use Symfony\Component\Security\Core\Security;
+
 
 class SortiesController extends AbstractController
 {
+
+    /**
+     * @var Security
+     */
+    private $security;
+
+    public function __construct(Security $security)
+    {
+        $this->security = $security;
+    }
+
 
     /**
      * @Route("/liste", name="sortie_liste")
@@ -42,15 +53,14 @@ class SortiesController extends AbstractController
         $sortieForm->handleRequest($request);
 
         if($sortieForm->isSubmitted()){
+            $user = $this->security->getUser();
 
-
-
+            $sortie->setOrganisateur($user);
             $entityManager->persist($sortie);
             $entityManager->flush();
 
             $this->addFlash('success', 'Votre sortie a bien été créée');
             return $this->redirectToRoute('main_accueil');
-
         }
 
 

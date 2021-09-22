@@ -8,13 +8,20 @@ use App\Entity\Lieu;
 use App\Entity\Sorties;
 use App\Entity\User;
 use App\Entity\Ville;
-use Cassandra\Date;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-use Symfony\Component\Validator\Constraints\DateTime;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+
 
 class AppFixtures extends Fixture
 {
+
+    private $passwordEncoder;
+
+    public function __construct(UserPasswordEncoderInterface $passwordEncoder) {
+        $this->passwordEncoder = $passwordEncoder;
+    }
+
     public function load(ObjectManager $manager)
     {
         // ajout des campus
@@ -38,7 +45,7 @@ class AppFixtures extends Fixture
             $user->setPrenom('prenom '.$i);
             $user->setEmail('test@user'.$i);
             $user->setCampus($campus1);
-            $user->setPassword('test');
+            $user->setPassword($this->passwordEncoder->encodePassword($user,'test'));
             $user->setRoles(["ROLE_USER"]);
             $user->setActif('true');
             $user->setAdmin('false');

@@ -1,9 +1,11 @@
 label {
     display: block;
+    margin-left: 1rem;
 }
 
-input, textarea, select {
+input, textarea, select, button {
     margin-bottom: 1rem;
+    margin-left: 1rem;
     box-sizing: border-box;
     max-width: 50%;
     width: 150px;
