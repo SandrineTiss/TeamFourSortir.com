@@ -10,9 +10,7 @@
 
         <div class="row">
             <div class="col">
-                <div class="row">
-                    {{ form_label(sortie.nom) }}{{ form_widget(sortie.nom, {'disabled' : 'true'}) }}
-                </div>
+                {{ form_row(sortie.nom, {'disabled' : 'true'}) }}
             </div>
             <div class="col">
                 {{ form_row(sortie.campus, {'disabled' : 'true'}) }}
@@ -30,8 +28,8 @@
         </div>
         <div class="row">
             <div class="col">
-                {{ form_label(sortie.organisateur) }}
-                {{ form_widget(sortie.organisateur.nom) }}
+                <label>Organisateur :</label>
+                <input type="text" disabled="disabled" value="{{ organisateur.nom }} {{ organisateur.prenom }}">
             </div>
         </div>
         <div class="row">

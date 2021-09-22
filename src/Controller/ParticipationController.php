@@ -26,8 +26,11 @@ class ParticipationController extends AbstractController
         //dd($sortie);
         $inscriptionForm = $this->createForm(SortieType::class, $sortie);
         $inscriptionForm->handleRequest($request);
+
         $nbreInscrits = sizeof($sortie->getInscrits());
         //dd($nbreInscrits);
+        $organisateur = $sortie->getOrganisateur();
+        //dd($organisateur);
 
 
         if($inscriptionForm->isSubmitted() && $inscriptionForm->isValid()){
@@ -44,6 +47,7 @@ class ParticipationController extends AbstractController
 
         return $this->render('participation/inscription.html.twig', [
             'sortie' => $inscriptionForm->createView(),
+            'organisateur' => $organisateur,
         ]);
     }
 }
