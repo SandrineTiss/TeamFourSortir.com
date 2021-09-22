@@ -31,11 +31,8 @@ class SortieType extends AbstractType
                 'html5' => true,
                 'widget' => 'single_text',
             ])
-            ->add('duree', TimeType::class, [
-                'label' => 'Durée (en minutes) :',
-                'html5' => true,
-                'with_minutes' => false
-
+            ->add('duree', IntegerType::class, [
+                'label' => 'Durée (en minutes) :'
             ])
             ->add('dateLimiteInscription', DateType::class, [
                 'label' => 'Date limite d\'inscription :',

@@ -40,7 +40,7 @@ class Sorties
     private $duree;
 
     /**
-     * @Assert\GreaterThan(propertyPath="dateHeureDebut")
+     * @Assert\LessThan(propertyPath="dateHeureDebut")
      * @ORM\Column(type="date")
      */
     private $dateLimiteInscription;
@@ -58,7 +58,7 @@ class Sorties
     private $infoSortie;
 
     /**
-     * @Assert\Choice({"Annulee", "Creee", "Ouverte"})
+     *
      * @ORM\ManyToOne(targetEntity=Etat::class, inversedBy="sorties")
      * @ORM\JoinColumn(nullable=false)
      */
