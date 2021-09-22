@@ -45,7 +45,7 @@ class Sorties
     private $dateLimiteInscription;
 
     /**
-     * @Assert\PositiveOrZero()
+     * @Assert\Positive(message="Le nombre de places disponible doit etre supérieur à 0!")
      * @ORM\Column(type="integer", nullable=true)
      */
     private $nbInscriptionMax;
