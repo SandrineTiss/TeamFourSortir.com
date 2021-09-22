@@ -40,30 +40,6 @@ class SortiesRepository extends ServiceEntityRepository
 
         return $query->getSingleResult();
 
-
-
-        /*
-        $entityManager = $this->getEntityManager();
-        $dql = " 
-            SELECT s 
-            FROM App\Entity\Sorties s
-            JOIN App\Entity\Etat e 
-            JOIN App\Entity\Lieu l
-            JOIN App\Entity\User u
-            JOIN App\Entity\Campus c
-            JOIN App\Entity\Ville v
-   
-            WHERE s.id=".id."
-
-        ";
-
-            
-
-        $query = $entityManager->createQuery($dql);
-        $results = $query->getResult();
-
-        return $results;
-        */
     }
 
 

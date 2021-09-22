@@ -10,7 +10,9 @@
 
         <div class="row">
             <div class="col">
-                {{ form_row(sortie.nom, {'disabled' : 'true'}) }}
+                <div class="row">
+                    {{ form_label(sortie.nom) }}{{ form_widget(sortie.nom, {'disabled' : 'true'}) }}
+                </div>
             </div>
             <div class="col">
                 {{ form_row(sortie.campus, {'disabled' : 'true'}) }}
@@ -28,7 +30,8 @@
         </div>
         <div class="row">
             <div class="col">
-                {{ form_row(sortie.organisateur.nom, {'disabled' : 'true'}) }}
+                {{ form_label(sortie.organisateur) }}
+                {{ form_widget(sortie.organisateur.nom) }}
             </div>
         </div>
         <div class="row">
