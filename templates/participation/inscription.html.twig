@@ -4,6 +4,37 @@
 
 {% block body %}
 
-    TODO formulaire d'inscription à une sortie
+        <div class="my-custom-class-for-errors">
+            {{ form_errors(sortie) }}
+        </div>
+
+        <div class="row">
+            <div class="col">
+                {{ form_row(sortie.nom, {'disabled' : 'true'}) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                {{ form_row(sortie.dateHeureDebut, {'disabled' : 'true'}) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                {{ form_row(sortie.duree, {'disabled' : 'true'}) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                {{ form_row(sortie.organisateur, {'disabled' : 'true'}) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                {{ form_row(sortie.infoSortie, {'disabled' : 'true'}) }}
+            </div>
+        </div>
+
+
+
 
 {% endblock %}

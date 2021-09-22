@@ -32,10 +32,10 @@ class SortiesRepository extends ServiceEntityRepository
 
         $queryBuilder->join('s.organisateur', 'organisateur')->addSelect('organisateur');
 
-        /*
-        $queryBuilder->join('s.inscrits', 'inscrits')->addSelect('inscrits');
-        */
+        $queryBuilder->leftjoin('s.inscrits', 'inscrits')->addSelect('inscrits');
+
         $queryBuilder->where('s.id = '.$id);
+
         $query = $queryBuilder ->getQuery();
 
         return $query->getSingleResult();
