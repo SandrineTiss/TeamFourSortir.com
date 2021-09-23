@@ -25,7 +25,7 @@
                             <li><a href="{{ path('app_login') }}">Se Connecter</a></li>
                         {% endif %}
                         {% if(app.user) %}
-                            <li><a href="{{ path('profil_user') }}">{{ app.user.prenom }}</a></li>
+                            <li><a href="{{ path('profil_user') }}">Mon profil</a></li>
                             <li><a href="{{ path('app_logout') }}">Se Deconnecter</a></li>
                         {% endif %}
 

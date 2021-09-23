@@ -1,0 +1,34 @@
+.pseudo
+{
+    height: 30px;
+    width: 170px;
+    border: 2px solid #333;
+
+}
+
+.nom
+{
+    height: 30px;
+    width: 300px;
+    border: 2px solid #333;
+
+}
+
+.liste_participants th{
+    background-color: #808080;
+}
+
+h1
+{
+    text-align: center;
+}
+
+.liste_participants
+{
+    overflow: scroll;
+}
+
+button
+{
+    width: 100px;
+}

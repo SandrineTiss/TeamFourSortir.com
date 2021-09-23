@@ -27,6 +27,7 @@ class ParticipationController extends AbstractController
         $inscriptionForm->handleRequest($request);
 
         $nbreInscrits = sizeof($sortie->getInscrits());
+        $nbMax = $sortie->getNbInscriptionMax();
 
 
 
@@ -38,19 +39,22 @@ class ParticipationController extends AbstractController
             $this->addFlash('success','Votre inscription a bien été prise en compte');
             return $this->render('sortie/liste.html.twig');
         }
-        elseif ($sortie->getNbInscriptionMax = $nbreInscrits ) {
-
+        elseif ( $nbMax > $nbreInscrits ) {
+            return $this->render('participation/inscription.html.twig', [
+                'sortie' => $sortie,
+                'sortieForm' =>  $inscriptionForm->createView(),
+                'organisateur' => $sortie->getOrganisateur(),
+                'inscrits' => $sortie->getInscrits(),
+                'lieu' => $sortie->getLieu(),
+                'ville' => $sortie->getLieu()->getVille(),
+            ]);
+        }
+        else{
+            return $this->render('main/accueil.html.twig', [
+                'message' => 'Cette sortie a déjà atteint le nombre maximum de participants'
+            ]);
         }
 
-        return $this->render('participation/inscription.html.twig', [
-            'sortie' => $inscriptionForm->createView(),
-            'organisateur' => $sortie->getOrganisateur(),
-            'inscrits' => $sortie->getInscrits(),
-            'lieu' => $sortie->getLieu(),
-            'ville' => $sortie->getLieu()->getVille(),
 
-
-
-        ]);
     }
 }
