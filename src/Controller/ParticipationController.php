@@ -29,7 +29,6 @@ class ParticipationController extends AbstractController
         $nbreInscrits = sizeof($sortie->getInscrits());
         $nbMax = $sortie->getNbInscriptionMax();
         $inscrits = $sortie->getInscrits();
-        //dd($inscrits);
 
         if($inscriptionForm->isSubmitted() && $inscriptionForm->isValid()){
             $sortie->addInscrit($user);
@@ -43,6 +42,7 @@ class ParticipationController extends AbstractController
             return $this->render('participation/inscription.html.twig', [
                 'sortie' => $sortie,
                 'sortieForm' =>  $inscriptionForm->createView(),
+                'campus' => $sortie->getCampus(),
                 'organisateur' => $sortie->getOrganisateur(),
                 'inscrits' => $inscrits,
                 'lieu' => $sortie->getLieu(),

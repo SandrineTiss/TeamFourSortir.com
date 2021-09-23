@@ -80,6 +80,11 @@ class User implements UserInterface
      */
     private $campus;
 
+    /**
+     * @ORM\Column(type="string", length=30)
+     */
+    private $pseudo;
+
     public function __construct()
     {
         $this->estOrganisateur = new ArrayCollection();
@@ -304,6 +309,18 @@ class User implements UserInterface
     public function setCampus(?Campus $campus): self
     {
         $this->campus = $campus;
+
+        return $this;
+    }
+
+    public function getPseudo(): ?string
+    {
+        return $this->pseudo;
+    }
+
+    public function setPseudo(string $pseudo): self
+    {
+        $this->pseudo = $pseudo;
 
         return $this;
     }

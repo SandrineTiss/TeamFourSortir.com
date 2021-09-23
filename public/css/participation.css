@@ -14,9 +14,6 @@
 
 }
 
-.liste_participants th{
-    background-color: #808080;
-}
 
 h1
 {
@@ -30,10 +27,23 @@ h1
 
 button
 {
-    width: 100px;
+    align-content: center;
+    align-items: center;
+    padding: 20px;
+    margin: 20px;
+    border: black;
+    border-style: solid;
+    border-width: 1px;
+    padding: 10px;
 }
 
-.etat
+.form
 {
     display: none;
+}
+
+.champ
+{
+    height: 40px;
+    weight: 150px;
 }
