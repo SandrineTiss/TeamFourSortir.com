@@ -50,7 +50,7 @@ class AppFixtures extends Fixture
             $user->setRoles(["ROLE_USER"]);
             $user->setActif('true');
             $user->setAdmin('false');
-            $user->setTelephone(mt_rand(10, 100));
+            $user->setTelephone(mt_rand(01, 06).mt_rand(10, 100).mt_rand(10, 100).mt_rand(10, 100).mt_rand(10, 100));
             $user->setIsVerified('true');
 
 

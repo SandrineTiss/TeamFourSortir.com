@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 
+use App\Entity\Etat;
 use App\Entity\Sorties;
 use App\Form\SortieType;
 use App\Repository\SortiesRepository;
@@ -60,16 +61,19 @@ class SortiesController extends AbstractController
             $user = $this->security->getUser();
 
             $sortie->setOrganisateur($user);
+            $sortie->addInscrit($user);
             $entityManager->persist($sortie);
             $entityManager->flush();
 
             $this->addFlash('success', 'Votre sortie a bien été créée');
-            return $this->redirectToRoute('sortie_details', ['id' => $sortie->getId()]);
+
+            return $this->redirectToRoute('main_accueil');
         }
 
-
         return $this->render('sortie/creerSortie.html.twig', [
-            'sortieForm' => $sortieForm->createView()
+            'sortieForm' => $sortieForm->createView(),
+            'modifier' => false,
+            'creer' => true
         ]);
     }
 
@@ -81,5 +85,81 @@ class SortiesController extends AbstractController
         $sortie = $sortiesRepository->find($id);
 
         return $this->render('sortie/details', ['sortie' => $sortie]);
+    }
+
+    /**
+     * @Route("/modifier/{id}", name="modifier")
+     */
+    public function modifySortie(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        int $id
+    ): Response
+    {
+        $sortie = new Sorties();
+        $user = $this->security->getUser();
+        $sortie->setOrganisateur($user);
+        $entityManager->persist($sortie);
+        $entityManager->flush();
+        $this->addFlash('success', 'Votre sortie a bien été modifiée !');
+        return $this->redirectToRoute('main_accueil');
+
+    }
+
+    /**
+     * @Route("/publier/{id}", name="publier")
+     */
+    public function publierSortie(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        int $id
+    ): Response
+    {
+        $sortie = new Sorties();
+        $etat = new Etat();
+        $etat->setLibelle('Ouverte');
+        $sortie->setEtat($etat);
+        $entityManager->persist($sortie);
+        $entityManager->flush();
+        $this->addFlash('success', 'Votre sortie a bien été publiée !');
+        return $this->render('main/accueil.html.twig', [
+        ]);
+
+    }
+
+    /**
+     * @Route("/annuler/{id}", name="annuler")
+     */
+    public function annulateSortie(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        int $id
+    ): Response
+    {
+        $sortie = new Sorties();
+        $sortieForm = $this->createForm(SortieType::class, $sortie);
+        $sortieForm->handleRequest($request);
+        if($sortieForm->isSubmitted() && $sortieForm->isValid()){
+            // TODO : ouvrir une modale pour demander la raison de l'annulation
+
+            $user = $this->security->getUser();
+            $sortie->setOrganisateur($user);
+            $etat = new Etat();
+            $etat->setLibelle('Annulée');
+            $sortie->setEtat($etat);
+            $entityManager->persist($sortie);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Votre sortie a bien été Annulée');
+
+            return $this->render('main/accueil.html.twig', [
+            ]);
+        }
+
+        return $this->render('sortie/creerSortie.html.twig', [
+            'sortieForm' => $sortieForm->createView(),
+            'modifier' => false,
+            'creer' => true
+        ]);
     }
 }

@@ -25,10 +25,23 @@ class ParticipationController extends AbstractController
         $user = $this->getUser();
         $inscriptionForm = $this->createForm(SortieType::class, $sortie);
         $inscriptionForm->handleRequest($request);
-
         $nbreInscrits = sizeof($sortie->getInscrits());
         $nbMax = $sortie->getNbInscriptionMax();
         $inscrits = $sortie->getInscrits();
+
+        if($user == $sortie->getOrganisateur()) {
+            return $this->render('sortie/creerSortie.html.twig', [
+                'sortie' => $sortie,
+                'sortieForm' =>  $inscriptionForm->createView(),
+                'campus' => $sortie->getCampus(),
+                'organisateur' => $sortie->getOrganisateur(),
+                'inscrits' => $inscrits,
+                'lieu' => $sortie->getLieu(),
+                'ville' => $sortie->getLieu()->getVille(),
+                'modifier' => true,
+                'creer' => false
+            ]);
+        }
 
 
         if($inscriptionForm->isSubmitted() && $inscriptionForm->isValid() && $nbMax > $nbreInscrits ){
@@ -41,16 +54,6 @@ class ParticipationController extends AbstractController
             $this->addFlash('success','Votre inscription a bien été prise en compte');
             return $this->redirectToRoute('main_accueil');
         }
-        if($inscriptionForm->isSubmitted() && $inscriptionForm->isValid() ){
-
-            $sortie->removeInscrit($user);
-
-            $entityManager->persist($sortie);
-            $entityManager->flush();
-
-            $this->addFlash('success','Votre inscription a bien été prise en compte');
-            return $this->redirectToRoute('participation_sortie');
-        }
         elseif ( $nbMax > $nbreInscrits ) {
             return $this->render('participation/inscription.html.twig', [
                 'sortie' => $sortie,
@@ -61,8 +64,7 @@ class ParticipationController extends AbstractController
                 'lieu' => $sortie->getLieu(),
                 'ville' => $sortie->getLieu()->getVille(),
             ]);
-        }
-        else{
+        } else{
             $this->addFlash('warning','Cette sortie a déjà atteint son maximum de participants');
             return $this->render('participation/inscription.html.twig', [
                 'sortie' => $sortie,
@@ -93,9 +95,6 @@ class ParticipationController extends AbstractController
 
         $this->addFlash('success','Votre désistement a bien été pris en compte');
         return $this->redirectToRoute('main_accueil');
-
-
-
 
     }
 }
