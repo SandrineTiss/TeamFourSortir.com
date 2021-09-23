@@ -2,11 +2,13 @@
 
 namespace App\Repository;
 
+use App\Entity\Campus;
 use App\Entity\Sorties;
 use App\Entity\SortieSearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @method Sorties|null find($id, $lockMode = null, $lockVersion = null)
@@ -46,72 +48,45 @@ class SortiesRepository extends ServiceEntityRepository
 
     }
 
-    public function findByFilters(SortieSearch $sortieSearch): Query
+    public function findByFilters(SortieSearch $sortie)
     {
-        $query = $this -> createQueryBuilder('s');
+        $queryBuilder = $this -> createQueryBuilder('s');
 
-        if ($sortieSearch->getCampus()){
-            $query->join('s.campus', 'campus')->addSelect('campus.nom');
+        $queryBuilder->leftjoin('s.inscrits', 'inscrits')->addSelect('inscrits');
+
+        if ($sortie->getCampus()){
+            $queryBuilder->andWhere('campus = :campus')
+                ->setParameter('campus', $sortie->getCampus()->getNom());
+        }
+        if ($sortie->getNom()){
+            $queryBuilder->andWhere('nom LIKE %'.$sortie->getNom().'%');
         }
 
-        if ($sortieSearch->getNom()){
-            $query->join('s.nom', 'nom')->addSelect('s.nom');
-        }
-
-        if ($sortieSearch->getEnded()){
-            $query->join('s.etat', 'etat')->addSelect('s.etat');
-        }
-
-        if ($sortieSearch->getInscrit()){
-            $query->join('s.inscrits', 'inscrits')->addSelect('s.inscrits');
-        }
-
-        if ($sortieSearch->getOrganisateur()){
-            $query->join('s.organisateur', 'orga')->addSelect('s.organisateur');
-        }
-
-        if ($sortieSearch->getDate()){
-            $query->join('s.date_heure_debut', 'debut')->addSelect('s.dateHeureDebut');
-        }
-        if ($sortieSearch->getDate2()){
-            $query->join('s.date_heure_debut', 'fin')->addSelect('s.dateLimiteInscription');
-        }
-
-        if ($sortieSearch->getNotInscrit()){
-            $query->join('s.inscrits', 'inscrits')->addSelect('.inscrits.estInscrit');
+        if ($sortie->getEnded()){
+            $queryBuilder->andWhere('etat = :ended')
+                ->setParameter('ended', 'Cloturée');
 
         }
 
-        return $query->getQuery();
+        if ($sortie->getInscrit()){
+            $queryBuilder->join('sorties_user', 'su', 'ON', 's.id')
+                ->andWhere('su.user_id = :user')
+                ->setParameter('user', $this->getUser()->getId());
+        }
+
+        if ($sortie->getOrganisateur()){
+            $queryBuilder->andWhere('organisateur_id = :organisateur')
+                ->setParameter('organisateur', $this->getUser()->getId());
+        }
+
+        if ($sortie->getDate() && $sortie->getDate2()) {
+            $queryBuilder->andWhere('s.dateHeureDebut > :date')
+                ->setParameter('date', $sortie->getDate())
+                ->andWhere('s.dateHeureDebut < :date2')
+                ->setParameter('date2', $sortie->getDate2());
+        }
+
+        $query = $queryBuilder -> getQuery();
+        return $query;
     }
-
-
-    // /**
-    //  * @return Sorties[] Returns an array of Sorties objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Sorties
-    {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }
