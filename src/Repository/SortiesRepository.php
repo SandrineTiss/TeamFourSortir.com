@@ -5,6 +5,7 @@ namespace App\Repository;
 
 use App\Entity\Sorties;
 use App\Entity\SortieSearch;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 use Doctrine\Persistence\ManagerRegistry;
@@ -48,7 +49,7 @@ class SortiesRepository extends ServiceEntityRepository
 
     }
 
-    public function findByFilters(SortieSearch $sortie)
+    public function findByFilters(SortieSearch $sortie, User $utilisateur)
     {
         $queryBuilder = $this -> createQueryBuilder('s');
 
@@ -82,13 +83,13 @@ class SortiesRepository extends ServiceEntityRepository
         }
 
 
-        /*
         if ($sortie->getInscrit()){
+
             $queryBuilder->andWhere('inscrits.id = :user')
-                ->setParameter('user', $sortie);
+                ->setParameter('user', $utilisateur->getId());
         }
 
-
+        /*
         if ($sortie->getOrganisateur()){
             $queryBuilder->andWhere('organisateur_id = :organisateur')
                 ->setParameter('organisateur', $this->getUser()->getId());
