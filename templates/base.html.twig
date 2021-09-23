@@ -14,24 +14,16 @@
     <body>
         <header class="main-header">
             <nav class="navbar">
-                <div class="boxLiens">
-                    <ul>
-                        <li><a href="{{ path('main_accueil') }}">Accueil</a></li>
-                        <li><a href="{{ path('sortie_liste') }}">Afficher les sorties</a></li>
-                        <li><a href="{{ path('sortie_creerSortie') }}">Creer une nouvelle sortie</a></li>
-                        <li><a href="{{ path('campus_campus') }}">Gestion des Campus</a></li>
-                        {% if(not app.user) %}
-                            <li><a href="{{ path('app_register') }}">S'inscrire</a></li>
-                            <li><a href="{{ path('app_login') }}">Se Connecter</a></li>
-                        {% endif %}
-                        {% if(app.user) %}
-                            <li><a href="{{ path('profil_user') }}">Mon profil</a></li>
-                            <li><a href="{{ path('app_logout') }}">Se Deconnecter</a></li>
-                        {% endif %}
+                <ul>
+                    <li><a href="{{ path('main_accueil') }}">Accueil</a></li>
+                    <li><a href="{{ path('app_register') }}">S'inscrire</a></li>
+                    <li><a href="{{ path('app_login') }}">Se Connecter</a></li>
+                    <li><a href="{{ path('sortie_liste') }}">Afficher les sorties</a></li>
+                    <li><a href="{{ path('sortie_creer') }}">Creer une nouvelle sortie</a></li>
+                    <li><a href="{{ path('campus_campus') }}">Gestion des Campus</a></li>
+                    <li><a href="{{ path('app_logout') }}">Se Deconnecter</a></li>
 
-                    </ul>
-                </div>
-
+                </ul>
             </nav>
         </header>
 
@@ -44,6 +36,8 @@
         {% endfor %}
 
         {% block body %}{% endblock %}
+
+        {% block js %}{% endblock %}
 
     </body>
 </html>
