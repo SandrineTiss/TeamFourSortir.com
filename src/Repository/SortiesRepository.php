@@ -8,6 +8,7 @@ use App\Entity\SortieSearch;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
+use Doctrine\ORM\Query\Expr\GroupBy;
 use Doctrine\Persistence\ManagerRegistry;
 
 
@@ -90,16 +91,19 @@ class SortiesRepository extends ServiceEntityRepository
                 ->setParameter('user', $utilisateur->getId());
         }
 
+        // TODO: regler probleme sorties non inscrit
+        /*
         if($sortie->getNotInscrit()){
             $queryBuilder->andWhere('inscrits.id != :user')
                 ->setParameter('user', $utilisateur->getId());
-        }
 
+        }
+        */
 
 
         if ($sortie->getOrganisateur()){
-            $queryBuilder->andWhere('organisateur_id = :organisateur')
-                ->setParameter('organisateur', $this->getUser()->getId());
+            $queryBuilder->andWhere('s.organisateur = :organisateur')
+                ->setParameter('organisateur', $utilisateur->getId());
         }
 
         if ($sortie->getDate() && $sortie->getDate2()) {
@@ -109,8 +113,6 @@ class SortiesRepository extends ServiceEntityRepository
                 ->setParameter('date2', $sortie->getDate2());
         }
 
-
         return $queryBuilder -> getQuery()-> getResult();
-
     }
 }
