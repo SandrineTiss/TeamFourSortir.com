@@ -1,0 +1,14 @@
+button
+{
+    align-content: center;
+    align-items: center;
+    padding: 20px;
+    margin: 20px;
+    border: black;
+    border-style: solid;
+    border-width: 1px;
+    text-align: center;
+    font-size: 28px;
+    padding: 20px;
+    width: 100%;
+}

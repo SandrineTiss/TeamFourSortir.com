@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block body %}
+        <div>
+                {{ form_start(sortieForm) }}
+
+                {{ form_widget(sortieForm) }}
+                <button>Creer</button>
+
+                {{ form_end(sortieForm) }}</div>
+{% endblock %}
+
