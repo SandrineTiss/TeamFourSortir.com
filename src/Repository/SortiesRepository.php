@@ -52,20 +52,21 @@ class SortiesRepository extends ServiceEntityRepository
     {
         $queryBuilder = $this -> createQueryBuilder('s');
 
-        $queryBuilder->leftjoin('s.inscrits', 'inscrits')->addSelect('inscrits');
 
         if ($sortie->getCampus()){
-            $queryBuilder->andWhere('campus = :campus')
-                ->setParameter('campus', $sortie->getCampus()->getNom());
-        }
-        if ($sortie->getNom()){
-            $queryBuilder->andWhere('nom LIKE %'.$sortie->getNom().'%');
+            $queryBuilder->andWhere('s.campus = :campus')
+                ->setParameter('campus', $sortie->getCampus()->getId());
         }
 
+
+        if ($sortie->getNom()){
+            $queryBuilder->andWhere('s.nom LIKE \'%'.$sortie->getNom().'%\'');
+        }
+
+        /*
         if ($sortie->getEnded()){
             $queryBuilder->andWhere('etat = :ended')
                 ->setParameter('ended', 'Cloturée');
-
         }
 
         if ($sortie->getInscrit()){
@@ -85,8 +86,7 @@ class SortiesRepository extends ServiceEntityRepository
                 ->andWhere('s.dateHeureDebut < :date2')
                 ->setParameter('date2', $sortie->getDate2());
         }
-
-        $query = $queryBuilder -> getQuery();
-        return $query;
+        */
+        return $queryBuilder -> getQuery()-> getResult();
     }
 }
