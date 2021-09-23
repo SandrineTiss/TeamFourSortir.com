@@ -76,6 +76,13 @@ class RegistrationController extends AbstractController
         ]);
     }
 
+    public function modifierProfil()
+    {
+        $user = new User();
+        $form = $this->createForm(RegistrationFormType::class, $user);
+
+    }
+
     /**
      * @Route("/verify/email", name="app_verify_email")
      */
