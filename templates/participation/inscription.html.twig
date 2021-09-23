@@ -9,86 +9,85 @@
 {% block body %}
 
     <h1>Inscription</h1>
+    <br/><br/>
+    {{ form_start(sortieForm) }}
 
         <div class="my-custom-class-for-errors">
             {{ form_errors(sortieForm) }}
         </div>
+
         <div class="container">
             <div class="row">
-                <table>
+                <table class="affichage">
                     <tr>
-                        <td>{{ form_label(sortieForm.nom) }} <br/></td>
-                        <td>{{ form_widget(sortieForm.nom, {'disabled' : 'true'}) }}</td>
-                        <td>{{ form_label(sortieForm.campus)}}</td>
-                        <td>{{ form_widget(sortieForm.campus, {'disabled' : 'true'}) }}</td>
+                        <td class="champ">Nom de la sortie :</td>
+                        <td class="champ">{{ sortie.nom }}</td>
+                        <td class="champ">Campus :</td>
+                        <td class="champ">{{ campus.nom }}</td>
                     </tr>
                     <tr>
-                        <td><label>Organisateur :</label></td>
-                        <td><input type="text" disabled="disabled" value=" {{ organisateur.nom }} {{ organisateur.prenom }}"></td>
-                        <td>{{ form_label(sortieForm.lieu)}}</td>
-                        <td>{{ form_widget(sortieForm.lieu, {'disabled' : 'true'}) }}</td>
+                        <td class="champ">Organisateur :</td>
+                        <td class="champ">{{ organisateur.nom }} {{ organisateur.prenom }}></td>
+                        <td class="champ">Lieu :</td>
+                        <td class="champ">{{ lieu.nom }}</td>
                     </tr>
                     <tr>
-                        <td>{{ form_label(sortieForm.dateHeureDebut) }}</td>
-                        <td>{{ form_widget(sortieForm.dateHeureDebut, {'disabled' : 'true'}) }}</td>
-                        <td><label>Rue :</label></td>
-                        <td><input type="text" disabled="disabled" value=" {{ lieu.rue }}"></td>
+                        <td class="champ">Date et heure de la sortie :</td>
+                        <td class="champ">{{ sortie.dateHeureDebut.format('d/m/Y h:m') }}</td>
+                        <td class="champ">Rue :</td>
+                        <td class="champ">{{ lieu.rue }}</td>
                     </tr>
                     <tr>
-                        <td>{{ form_label(sortieForm.dateLimiteInscription) }} </td>
-                        <td>{{ form_widget(sortieForm.dateLimiteInscription, {'disabled' : 'true'}) }}</td>
-                        <td><label>Code postal :</label></td>
-                        <td><input type="text" disabled="disabled" value=" {{ ville.codePostal }}"></td>
+                        <td class="champ">Date limite d'inscription</td>
+                        <td class="champ">{{ sortie.dateLimiteInscription.format('d/m/Y') }}</td>
+                        <td class="champ">Code postal :</td>
+                        <td class="champ">{{ ville.codePostal }}</td>
                     </tr>
                     <tr>
-                        <td>{{ form_label(sortieForm.nbInscriptionMax) }}</td>
-                        <td>{{ form_widget(sortieForm.nbInscriptionMax, {'disabled' : 'true'}) }}</td>
-                        <td><label>Latitude :</label></td>
-                        <td><input type="text" disabled="disabled" value=" {{ lieu.latitude }}"></td>
+                        <td class="champ">Nombre de places :</td>
+                        <td class="champ">{{ sortie.nbInscriptionMax}}</td>
+                        <td class="champ">Latitude :</td>
+                        <td class="champ">{{ lieu.latitude }}</td>
                     </tr>
                     <tr>
-                        <td>{{ form_label(sortieForm.duree) }}</td>
-                        <td>{{ form_widget(sortieForm.duree, {'disabled' : 'true'}) }}</td>
-                        <td><label>Longitude :</label></td>
-                        <td><input type="text" disabled="disabled" value=" {{ lieu.longitude }}"></td>
+                        <td class="champ">Durée :</td>
+                        <td class="champ">{{ sortie.duree }} minutes</td>
+                        <td class="champ">Longitude :</td>
+                        <td class="champ">{{ lieu.longitude }}</td>
                     </tr>
                     <tr>
-                        <td>{{ form_label(sortieForm.infoSortie) }}</td>
-                        <td colspan="3">{{ form_widget(sortieForm.infoSortie, {'disabled' : 'true'}) }}</td>
+                        <td class="champ">Description et infos :</td>
+                        <td class="champ">{{ sortie.infoSortie }}</td>
                     </tr>
                 </table>
-                </div>
             </div>
         </div>
+        <br/><br/><br/><br/>
 
+        <div class="form">
+            {{ form_widget(sortieForm) }}
+        </div>
 
-    <div class="container">
-        <h3>Liste des participants inscrits :</h3>
-        <div class="container-fluid">
-            <table class="liste_participants">
-                <th>
-                    <td class="pseudo">Pseudo</td>
-                    <td class="nom">Nom</td>
-                </th>
-                {% for participant in inscrits %}
+        <div class="container">
+            <h3>Liste des participants inscrits :</h3>
+            <div class="container-fluid">
+                <table class="liste_participants">
                     <tr>
-                        <td class="pseudo">{{ participant.pseudo }}</td>
-                        <td class="pseudo">{{ participant.prenom }} {{ participant.nom }}</td>
+                        <td class="pseudo">Pseudo</td>
+                        <td class="nom">Nom</td>
                     </tr>
-
-                {% endfor %}
-            </table>
+                    {% for participant in inscrits %}
+                        <tr>
+                            <td>{{ participant.pseudo }}</td>
+                            <td class="pseudo">{{ participant.prenom }} {{ participant.nom }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
         </div>
-
-    </div>
-    <div class="row">
-        <div class="col-3 col-md-3"></div>
-        <div class="button col-6 btn btn-lg btn-block">
-            <button type="submit">S'inscrire à cette sortie</button>
+        <br/><br/>
+        <div class="row">
+            <button>S'inscrire à cette sortie</button>
         </div>
-        <div class="col-3"></div>
-    </div>
-
-
-
+    {{ form_end(sortieForm) }}
 {% endblock %}

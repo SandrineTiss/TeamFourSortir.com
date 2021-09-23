@@ -3,7 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Sorties;
+use App\Entity\SortieSearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -42,6 +44,45 @@ class SortiesRepository extends ServiceEntityRepository
 
         return $query->getSingleResult();
 
+    }
+
+    public function findByFilters(SortieSearch $sortieSearch): Query
+    {
+        $query = $this -> createQueryBuilder('s');
+
+        if ($sortieSearch->getCampus()){
+            $query->join('s.campus', 'campus')->addSelect('campus.nom');
+        }
+
+        if ($sortieSearch->getNom()){
+            $query->join('s.nom', 'nom')->addSelect('s.nom');
+        }
+
+        if ($sortieSearch->getEnded()){
+            $query->join('s.etat', 'etat')->addSelect('s.etat');
+        }
+
+        if ($sortieSearch->getInscrit()){
+            $query->join('s.inscrits', 'inscrits')->addSelect('s.inscrits');
+        }
+
+        if ($sortieSearch->getOrganisateur()){
+            $query->join('s.organisateur', 'orga')->addSelect('s.organisateur');
+        }
+
+        if ($sortieSearch->getDate()){
+            $query->join('s.date_heure_debut', 'debut')->addSelect('s.dateHeureDebut');
+        }
+        if ($sortieSearch->getDate2()){
+            $query->join('s.date_heure_debut', 'fin')->addSelect('s.dateLimiteInscription');
+        }
+
+        if ($sortieSearch->getNotInscrit()){
+            $query->join('s.inscrits', 'inscrits')->addSelect('.inscrits.estInscrit');
+
+        }
+
+        return $query->getQuery();
     }
 
 

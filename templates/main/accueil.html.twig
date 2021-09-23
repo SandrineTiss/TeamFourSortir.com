@@ -1,13 +1,57 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Accueil | {{ parent() }}{% endblock %}
-
+{% block stylesheets %}<link href="{{ asset('css/tableauSorties.css') }}" rel="stylesheet"> {% endblock %}
 
 {% block body %}
-   <img class="backImageHome" alt="" src="{{ asset('img/sortie.png') }}"/>
 
-   {% if(app.user) %}
-   <h1 class="msgBienvenue">Ravi de te revoir <strong>{{ app.user.prenom }} !</strong></h1>
-   {% endif %}
+    <div class="filtres">
+        <div class="filtre-form">
+            {{ form_start(form) }}
+            <div class="form-row">
+                <div class="col">
+                    {{ form_row(form.campus) }}
+                </div>
+                <div class="col">
+                    {{ form_row(form.nom) }}
+                </div>
+            </div>
 
+            {{ form_end(form) }}
+
+            <button>Rechercher</button>
+        </div>
+    </div>
+
+   <div class="table-sorties">
+       <table class="table">
+           <tr class="titre">
+               <th scope="col">Nom de la sortie</th>
+               <th scope="col">Date de la sortie</th>
+               <th scope="col">Cloture</th>
+               <th scope="col">inscrits/places</th>
+               <th scope="col">Etat</th>
+               <th scope="col">Inscrit</th>
+               <th scope="col">Organisateur</th>
+               <th scope="col">Action</th>
+           </tr>
+           </thead>
+          {% for sortie in sorties %}
+             <tr>
+                <th scope="col">{{ sortie.nom }}</th>
+                <th scope="col">{{ sortie.dateHeureDebut.format('d/m/Y h:m') }}</th>
+                <th scope="col">{{ sortie.dateLimiteInscription.format('d/m/Y') }}</th>
+                <th scope="col"> {{ sortie.inscrits.count }}/{{ sortie.nbInscriptionMax }}</th>
+                <th scope="col">{{ sortie.etat.libelle }}</th>
+                <th scope="col"> ???? </th>
+                <th scope="col">{{ sortie.organisateur.nom }}</th>
+                 <th scope="col"><a href="" title="">détails</a> </th>
+             </tr>
+          {% endfor %}
+       </table>
+   </div>
+{% endblock %}
+
+{% block js %}
+   <script src="{{ asset('js/filters.js') }}"></script>
 {% endblock %}

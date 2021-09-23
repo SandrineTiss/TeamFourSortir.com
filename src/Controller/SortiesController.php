@@ -14,6 +14,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
 
 
+/**
+ * @Route("/sortie", name="sortie_")
+ */
 class SortiesController extends AbstractController
 {
 
@@ -29,18 +32,18 @@ class SortiesController extends AbstractController
 
 
     /**
-     * @Route("/liste", name="sortie_liste")
+     * @Route("/", name="liste")
      */
     public function findAll(SortiesRepository $sortiesRepository): Response
     {
         $sorties = $sortiesRepository->findAll();
-        return $this->render('sortie/liste.html.twig', [
-            "sorties" => $sorties
+        return $this->render('main/accueil.html.twig', [
+            'sorties' => $sorties
         ]);
     }
 
     /**
-     * @Route("/creerSortie", name="sortie_creerSortie")
+     * @Route("/creer", name="creer")
      */
     public function createSortie(
         Request $request,
@@ -61,12 +64,22 @@ class SortiesController extends AbstractController
             $entityManager->flush();
 
             $this->addFlash('success', 'Votre sortie a bien été créée');
-            return $this->redirectToRoute('main_accueil');
+            return $this->redirectToRoute('sortie_details', ['id' => $sortie->getId()]);
         }
 
 
         return $this->render('sortie/creerSortie.html.twig', [
             'sortieForm' => $sortieForm->createView()
         ]);
+    }
+
+    /**
+     * @Route("/details/{id}", name="sortie_details")
+     */
+    public function details(int $id, SortiesRepository $sortiesRepository): Response
+    {
+        $sortie = $sortiesRepository->find($id);
+
+        return $this->render('sortie/details', ['sortie' => $sortie]);
     }
 }

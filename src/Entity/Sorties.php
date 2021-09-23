@@ -40,6 +40,7 @@ class Sorties
     private $duree;
 
     /**
+     * @Assert\GreaterThan("+4 hours")
      * @Assert\LessThan(propertyPath="dateHeureDebut")
      * @ORM\Column(type="date")
      */
@@ -232,7 +233,6 @@ class Sorties
         if (!$this->inscrits->contains($inscrit)) {
             $this->inscrits[] = $inscrit;
         }
-
         return $this;
     }
 

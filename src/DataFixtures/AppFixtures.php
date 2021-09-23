@@ -43,6 +43,7 @@ class AppFixtures extends Fixture
             $user = new User();
             $user->setNom('user '.$i);
             $user->setPrenom('prenom '.$i);
+            $user->setPseudo('pseudo'.$i);
             $user->setEmail('test@user'.$i);
             $user->setCampus($campus1);
             $user->setPassword($this->passwordEncoder->encodePassword($user,'test'));
@@ -51,6 +52,7 @@ class AppFixtures extends Fixture
             $user->setAdmin('false');
             $user->setTelephone(mt_rand(10, 100));
             $user->setIsVerified('true');
+
 
             $manager->persist($user);
             $manager->flush($user);
@@ -122,10 +124,10 @@ class AppFixtures extends Fixture
             $sortie->setDateHeureDebut(new \DateTime());
             $date = new \DateTime();
             $sortie->setDateLimiteInscription($date);
-            $sortie->setDuree(mt_rand(1, 9));
+            $sortie->setDuree(mt_rand(60, 240));
             $sortie->setEtat($etat1);
             $sortie->setInfoSortie('une info sur la sortie_'.$i);
-            $sortie->setNbInscriptionMax(15);
+            $sortie->setNbInscriptionMax(2);
             $manager->persist($sortie);
             $manager->flush($sortie);
         }

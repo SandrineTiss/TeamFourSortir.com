@@ -2,7 +2,12 @@
 
 namespace App\Controller;
 
+
+use App\Entity\SortieSearch;
+use App\Form\SortieSearchType;
+use App\Repository\SortiesRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -11,8 +16,19 @@ class MainController extends AbstractController
     /**
      * @Route("/", name="main_accueil")
      */
-    public function accueil(): Response
+    public function accueil(SortiesRepository $sortiesRepository, Request $request): Response
     {
-        return $this->render('main/accueil.html.twig');
+        $search = new SortieSearch();
+        $form = $this->createForm(SortieSearchType::class, $search);
+        $form->handleRequest($request);
+
+        $sortie = $sortiesRepository->findAll();
+        $sortieSearch = $sortiesRepository->findByFilters($search);
+
+        return $this->render('main/accueil.html.twig', [
+           'sorties' => $sortie,
+            'form' => $form->createView(),
+            'sortieSearch' => $sortieSearch
+        ]);
     }
 }
