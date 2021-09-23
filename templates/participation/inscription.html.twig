@@ -76,7 +76,7 @@
         <div class="form">
             {{ form_widget(sortieForm) }}
         </div>
-
+        {% set inscrit=0 %}
         <div class="container">
             <h3>Liste des participants inscrits :</h3>
             <div class="container-fluid">
@@ -89,16 +89,27 @@
                         <tr>
                             <td class="pseudo">{{ participant.pseudo }}</td>
                             <td class="nom">{{ participant.prenom }} {{ participant.nom }}</td>
+                            {% if participant == app.user %}
+                                {% set inscrit=1 %}
+                            {% endif %}
                         </tr>
                     {% endfor %}
                 </table>
             </div>
         </div>
         <br/><br/>
-        {% if sortie.nbInscriptionMax < inscrits|length %}
+        {% if sortie.nbInscriptionMax > inscrits|length and app.user not in inscrits %}
             <div class="row">
-                <button>S'inscrire à cette sortie</button>
+                <button type="submit">S'inscrire à cette sortie</button>
             </div>
         {% endif %}
     {{ form_end(sortieForm) }}
+
+    {% if inscrit==1 %}
+        <div class="row">
+            <a href="{{ path('participation_desistement', {'id' : sortie.id}) }}"><button type="submit" >Se désister de cette sortie</button></a>
+        </div>
+        {% set inscrit=0 %}
+    {% endif %}
+
 {% endblock %}

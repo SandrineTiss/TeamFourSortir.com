@@ -30,13 +30,26 @@ class ParticipationController extends AbstractController
         $nbMax = $sortie->getNbInscriptionMax();
         $inscrits = $sortie->getInscrits();
 
-        if($inscriptionForm->isSubmitted() && $inscriptionForm->isValid() && $nbMax > $nbreInscrits){
+
+        if($inscriptionForm->isSubmitted() && $inscriptionForm->isValid() && $nbMax > $nbreInscrits ){
+
             $sortie->addInscrit($user);
+
             $entityManager->persist($sortie);
             $entityManager->flush();
 
             $this->addFlash('success','Votre inscription a bien été prise en compte');
             return $this->redirectToRoute('main_accueil');
+        }
+        if($inscriptionForm->isSubmitted() && $inscriptionForm->isValid() ){
+
+            $sortie->removeInscrit($user);
+
+            $entityManager->persist($sortie);
+            $entityManager->flush();
+
+            $this->addFlash('success','Votre inscription a bien été prise en compte');
+            return $this->redirectToRoute('participation_sortie');
         }
         elseif ( $nbMax > $nbreInscrits ) {
             return $this->render('participation/inscription.html.twig', [
@@ -61,6 +74,27 @@ class ParticipationController extends AbstractController
                 'ville' => $sortie->getLieu()->getVille(),
             ]);
         }
+
+
+    }
+
+    /**
+     * @Route("sortie/desistement/{id}", name="_desistement")
+     */
+    public function desister(Request $request, EntityManagerInterface $entityManager, int $id, SortiesRepository $sortiesRepository): Response
+    {
+        $sortie = $sortiesRepository->participate($id);
+        $user = $this->getUser();
+
+        $sortie->removeInscrit($user);
+
+        $entityManager->persist($sortie);
+        $entityManager->flush();
+
+        $this->addFlash('success','Votre désistement a bien été pris en compte');
+        return $this->redirectToRoute('main_accueil');
+
+
 
 
     }
