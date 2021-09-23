@@ -34,7 +34,6 @@ button
     border: black;
     border-style: solid;
     border-width: 1px;
-    padding: 10px;
 }
 
 .form
@@ -46,4 +45,9 @@ button
 {
     height: 40px;
     weight: 150px;
+}
+
+.message
+{
+    text-align: center;
 }

@@ -16,20 +16,22 @@
             <nav class="navbar">
                 <ul>
                     <li><a href="{{ path('main_accueil') }}">Accueil</a></li>
-                    <li><a href="{{ path('app_register') }}">S'inscrire</a></li>
-                    <li><a href="{{ path('app_login') }}">Se Connecter</a></li>
-                    <li><a href="{{ path('sortie_liste') }}">Afficher les sorties</a></li>
-                    <li><a href="{{ path('sortie_creer') }}">Creer une nouvelle sortie</a></li>
-                    <li><a href="{{ path('campus_campus') }}">Gestion des Campus</a></li>
-                    <li><a href="{{ path('app_logout') }}">Se Deconnecter</a></li>
-
+                    {% if app.user %}
+                        <li><a href="{{ path('sortie_creer') }}">Creer une nouvelle sortie</a></li>
+                        <li><a href="{{ path('campus_campus') }}">Gestion des Campus</a></li>
+                        <li><a href="{{ path('profil_user') }}">Mon profil</a></li>
+                        <li><a href="{{ path('app_logout') }}">Se Deconnecter</a></li>
+                    {% else %}
+                        <li><a href="{{ path('app_register') }}">S'inscrire</a></li>
+                        <li><a href="{{ path('app_login') }}">Se Connecter</a></li>
+                    {% endif %}
                 </ul>
             </nav>
         </header>
 
         {% for label, messages in app.flashes %}
             {% for message in messages %}
-                <div class="flash-{{ label }}">
+                <div class="alert-{{ label }}">
                     {{ message }}
                 </div>
             {% endfor %}

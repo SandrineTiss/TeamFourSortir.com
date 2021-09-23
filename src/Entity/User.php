@@ -84,7 +84,7 @@ class User implements UserInterface
     /**
      * @Assert\Length(max=30, min=3)
      * @Assert\NotBlank(message="Vous devez renseigner un pseudo")
-     * @ORM\Column(type="string", length=30)
+     * @ORM\Column(type="string", length=30, unique=true)
      */
     private $pseudo;
 
