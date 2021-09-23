@@ -32,3 +32,8 @@ button
 {
     width: 100px;
 }
+
+.etat
+{
+    display: none;
+}
