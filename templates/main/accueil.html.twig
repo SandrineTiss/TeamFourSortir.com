@@ -45,7 +45,7 @@
                 <th scope="col">{{ sortie.etat.libelle }}</th>
                 <th scope="col"> ???? </th>
                 <th scope="col">{{ sortie.organisateur.nom }}</th>
-                 <th scope="col"><a href="{{ path('participation_inscription', {'id' : sortie.id}) }}" title="">détails</a> </th>
+                 <th scope="col"><a href="{{ path('participation_sortie', {'id' : sortie.id}) }}" title="">détails</a> </th>
              </tr>
           {% endfor %}
        </table>

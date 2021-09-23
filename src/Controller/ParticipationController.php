@@ -17,7 +17,7 @@ use App\Repository\SortiesRepository;
 class ParticipationController extends AbstractController
 {
     /**
-     * @Route("inscription/{id}", name="_inscription")
+     * @Route("sortie/{id}", name="_sortie")
      */
     public function index(Request $request, EntityManagerInterface $entityManager, int $id, SortiesRepository $sortiesRepository): Response
     {
@@ -30,13 +30,13 @@ class ParticipationController extends AbstractController
         $nbMax = $sortie->getNbInscriptionMax();
         $inscrits = $sortie->getInscrits();
 
-        if($inscriptionForm->isSubmitted() && $inscriptionForm->isValid()){
+        if($inscriptionForm->isSubmitted() && $inscriptionForm->isValid() && $nbMax > $nbreInscrits){
             $sortie->addInscrit($user);
             $entityManager->persist($sortie);
             $entityManager->flush();
 
             $this->addFlash('success','Votre inscription a bien été prise en compte');
-            return $this->render('main/accueil.html.twig');
+            return $this->redirectToRoute('main_accueil');
         }
         elseif ( $nbMax > $nbreInscrits ) {
             return $this->render('participation/inscription.html.twig', [
@@ -50,8 +50,15 @@ class ParticipationController extends AbstractController
             ]);
         }
         else{
-            return $this->render('main/accueil.html.twig', [
-                'message' => 'Cette sortie a déjà atteint le nombre maximum de participants'
+            $this->addFlash('warning','Cette sortie a déjà atteint son maximum de participants');
+            return $this->render('participation/inscription.html.twig', [
+                'sortie' => $sortie,
+                'sortieForm' =>  $inscriptionForm->createView(),
+                'campus' => $sortie->getCampus(),
+                'organisateur' => $sortie->getOrganisateur(),
+                'inscrits' => $inscrits,
+                'lieu' => $sortie->getLieu(),
+                'ville' => $sortie->getLieu()->getVille(),
             ]);
         }
 

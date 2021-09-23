@@ -10,6 +10,15 @@
 
     <h1>Inscription</h1>
     <br/><br/>
+
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert-{{ label }} message">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+
     {{ form_start(sortieForm) }}
 
         <div class="my-custom-class-for-errors">
@@ -78,16 +87,18 @@
                     </tr>
                     {% for participant in inscrits %}
                         <tr>
-                            <td>{{ participant.pseudo }}</td>
-                            <td class="pseudo">{{ participant.prenom }} {{ participant.nom }}</td>
+                            <td class="pseudo">{{ participant.pseudo }}</td>
+                            <td class="nom">{{ participant.prenom }} {{ participant.nom }}</td>
                         </tr>
                     {% endfor %}
                 </table>
             </div>
         </div>
         <br/><br/>
-        <div class="row">
-            <button>S'inscrire à cette sortie</button>
-        </div>
+        {% if sortie.nbInscriptionMax < inscrits|length %}
+            <div class="row">
+                <button>S'inscrire à cette sortie</button>
+            </div>
+        {% endif %}
     {{ form_end(sortieForm) }}
 {% endblock %}
