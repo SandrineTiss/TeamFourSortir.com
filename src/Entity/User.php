@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -81,6 +82,8 @@ class User implements UserInterface
     private $campus;
 
     /**
+     * @Assert\Length(max=30, min=3)
+     * @Assert\NotBlank(message="Vous devez renseigner un pseudo")
      * @ORM\Column(type="string", length=30)
      */
     private $pseudo;
