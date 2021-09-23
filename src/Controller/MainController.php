@@ -6,6 +6,7 @@ namespace App\Controller;
 use App\Entity\SortieSearch;
 use App\Form\SortieSearchType;
 use App\Repository\SortiesRepository;
+use phpDocumentor\Reflection\Types\This;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,16 +19,20 @@ class MainController extends AbstractController
      */
     public function accueil(SortiesRepository $sortiesRepository, Request $request): Response
     {
-        $search = new SortieSearch();
-        $form = $this->createForm(SortieSearchType::class, $search);
-        $form->handleRequest($request);
-        $user = $this->getUser();
-        $sortie = $sortiesRepository->findByFilters($search, $user);
+        if ($this->getUser()) {
+            $search = new SortieSearch();
+            $form = $this->createForm(SortieSearchType::class, $search);
+            $form->handleRequest($request);
 
-        return $this->render('main/accueil.html.twig', [
-           'sorties' => $sortie,
-            'form' => $form->createView(),
+               $user = $this->getUser();
+               $sortie = $sortiesRepository->findByFilters($search, $user);
 
-        ]);
+            return $this->render('main/accueil.html.twig', [
+                'sorties' => $sortie,
+                'form' => $form->createView(),
+            ]);
+        } else {
+            return $this->redirectToRoute('app_login');
+        }
     }
 }

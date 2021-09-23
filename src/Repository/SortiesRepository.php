@@ -49,6 +49,7 @@ class SortiesRepository extends ServiceEntityRepository
 
     }
 
+
     public function findByFilters(SortieSearch $sortie, User $utilisateur)
     {
         $queryBuilder = $this -> createQueryBuilder('s');
@@ -89,7 +90,7 @@ class SortiesRepository extends ServiceEntityRepository
                 ->setParameter('user', $utilisateur->getId());
         }
 
-        /*
+
         if ($sortie->getOrganisateur()){
             $queryBuilder->andWhere('organisateur_id = :organisateur')
                 ->setParameter('organisateur', $this->getUser()->getId());
@@ -101,7 +102,7 @@ class SortiesRepository extends ServiceEntityRepository
                 ->andWhere('s.dateHeureDebut < :date2')
                 ->setParameter('date2', $sortie->getDate2());
         }
-        */
+
 
         return $queryBuilder -> getQuery()-> getResult();
 
