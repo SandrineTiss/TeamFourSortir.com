@@ -14,11 +14,18 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Security;
 
 class SortieSearchType extends AbstractType
 {
+    private $security;
+    public function __construct(Security $security){
+        $this->security = $security;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $user = $this->security->getUser();
         $builder
             ->add('campus', EntityType::class, [
                 'class'=> Campus::class,
@@ -53,7 +60,6 @@ class SortieSearchType extends AbstractType
             ])
 
             ->add('inscrit', CheckboxType::class, [
-                'attr' => ['filtreSearch'],
                 'label'=>'Sorties auxquelles je suis inscrit/e',
                 'required'=>false
             ])
@@ -67,6 +73,7 @@ class SortieSearchType extends AbstractType
             ->add('ended', CheckboxType::class, [
                 'attr' => ['filtreSearch'],
                 'label'=>'Sorties passées',
+                'value' => 'Cloturée',
                 'required'=>false
             ])
         ;

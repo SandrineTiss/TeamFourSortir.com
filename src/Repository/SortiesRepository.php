@@ -52,6 +52,18 @@ class SortiesRepository extends ServiceEntityRepository
     {
         $queryBuilder = $this -> createQueryBuilder('s');
 
+        $queryBuilder->join('s.etat', 'etat')->addSelect('etat');
+
+        $queryBuilder->join('s.lieu', 'lieu')->addSelect('lieu');
+
+        $queryBuilder->join('lieu.ville', 'ville')->addSelect('ville');
+
+        $queryBuilder->join('s.campus', 'campus')->addSelect('campus');
+
+        $queryBuilder->join('s.organisateur', 'organisateur')->addSelect('organisateur');
+
+        $queryBuilder->leftJoin('s.inscrits', 'inscrits')->addSelect('inscrits');
+
 
         if ($sortie->getCampus()){
             $queryBuilder->andWhere('s.campus = :campus')
@@ -63,17 +75,19 @@ class SortiesRepository extends ServiceEntityRepository
             $queryBuilder->andWhere('s.nom LIKE \'%'.$sortie->getNom().'%\'');
         }
 
-        /*
+
         if ($sortie->getEnded()){
-            $queryBuilder->andWhere('etat = :ended')
+            $queryBuilder->andWhere('etat.libelle = :ended')
                 ->setParameter('ended', 'Cloturée');
         }
 
+
+        /*
         if ($sortie->getInscrit()){
-            $queryBuilder->join('sorties_user', 'su', 'ON', 's.id')
-                ->andWhere('su.user_id = :user')
-                ->setParameter('user', $this->getUser()->getId());
+            $queryBuilder->andWhere('inscrits.id = :user')
+                ->setParameter('user', $sortie);
         }
+
 
         if ($sortie->getOrganisateur()){
             $queryBuilder->andWhere('organisateur_id = :organisateur')
@@ -87,6 +101,8 @@ class SortiesRepository extends ServiceEntityRepository
                 ->setParameter('date2', $sortie->getDate2());
         }
         */
+
         return $queryBuilder -> getQuery()-> getResult();
+
     }
 }

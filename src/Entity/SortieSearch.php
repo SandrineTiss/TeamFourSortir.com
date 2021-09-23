@@ -107,6 +107,16 @@ class SortieSearch
     }
 
     /**
+     * @param \DateTime|null $date
+     * @return SortieSearch
+     */
+    public function setDate(?\DateTime $date): SortieSearch
+    {
+        $this->date = $date;
+        return $this;
+    }
+
+    /**
      * @return \DateTime|null
      */
     public function getDate2(): ?\DateTime
@@ -121,18 +131,6 @@ class SortieSearch
     public function setDate2(?\DateTime $date2): SortieSearch
     {
         $this->date2 = $date2;
-        return $this;
-    }
-
-
-
-    /**
-     * @param \DateTime|null $date
-     * @return SortieSearch
-     */
-    public function setDate(?\DateTime $date): SortieSearch
-    {
-        $this->date = $date;
         return $this;
     }
 
@@ -189,6 +187,8 @@ class SortieSearch
         $this->notInscrit = $notInscrit;
         return $this;
     }
+
+
 
 
 
