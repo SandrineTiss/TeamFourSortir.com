@@ -1,44 +1,103 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Inscription à une sortie{% endblock %}
+{% block title %}Inscription{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{  asset('css/participation.css') }}">
+{% endblock %}
 
 {% block body %}
 
+    <h1>Inscription</h1>
+
+    {{ form_start(sortieForm) }}
+
         <div class="my-custom-class-for-errors">
-            {{ form_errors(sortie) }}
+            {{ form_errors(sortieForm) }}
         </div>
 
-        <div class="row">
-            <div class="col">
-                {{ form_row(sortie.nom, {'disabled' : 'true'}) }}
-            </div>
-            <div class="col">
-                {{ form_row(sortie.campus, {'disabled' : 'true'}) }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                {{ form_row(sortie.dateHeureDebut, {'disabled' : 'true'}) }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                {{ form_row(sortie.duree, {'disabled' : 'true'}) }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <label>Organisateur :</label>
-                <input type="text" disabled="disabled" value="{{ organisateur.nom }} {{ organisateur.prenom }}">
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                {{ form_row(sortie.infoSortie, {'disabled' : 'true'}) }}
+        <div class="container">
+            <div class="row">
+                <table>
+                    <tr>
+                        <td>{{ form_label(sortieForm.nom) }} <br/></td>
+                        <td>{{ form_widget(sortieForm.nom, {'readonly' : 'true'}) }}</td>
+                        <td>{{ form_label(sortieForm.campus)}}</td>
+                        <td>{{ form_widget(sortieForm.campus, {'readonly' : 'true'}) }}</td>
+                    </tr>
+                    <tr>
+                        <td><label>Organisateur :</label></td>
+                        <td><input type="text" readonly="true" value=" {{ organisateur.nom }} {{ organisateur.prenom }}"></td>
+                        <td>{{ form_label(sortieForm.lieu)}}</td>
+                        <td>{{ form_widget(sortieForm.lieu, {'readonly' : 'true'}) }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ form_label(sortieForm.dateHeureDebut) }}</td>
+                        <td>{{ form_widget(sortieForm.dateHeureDebut, {'readonly' : 'true'}) }}</td>
+                        <td><label>Rue :</label></td>
+                        <td><input type="text" disabled="readonly" value="{{ lieu.rue }}"></td>
+                    </tr>
+                    <tr>
+                        <td>{{ form_label(sortieForm.dateLimiteInscription) }} </td>
+                        <td>{{ form_widget(sortieForm.dateLimiteInscription, {'readonly' : 'true'}) }}</td>
+                        <td><label>Code postal :</label></td>
+                        <td><input type="text" disabled="readonly" value=" {{ ville.codePostal }}"></td>
+                    </tr>
+                    <tr>
+                        <td>{{ form_label(sortieForm.nbInscriptionMax) }}</td>
+                        <td>{{ form_widget(sortieForm.nbInscriptionMax, {'readonly' : 'true'}) }}</td>
+                        <td><label>Latitude :</label></td>
+                        <td><input type="text" disabled="readonly" value=" {{ lieu.latitude }}"></td>
+                    </tr>
+                    <tr>
+                        <td>{{ form_label(sortieForm.duree) }}</td>
+                        <td>{{ form_widget(sortieForm.duree, {'readonly' : 'true'}) }}</td>
+                        <td><label>Longitude :</label></td>
+                        <td><input type="text" disabled="readonly" value=" {{ lieu.longitude }}"></td>
+                    </tr>
+                    <tr>
+                        <td>{{ form_label(sortieForm.infoSortie) }}</td>
+                        <td colspan="3">{{ form_widget(sortieForm.infoSortie, {'readonly' : 'true'}) }}</td>
+                    </tr>
+                </table>
             </div>
         </div>
 
 
-    <button type="submit">S'inscrire à cette sortie</button>
+    <div class="container">
+        <h3>Liste des participants inscrits :</h3>
+        <div class="container-fluid">
+            <table class="liste_participants">
+                <th>
+                    <td class="pseudo">Pseudo</td>
+                    <td class="nom">Nom</td>
+                </th>
+                {% for participant in inscrits %}
+                    <tr>
+{#                        <td class="pseudo">{{ participant.pseudo }}</td>#}
+                        <td class="pseudo">{{ participant.prenom }} {{ participant.nom }}</td>
+                    </tr>
+
+                {% endfor %}
+            </table>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-3 col-md-3"></div>
+        <div class="button col-6 btn btn-lg btn-block">
+
+                <button type="submit">S'inscrire à cette sortie</button>
+                <div class="etat">
+                    {{ form_label(sortieForm.etat) }}
+                    {{ form_widget(sortieForm.etat) }}
+                </div>
+
+        </div>
+        <div class="col-3"></div>
+    </div>
+    {{ form_end(sortieForm) }}
+
+
 
 {% endblock %}

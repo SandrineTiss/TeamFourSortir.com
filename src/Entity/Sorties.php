@@ -232,7 +232,6 @@ class Sorties
         if (!$this->inscrits->contains($inscrit)) {
             $this->inscrits[] = $inscrit;
         }
-
         return $this;
     }
 

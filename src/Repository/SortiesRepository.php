@@ -28,6 +28,8 @@ class SortiesRepository extends ServiceEntityRepository
 
         $queryBuilder->join('s.lieu', 'lieu')->addSelect('lieu');
 
+        $queryBuilder->join('lieu.ville', 'ville')->addSelect('ville');
+
         $queryBuilder->join('s.campus', 'campus')->addSelect('campus');
 
         $queryBuilder->join('s.organisateur', 'organisateur')->addSelect('organisateur');

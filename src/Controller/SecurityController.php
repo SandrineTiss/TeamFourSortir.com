@@ -9,13 +9,22 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
+
     /**
-     * @Route("/login", name="app_login")
+     * @Route("/login", name="login")
+     */
+    public function loginPage(): Response
+    {
+        return $this->render('login.html.twig');
+    }
+
+    /**
+     * @Route("/appLogin", name="app_login")
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
         if ($this->getUser()) {
-             return $this->redirectToRoute('main/accueil.html.twig');
+             return $this->redirectToRoute('main_accueil');
         }
 
         // get the login error if there is one
@@ -25,6 +34,8 @@ class SecurityController extends AbstractController
 
         return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
+
+
 
     /**
      * @Route("/logout", name="app_logout")

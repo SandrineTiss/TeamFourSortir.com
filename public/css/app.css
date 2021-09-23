@@ -1,6 +1,12 @@
-label {
-    display: block;
-    margin-left: 1rem;
+*, ::before, ::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #DDDDDD;
+
 }
 
 .image-accueil {
@@ -24,23 +30,66 @@ input, textarea, select, button {
     width: 150px;
 }
 
-body {
-    background: #dfdfdf;
-}
 
 .main-header {
-    display: block;
+    display: flex;
 }
 
-ul {
+.boxLiens {
     display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+img {
+    width: 100vw;
+
+}
+
+.msgBienvenue {
+    margin: 50px;
+    font-size: 30px;
+
+}
+
+ul  {
+    position: relative;
+    display: flex;
+    flex-direction: raw;
+    align-content: center;
+    align-items: center;
     list-style: none;
     margin: 0;
     padding: 0;
+
+
 }
 
 li {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
     padding: 20px;
+    margin: 20px;
+    border: black;
+    border-style: solid;
+    border-width: 1px;
+    padding: 10px;
 }
 
+li:hover {
+    background-color: indianred;
+    transition-duration: 0.3s;
+    color: #FFFFFF;
+}
+
+ul li a {
+    text-decoration: none;
+    color: black;
+
+}
+ul li a:hover {
+    color: #FFFFFF;
+}
 
