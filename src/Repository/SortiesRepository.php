@@ -90,6 +90,12 @@ class SortiesRepository extends ServiceEntityRepository
                 ->setParameter('user', $utilisateur->getId());
         }
 
+        if($sortie->getNotInscrit()){
+            $queryBuilder->andWhere('inscrits.id != :user')
+                ->setParameter('user', $utilisateur->getId());
+        }
+
+
 
         if ($sortie->getOrganisateur()){
             $queryBuilder->andWhere('organisateur_id = :organisateur')
