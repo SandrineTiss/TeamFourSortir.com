@@ -85,13 +85,12 @@ class SortiesRepository extends ServiceEntityRepository
 
 
         if ($sortie->getInscrit()){
-
             $queryBuilder->andWhere('inscrits.id = :user')
                 ->setParameter('user', $utilisateur->getId());
         }
 
         if($sortie->getNotInscrit()){
-            $queryBuilder->andWhere('inscrits.id != :user')
+            $queryBuilder->andWhere('inscrits.id <> :user')
                 ->setParameter('user', $utilisateur->getId());
         }
 
