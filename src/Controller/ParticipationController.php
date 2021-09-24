@@ -28,40 +28,66 @@ class ParticipationController extends AbstractController
         $nbreInscrits = sizeof($sortie->getInscrits());
         $nbMax = $sortie->getNbInscriptionMax();
         $inscrits = $sortie->getInscrits();
+        $etat = $sortie->getEtat()->getLibelle();
+        if( $etat == 'Ouverte')
+        {
+            //tester si la date d'inscription est passée et la mettre en Clôturée
 
 
-        if($inscriptionForm->isSubmitted() && $inscriptionForm->isValid() && $nbMax > $nbreInscrits ){
 
-            $sortie->addInscrit($user);
+            if($inscriptionForm->isSubmitted() && $inscriptionForm->isValid() && $nbMax > $nbreInscrits ){
 
-            $entityManager->persist($sortie);
-            $entityManager->flush();
+                $sortie->addInscrit($user);
 
-            $this->addFlash('success','Votre inscription a bien été prise en compte');
+                $entityManager->persist($sortie);
+                $entityManager->flush();
+
+                $this->addFlash('success','Votre inscription a bien été prise en compte');
+                return $this->redirectToRoute('main_accueil');
+            }
+            elseif ( $nbMax > $nbreInscrits ) {
+                return $this->render('participation/inscription.html.twig', [
+                    'sortie' => $sortie,
+                    'sortieForm' =>  $inscriptionForm->createView(),
+                    'campus' => $sortie->getCampus(),
+                    'organisateur' => $sortie->getOrganisateur(),
+                    'inscrits' => $inscrits,
+                    'lieu' => $sortie->getLieu(),
+                    'ville' => $sortie->getLieu()->getVille(),
+                ]);
+            } else{
+                $this->addFlash('warning','Cette sortie a déjà atteint son maximum de participants');
+                return $this->render('participation/inscription.html.twig', [
+                    'sortie' => $sortie,
+                    'sortieForm' =>  $inscriptionForm->createView(),
+                    'campus' => $sortie->getCampus(),
+                    'organisateur' => $sortie->getOrganisateur(),
+                    'inscrits' => $inscrits,
+                    'lieu' => $sortie->getLieu(),
+                    'ville' => $sortie->getLieu()->getVille(),
+                ]);
+            }
+        } elseif ($sortie->getOrganisateur() == $user && ($etat == 'Créée' || $etat == 'En cours')) {
+            return $this->render('participation/inscription.html.twig', [
+                'sortie' => $sortie,
+                'sortieForm' =>  $inscriptionForm->createView(),
+                'campus' => $sortie->getCampus(),
+                'organisateur' => $sortie->getOrganisateur(),
+                'inscrits' => $inscrits,
+                'lieu' => $sortie->getLieu(),
+                'ville' => $sortie->getLieu()->getVille(),
+            ]);
+        } else {
+            if($etat == 'Créée')
+            {
+                $this->addFlash('danger','Cette sortie n\'est pas encore ouverte aux inscriptions');
+                return $this->redirectToRoute('main_accueil');
+            }
+            $this->addFlash('danger','Cette sortie est annulée');
             return $this->redirectToRoute('main_accueil');
         }
-        elseif ( $nbMax > $nbreInscrits ) {
-            return $this->render('participation/inscription.html.twig', [
-                'sortie' => $sortie,
-                'sortieForm' =>  $inscriptionForm->createView(),
-                'campus' => $sortie->getCampus(),
-                'organisateur' => $sortie->getOrganisateur(),
-                'inscrits' => $inscrits,
-                'lieu' => $sortie->getLieu(),
-                'ville' => $sortie->getLieu()->getVille(),
-            ]);
-        } else{
-            $this->addFlash('warning','Cette sortie a déjà atteint son maximum de participants');
-            return $this->render('participation/inscription.html.twig', [
-                'sortie' => $sortie,
-                'sortieForm' =>  $inscriptionForm->createView(),
-                'campus' => $sortie->getCampus(),
-                'organisateur' => $sortie->getOrganisateur(),
-                'inscrits' => $inscrits,
-                'lieu' => $sortie->getLieu(),
-                'ville' => $sortie->getLieu()->getVille(),
-            ]);
-        }
+
+
 
 
     }
