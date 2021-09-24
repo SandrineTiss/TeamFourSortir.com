@@ -6,6 +6,7 @@ namespace App\Controller;
 use App\Entity\Etat;
 use App\Entity\Sorties;
 use App\Form\SortieType;
+use App\Repository\EtatRepository;
 use App\Repository\SortiesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -123,19 +124,35 @@ class SortiesController extends AbstractController
      * @Route("/publier/{id}", name="publier")
      */
     public function publierSortie(
-        int $id,
+        Request $request,
+        EntityManagerInterface $entityManager,
         SortiesRepository $sortiesRepository,
-        EntityManagerInterface $entityManager
+        EtatRepository $etatRepository,
+        int $id
     ): Response
     {
-        $sortie = new Sorties();
-        $etat = new Etat();
-        $etat->setLibelle('Ouverte');
-        $sortie->setEtat($etat);
-        $entityManager->persist($sortie);
-        $entityManager->flush();
-        $this->addFlash('success', 'Votre sortie a bien été publiée !');
-        return $this->render('main/accueil.html.twig', [
+        $sortie = $sortiesRepository->participate($id);
+        $sortieForm = $this->createForm(SortieType::class, $sortie);
+        $sortieForm->handleRequest($request);
+
+        if($sortieForm->isSubmitted() && $sortieForm->isValid()) {
+
+            $etat = $etatRepository->findOneBy(['libelle' => 'Ouverte']);
+            $sortie->setEtat($etat);
+            $entityManager->persist($sortie);
+            $entityManager->flush();
+            $this->addFlash('success', 'Votre sortie a bien été publiée !');
+            return $this->redirectToRoute('main_accueil');
+        }
+
+        return $this->render('sortie/publierSortie.html.twig', [
+            'sortie' => $sortie,
+            'sortieForm' =>  $sortieForm->createView(),
+            'campus' => $sortie->getCampus(),
+            'organisateur' => $sortie->getOrganisateur(),
+            'inscrits' => $sortie->getInscrits(),
+            'lieu' => $sortie->getLieu(),
+            'ville' => $sortie->getLieu()->getVille(),
         ]);
 
     }

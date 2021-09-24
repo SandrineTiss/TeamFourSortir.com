@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Gestion sortie
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{  asset('css/participation.css') }}">
+{% endblock %}
+
+
+
+{% block body %}
+        <div>
+
+            <h1>Publier une sortie</h1>
+            <br/><br/><br/>
+
+            {{ form_start(sortieForm) }}
+
+            {{ form_widget(sortieForm) }}
+
+                    <h5>Liste des participants</h5>
+                    <table class="liste_participants">
+                        <tr>
+                            <td class="pseudo">Pseudo</td>
+                            <td class="nom">Nom</td>
+                        </tr>
+                        {% for participant in inscrits %}
+                            <tr>
+                                <td class="pseudo"><a href="{{ path('profil_participant', {'id': participant.id}) }}">{{ participant.pseudo }}</a></td>
+                                <td class="nom">{{ participant.prenom }} {{ participant.nom }}</td>
+                                {% if participant == app.user %}
+                                    {% set inscrit=1 %}
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                    </table>
+                        <button>Valider la publication de la sortie</button>
+            {{ form_end(sortieForm) }}</div>
+{% endblock %}
+
