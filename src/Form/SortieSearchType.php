@@ -35,10 +35,7 @@ class SortieSearchType extends AbstractType
                 'required'=>false
             ])
 
-            ->add('organisateur', CheckboxType::class, [
-                'label' => 'Je suis l\'organisateur/trice',
-                'required'=>false
-            ])
+
 
             ->add('nom', TextType::class, [
                 'attr' => ['placeholder' => 'Rechercher '],
@@ -49,13 +46,18 @@ class SortieSearchType extends AbstractType
             ->add('dateMin', DateType::class, [
                 'html5' => true,
                 'widget' => 'single_text',
-                'label' => 'Entre le: ',
+                'label' => 'Date de début comprise après le : ',
                 'required'=>false
             ])
             ->add('datemax', DateType::class, [
                 'html5' => true,
                 'widget' => 'single_text',
-                'label' => ' et le: ',
+                'label' => ' et avant le: ',
+                'required'=>false
+            ])
+
+            ->add('organisateur', CheckboxType::class, [
+                'label' => 'Sorties dont je suis l\'organisateur/trice',
                 'required'=>false
             ])
 

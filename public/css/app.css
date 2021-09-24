@@ -10,7 +10,7 @@ body {
     background-size: cover;
     color: #EEE;
     font-family: 'Crimson Text', serif;
-    background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2)), url("../css/img/sortie.png");
+    background-image: linear-gradient(rgba(220, 220, 220, 1), rgba(0, 0, 0, 0)), url("../css/img/sortie.png");
 }
 
 .test-wp {
@@ -50,6 +50,14 @@ img {
 .navbar, .footer
 {
     background-color: rgba(255,255,255, .2);
+    font-weight: bold;
+    text-align: center;
+    color: black;
+
+}
+
+.navbar a{
+    color : black;
 }
 
 a:hover {
@@ -62,5 +70,25 @@ a:hover {
     font-size: 1.4rem;
     margin: 1rem 0;
     border-radius: 5px;
+}
+
+button
+{
+    align-content: center;
+    align-items: center;
+    padding: 20px;
+    margin: 20px;
+    border: black;
+    border-style: solid;
+    border-width: 1px;
+    text-align: center;
+    font-size: 28px;
+    width: 100%;
+}
+
+.filtres
+{
+    color: black;
+    font-weight: bold;
 }
 

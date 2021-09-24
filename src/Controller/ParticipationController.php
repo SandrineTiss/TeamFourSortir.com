@@ -47,7 +47,7 @@ class ParticipationController extends AbstractController
         $dateFinSortie = date_add($sortie->getDateHeureDebut(), $duree);
         $intervalFinSortie = date_diff($date, $dateFinSortie);
         //tester si la date d'inscription est passée et la mettre en Clôturée
-        if ($interval->format('%R%a') > 0 && $etat != 'Créée' ) {
+        if ($interval->format('%R%a') < 0 && $etat != 'Créée' ) {
             $etat = $etatRepository->findOneBy(['libelle' => 'Cloturée']);
             $sortie->setEtat($etat);
             $this->addFlash('danger', 'Cette sortie n\'accepte plus les inscriptions !');
@@ -74,7 +74,8 @@ class ParticipationController extends AbstractController
 
             if ($inscriptionForm->isSubmitted() && $inscriptionForm->isValid() && $nbMax > $nbreInscrits) {
                 $sortie->addInscrit($user);
-                if ($nbMax == sizeof($sortie->getInscrits())) {
+                $nbreInscrits = sizeof($sortie->getInscrits());
+                if ($nbMax == $nbreInscrits) {
                     $etat = $etatRepository->findOneBy(['libelle' => 'Cloturée']);
                     $sortie->setEtat($etat);
                 }
