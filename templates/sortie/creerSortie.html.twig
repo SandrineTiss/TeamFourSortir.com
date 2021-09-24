@@ -13,10 +13,8 @@
 {% block body %}
         <div>
 
-            {% if (creer) %}
-                    <h1>Créer une sortie</h1>
+            <h1>Créer une sortie</h1>
                 {# TODO : enlever la possibilité de modifier l'état ! #}
-            {% endif %}
 
             <br/><br/><br/>
 
@@ -24,9 +22,9 @@
             {{ form_start(sortieForm) }}
 
             {{ form_widget(sortieForm) }}
-                {% if (creer) %}
-                    <button>Creer la sortie</button>
-                {% endif %}
+
+                <button>Creer la sortie</button>
+
             {{ form_end(sortieForm) }}</div>
 {% endblock %}
 
