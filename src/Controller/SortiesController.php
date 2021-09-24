@@ -72,8 +72,6 @@ class SortiesController extends AbstractController
 
         return $this->render('sortie/creerSortie.html.twig', [
             'sortieForm' => $sortieForm->createView(),
-            'modifier' => false,
-            'creer' => true
         ]);
     }
 
@@ -97,7 +95,7 @@ class SortiesController extends AbstractController
         int $id
     ): Response
     {
-        $sortie = $sortiesRepository->find($id);
+        $sortie = $sortiesRepository->participate($id);
         $sortieForm = $this->createForm(SortieType::class, $sortie);
         $sortieForm->handleRequest($request);
 
@@ -108,6 +106,16 @@ class SortiesController extends AbstractController
             $this->addFlash('success', 'Votre sortie a bien été modifiée !');
             return $this->redirectToRoute('main_accueil');
         }
+
+        return $this->render('sortie/modifierSortie.html.twig', [
+            'sortie' => $sortie,
+            'sortieForm' =>  $sortieForm->createView(),
+            'campus' => $sortie->getCampus(),
+            'organisateur' => $sortie->getOrganisateur(),
+            'inscrits' => $sortie->getInscrits(),
+            'lieu' => $sortie->getLieu(),
+            'ville' => $sortie->getLieu()->getVille(),
+        ]);
 
     }
 

@@ -13,25 +13,13 @@
 {% block body %}
         <div>
 
-            {% if (creer) %}
-                    <h1>Créer une sortie</h1>
-                {# TODO : enlever la possibilité de modifier l'état ! #}
-            {% endif %}
-            {% if (modifier) %}
-                <h1>Modifier une sortie</h1>
-            {% endif %}
+            <h1>Modifier une sortie</h1>
             <br/><br/><br/>
-
 
             {{ form_start(sortieForm) }}
 
             {{ form_widget(sortieForm) }}
-                {% if (creer) %}
-                    <button>Creer la sortie</button>
-                {% endif %}
 
-
-                {% if (modifier) %}
                     <h5>Liste des participants</h5>
                     <table class="liste_participants">
                         <tr>
@@ -48,13 +36,7 @@
                             </tr>
                         {% endfor %}
                     </table>
-                        <a href="{{ path('sortie_modifier', {'id' : sortie.id}) }}"><button>Modifier la sortie</button></a>
-                    {% if sortie.etat.libelle != 'Ouverte' %}
-                        <a href="{{ path('sortie_publier', {'id' : sortie.id}) }}"><button>Publier la sortie</button></a>
-                    {% endif %}
-                        <a href="{{ path('sortie_annuler', {'id' : sortie.id}) }}"><button>Annuler la sortie</button></a>
-                {% endif %}
-
+                        <button>Modifier la sortie</button>
             {{ form_end(sortieForm) }}</div>
 {% endblock %}
 
