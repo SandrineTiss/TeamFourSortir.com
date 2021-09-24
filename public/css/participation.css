@@ -55,3 +55,9 @@ button
 {
     text-align: center;
 }
+
+#motifAnnulation
+{
+    height: 30px;
+    width: 300px;
+}
