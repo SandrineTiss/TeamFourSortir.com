@@ -10,21 +10,24 @@
         {% block stylesheets %}
         {% endblock %}
     </head>
-
     <body>
-        <header class="main-header">
-            <nav class="navbar">
-                <ul>
-                    <li><a href="{{ path('main_accueil') }}">Accueil</a></li>
-                    {% if app.user %}
-                        <li><a href="{{ path('sortie_creer') }}">Creer une nouvelle sortie</a></li>
-                        <li><a href="{{ path('campus_campus') }}">Gestion des Campus</a></li> {# pour Admin #}
-                        <li><a href="{{ path('profil_user') }}">Mon profil</a></li>
-                        <li><a href="{{ path('app_register') }}">Créer un utilisateur</a></li> {# pour Admin #}
-                        <li><a href="{{ path('app_logout') }}">Se Déconnecter</a></li>
-                    {% endif %}
-                </ul>
-            </nav>
+        <header>
+            <div class="container-fluid px-1">
+                <nav class="navbar navbar-light">
+                    <div class="col-md-12">
+                        <div class="row g-0">
+                            <a class="col-lg-1 col-md-1 col-sm-3 col-4" href="{{ path('main_accueil') }}">Accueil</a>
+                            {% if app.user %}
+                                <a class="col-lg-1 col-md-1 col-sm-3" href="{{ path('sortie_creer') }}">Creer une sortie</a>
+                                <a class="col-lg-1 col-md-1 col-sm-3" href="{{ path('campus_campus') }}">Gestion des Campus</a>
+                                <a class="col-lg-1 col-md-1 col-sm-3" href="{{ path('profil_user') }}">Mon profil</a>
+                                <a class="col-lg-1 col-md-1 col-sm-3" href="{{ path('app_register') }}">Créer un utilisateur</a> {# pour Admin #}
+                                <a class="col-lg-1 col-md-1 col-sm-3" href="{{ path('app_logout') }}">Déconnection</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </nav>
+            </div>
         </header>
 
         {% for label, messages in app.flashes %}
@@ -38,6 +41,15 @@
         {% block body %}{% endblock %}
 
         {% block js %}{% endblock %}
+
+        {% block footer %}
+            <footer class="py-3 footer">
+                <div class="container">
+                    <p class="m-0 text-center text-white">Copyright &copy; ENI Ecole ; TeamFour Sortir.com
+                        2021</p>
+                </div>
+            </footer>
+        {% endblock %}
 
     </body>
 </html>

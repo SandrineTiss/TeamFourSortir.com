@@ -13,10 +13,6 @@ body {
     background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2)), url("../css/img/sortie.png");
 }
 
-.image-accueil {
-
-}
-
 .test-wp {
     display: block;
     position: relative;
@@ -49,52 +45,15 @@ input, textarea, select, button {
 }
 img {
     width: 100vw;
-
 }
 
-.msgBienvenue {
-    margin: 50px;
-    font-size: 30px;
-
+.navbar, .footer
+{
+    background-color: rgba(255,255,255, .2);
 }
 
-ul  {
-    display: flex;
-    align-content: center;
-    align-items: center;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-
-
-}
-
-li {
-    display: flex;
-    flex-direction: row;
-    align-content: center;
-    align-items: center;
-    width: 15vh;
-    padding: 20px;
-    margin: 20px;
-    border: black;
-    border-style: solid;
-    border-width: 1px;
-}
-
-li:hover {
-    background-color: indianred;
-    transition-duration: 0.3s;
-    color: #FFFFFF;
-}
-
-ul li a {
-    text-decoration: none;
-    color: black;
-
-}
-ul li a:hover {
-    color: #FFFFFF;
+a:hover {
+    color: #B0413E;
 }
 
 .flash {
