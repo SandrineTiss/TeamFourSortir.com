@@ -94,8 +94,7 @@ class SortiesRepository extends ServiceEntityRepository
         // TODO: regler probleme sorties non inscrit
 
         if($sortie->getNotInscrit()){
-            $queryBuilder->andWhere('inscrits.id <> :user')
-                ->setParameter('user', $utilisateur->getId());
+
 
         }
 
