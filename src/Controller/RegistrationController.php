@@ -76,10 +76,41 @@ class RegistrationController extends AbstractController
         ]);
     }
 
-    public function modifierProfil()
+    /**
+     * @Route("/modifierProfil", name = "modifier_profil")
+     */
+
+    public function modifierProfil(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, AppAuthentificatorAuthenticator $authenticator): Response
     {
-        $user = new User();
+        $user = $this->getUser();
         $form = $this->createForm(RegistrationFormType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // encode the plain password
+            $user->setPassword(
+                $passwordEncoder->encodePassword(
+                    $user,
+                    $form->get('plainPassword')->getData()
+                )
+            );
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            return $guardHandler->authenticateUserAndHandleSuccess(
+                $user,
+                $request,
+                $authenticator,
+                'main' // firewall name in security.yaml
+
+            );
+
+    }
+        return $this->render('registration/modifier_profil.html.twig', [
+            'registrationForm' => $form->createView(),
+        ]);
 
     }
 
