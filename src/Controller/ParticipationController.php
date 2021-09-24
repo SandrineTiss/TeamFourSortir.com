@@ -43,23 +43,26 @@ class ParticipationController extends AbstractController
         $date = new \DateTime();
         $interval = date_diff($date, $sortie->getDateLimiteInscription());
         $intervalEnCours = date_diff($date, $sortie->getDateHeureDebut());
+        $duree = new \DateInterval('PT'.$sortie->getduree().'M');
+        $dateFinSortie = date_add($sortie->getDateHeureDebut(), $duree);
+        $intervalFinSortie = date_diff($date, $dateFinSortie);
         //tester si la date d'inscription est passée et la mettre en Clôturée
         if ($interval->format('%R%a') > 0 && $etat != 'Créée' ) {
             $etat = $etatRepository->findOneBy(['libelle' => 'Cloturée']);
             $sortie->setEtat($etat);
             $this->addFlash('danger', 'Cette sortie n\'accepte plus les inscriptions !');
         }
+        // tester si date et heure de fin de sortie passée
+        if ($intervalFinSortie->format('%R%a') < 0 && $etat != 'Créée' ) {
+            $etat = $etatRepository->findOneBy(['libelle' => 'Passée']);
+            $sortie->setEtat($etat);
+            $this->addFlash('info', 'Cette sortie est passée');
+        }
         //tester si la sortie est en cours et la mettre En cours
         if ($intervalEnCours->format('%R%a') == 0 && $etat != 'Créée') {
             $etat = $etatRepository->findOneBy(['libelle' => 'En cours']);
             $sortie->setEtat($etat);
             $this->addFlash('info', 'Cette sortie est en cours');
-        }
-        // tester si passée
-        if ($interval->format('%R%a') < 0 && $etat != 'Créée') {
-            $etat = $etatRepository->findOneBy(['libelle' => 'Passée']);
-            $sortie->setEtat($etat);
-            $this->addFlash('info', 'Cette sortie est passée');
         }
         if($etat == 'Annulée')
         {

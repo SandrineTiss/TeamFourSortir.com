@@ -5,8 +5,12 @@
 }
 
 body {
-    background-color: #DDDDDD;
-
+    background-attachment: fixed;
+    background-position: center center;
+    background-size: cover;
+    color: #EEE;
+    font-family: 'Crimson Text', serif;
+    background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2)), url("../css/img/sortie.png");
 }
 
 .image-accueil {
@@ -76,7 +80,6 @@ li {
     border: black;
     border-style: solid;
     border-width: 1px;
-    padding: 10px;
 }
 
 li:hover {
@@ -92,5 +95,13 @@ ul li a {
 }
 ul li a:hover {
     color: #FFFFFF;
+}
+
+.flash {
+    padding: 20px;
+    font-weight: bold ;
+    font-size: 1.4rem;
+    margin: 1rem 0;
+    border-radius: 5px;
 }
 
