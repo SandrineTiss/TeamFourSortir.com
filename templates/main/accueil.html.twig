@@ -6,39 +6,59 @@
 {% block body %}
 
     <div class="filtres">
-        <div class="filtre-form">
+        <div class="filtre-form filtres">
             {{ form_start(form) }}
                 {{ form(form) }}
                 <button>Rechercher</button>
             {{ form_end(form) }}
         </div>
     </div>
-
    <div class="table-sorties">
-       <table class="table">
-           <tr class="titre">
-               <th scope="col">Nom de la sortie</th>
-               <th scope="col">Date de la sortie</th>
-               <th scope="col">Cloture</th>
-               <th scope="col">inscrits/places</th>
-               <th scope="col">Etat</th>
-               <th scope="col">Inscrit</th>
-               <th scope="col">Organisateur</th>
-               <th scope="col">Action</th>
-           </tr>
-           </thead>
-           {% for sortie in sorties %}
-             <tr>
-                <th scope="col">{{ sortie.nom }}</th>
-                <th scope="col">{{ sortie.dateHeureDebut.format('d/m/Y h:m') }}</th>
-                <th scope="col">{{ sortie.dateLimiteInscription.format('d/m/Y') }}</th>
-                <th scope="col"> {{ sortie.inscrits.count }}/{{ sortie.nbInscriptionMax }}</th>
-                <th scope="col">{{ sortie.etat.libelle }}</th>
-                <th scope="col">{% if app.user in sortie.inscrits %} X {% endif %}</th>
-                <th scope="col">{{ sortie.organisateur.nom }}</th><th scope="col"><a href="{{ path('participation_sortie', {'id' : sortie.id}) }}" title="">détails</a> </th>
-             </tr>
-          {% endfor %}
-       </table>
+       <div id="grandEcran">
+           <table class="table">
+               <thead>
+                   <tr class="titre">
+                       <th scope="col">Nom de la sortie</th>
+                       <th scope="col">Date de la sortie</th>
+                       <th scope="col">Cloture</th>
+                       <th scope="col">inscrits/places</th>
+                       <th scope="col">Etat</th>
+                       <th scope="col">Inscrit</th>
+                       <th scope="col">Organisateur</th>
+                       <th scope="col">Action</th>
+                   </tr>
+               </thead>
+               {% for sortie in sorties %}
+                   <tr>
+                       <th scope="col">{{ sortie.nom }}</th>
+                       <th scope="col">{{ sortie.dateHeureDebut.format('d/m/Y h:m') }}</th>
+                       <th scope="col">{{ sortie.dateLimiteInscription.format('d/m/Y') }}</th>
+                       <th scope="col"> {{ sortie.inscrits.count }}/{{ sortie.nbInscriptionMax }}</th>
+                       <th scope="col">{{ sortie.etat.libelle }}</th>
+                       <th scope="col">{% if app.user in sortie.inscrits %} X {% endif %}</th>
+                       <th scope="col">{{ sortie.organisateur.nom }}</th><th scope="col"><a href="{{ path('participation_sortie', {'id' : sortie.id}) }}" title="">détails</a> </th>
+                   </tr>
+               {% endfor %}
+           </table>
+       </div>
+       <div id="petitEcran">
+           <table class="table">
+               <thead>
+                   <tr class="titre">
+                       <th scope="col">Nom de la sortie</th>
+                       <th scope="col">Date de la sortie</th>
+                       <th scope="col">Etat</th>
+                   </tr>
+               </thead>
+               {% for sortie in sorties %}
+                   <tr>
+                       <th scope="col">{{ sortie.nom }}</th>
+                       <th scope="col">{{ sortie.dateHeureDebut.format('d/m/Y h:m') }}</th>
+                       <th scope="col"><a href="{{ path('participation_sortie', {'id' : sortie.id}) }}" title="">{{ sortie.etat.libelle }}</a> </th>
+                   </tr>
+               {% endfor %}
+           </table>
+       </div>
    </div>
 {% endblock %}
 

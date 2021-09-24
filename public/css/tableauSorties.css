@@ -1,34 +1,40 @@
 /* espacement */
 
 .table-sorties {
-    display: flex;
-    float: right;
-    width: 60%;
-    border: 3px solid purple;
-    margin-right: 30px;
+    align-items: center;
+    width: 80%;
+    margin: 8%;
     border-radius: 8px;
 }
 
 .titre {
     padding: 3px;
+    color: darkkhaki;
 }
 
 tbody tr:nth-child(odd) {
     background-color: rgba(0, 15, 250, 0.5);
-
 }
 
 tbody tr:nth-child(even) {
     background-color: rgba(0, 50, 150, 0.8);
 }
 
-tbody tr {
-
-}
-
 .table {
-
+    color : lawngreen;
 }
+
+@media all and (max-width: 2000px) and (min-width: 686px ) {
+    #petitEcran{ display: none}
+}
+
+@media all and (max-device-width: 686px) {
+    #grandEcran{ display: none}
+}
+
+
+
+
 
 
 

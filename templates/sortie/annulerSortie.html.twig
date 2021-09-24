@@ -17,34 +17,12 @@
 
             <br/><br/><br/>
 
-            {{ form_start(annulationForm) }}
-            {{ form_end(annulationForm) }}
+            {{ form_start(annulationSortieForm) }}
 
-            <br/><br/><br/>
+                {{ form_widget(annulationSortieForm) }}
 
-            {{ form_start(sortieForm) }}
+                <button>Annuler cette sortie</button>
 
-                {{ form_widget(sortieForm) }}
-
-                <h5>Liste des participants</h5>
-                <table class="liste_participants">
-                    <tr>
-                        <td class="pseudo">Pseudo</td>
-                        <td class="nom">Nom</td>
-                    </tr>
-                    {% for participant in inscrits %}
-                        <tr>
-                            <td class="pseudo"><a href="{{ path('profil_participant', {'id': participant.id}) }}">{{ participant.pseudo }}</a></td>
-                            <td class="nom">{{ participant.prenom }} {{ participant.nom }}</td>
-                            {% if participant == app.user %}
-                                {% set inscrit=1 %}
-                            {% endif %}
-                        </tr>
-                    {% endfor %}
-                </table>
-
-                <button>Annuler la sortie</button>
-
-            {{ form_end(sortieForm) }}</div>
+            {{ form_end(annulationSortieForm) }}</div>
 {% endblock %}
 

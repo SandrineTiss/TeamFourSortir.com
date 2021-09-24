@@ -5,12 +5,12 @@
 }
 
 body {
-    background-color: #DDDDDD;
-
-}
-
-.image-accueil {
-
+    background-attachment: fixed;
+    background-position: center center;
+    background-size: cover;
+    color: #EEE;
+    font-family: 'Crimson Text', serif;
+    background-image: linear-gradient(rgba(220, 220, 220, 1), rgba(0, 0, 0, 0)), url("../css/img/sortie.png");
 }
 
 .test-wp {
@@ -45,52 +45,52 @@ input, textarea, select, button {
 }
 img {
     width: 100vw;
+}
+
+.navbar, .footer
+{
+    background-color: rgba(255,255,255, .2);
+    font-weight: bold;
+    text-align: center;
+    color: black;
 
 }
 
-.msgBienvenue {
-    margin: 50px;
-    font-size: 30px;
-
+.navbar a{
+    color : black;
 }
 
-ul  {
-    display: flex;
+a:hover {
+    color: #B0413E;
+}
+
+.flash {
+    padding: 20px;
+    font-weight: bold ;
+    font-size: 1.4rem;
+    margin: 1rem 0;
+    border-radius: 5px;
+}
+
+button
+{
     align-content: center;
     align-items: center;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-
-
-}
-
-li {
-    display: flex;
-    flex-direction: row;
-    align-content: center;
-    align-items: center;
-    width: 15vh;
     padding: 20px;
     margin: 20px;
     border: black;
     border-style: solid;
     border-width: 1px;
-    padding: 10px;
+    text-align: center;
+    font-size: 28px;
+    width: 100%;
 }
 
-li:hover {
-    background-color: indianred;
-    transition-duration: 0.3s;
-    color: #FFFFFF;
-}
-
-ul li a {
-    text-decoration: none;
+.filtres
+{
     color: black;
+    font-weight: bold;
+}
 
-}
-ul li a:hover {
-    color: #FFFFFF;
-}
+
 

@@ -23,56 +23,81 @@
 
         <div class="container">
             <div class="row">
-                <table class="affichage">
-                    <tr>
-                        <td class="champ">Nom de la sortie :</td>
-                        <td class="champ">{{ sortie.nom }}</td>
-                        <td class="champ">Campus :</td>
-                        <td class="champ">{{ campus.nom }}</td>
-                    </tr>
-                    <tr>
-                        <td class="champ">Organisateur :</td>
-                        <td class="champ">{{ organisateur.nom }} {{ organisateur.prenom }}></td>
-                        <td class="champ">Lieu :</td>
-                        <td class="champ">{{ lieu.nom }}</td>
-                    </tr>
-                    <tr>
-                        <td class="champ">Date et heure de la sortie :</td>
-                        <td class="champ">{{ sortie.dateHeureDebut.format('d/m/Y h:m') }}</td>
-                        <td class="champ">Rue :</td>
-                        <td class="champ">{{ lieu.rue }}</td>
-                    </tr>
-                    <tr>
-                        <td class="champ">Date limite d'inscription</td>
-                        <td class="champ">{{ sortie.dateLimiteInscription.format('d/m/Y') }}</td>
-                        <td class="champ">Code postal :</td>
-                        <td class="champ">{{ ville.codePostal }}</td>
-                    </tr>
-                    <tr>
-                        <td class="champ">Nombre de places :</td>
-                        <td class="champ">{{ sortie.nbInscriptionMax}}</td>
-                        <td class="champ">Latitude :</td>
-                        <td class="champ">{{ lieu.latitude }}</td>
-                    </tr>
-                    <tr>
-                        <td class="champ">Durée :</td>
-                        <td class="champ">{{ sortie.duree }} minutes</td>
-                        <td class="champ">Longitude :</td>
-                        <td class="champ">{{ lieu.longitude }}</td>
-                    </tr>
-                    <tr>
-                        <td class="champ">Description et infos :</td>
-                        <td class="champ">{{ sortie.infoSortie }}</td>
-                    </tr>
-                </table>
+
+                <div class="col-sm-12 col-md-6 col-lg-6">
+                    <table class="affichage">
+                        <tr>
+                            <td class="champ">Nom de la sortie :</td>
+                            <td class="champ">{{ sortie.nom }}</td>
+                        </tr>
+                        <tr>
+                            <td class="champ">Organisateur :</td>
+                            <td class="champ">{{ organisateur.nom }} {{ organisateur.prenom }}></td>
+                        </tr>
+                        <tr>
+                            <td class="champ">Date de la sortie :</td>
+                            <td class="champ">{{ sortie.dateHeureDebut.format('d/m/Y h:m') }}</td>
+                        </tr>
+                        <tr>
+                            <td class="champ">Limite inscription :</td>
+                            <td class="champ">{{ sortie.dateLimiteInscription.format('d/m/Y') }}</td>
+                        </tr>
+                        <tr>
+                            <td class="champ">Nombre de places :</td>
+                            <td class="champ">{{ sortie.nbInscriptionMax}}</td>
+                        </tr>
+                        <tr>
+                            <td class="champ">Durée :</td>
+                            <td class="champ">{{ sortie.duree }} minutes</td>
+
+                        </tr>
+                        <tr>
+                            <td class="champ">Infos :</td>
+                            <td class="champ">{{ sortie.infoSortie }}</td>
+                        </tr>
+                    </table>
+                </div>
+
+
+                <div class="col-sm-12 col-md-6  col-lg-6">
+                    <table class="affichage">
+                        <tr>
+                            <td class="champ">Campus :</td>
+                            <td class="champ">{{ campus.nom }}</td>
+                        </tr>
+                        <tr>
+                            <td class="champ">Lieu :</td>
+                            <td class="champ">{{ lieu.nom }}</td>
+                        </tr>
+                        <tr>
+                            <td class="champ">Rue :</td>
+                            <td class="champ">{{ lieu.rue }}</td>
+                        </tr>
+                        <tr>
+                            <td class="champ">Code postal :</td>
+                            <td class="champ">{{ ville.codePostal }}</td>
+                        </tr>
+                        <tr>
+                            <td class="champ">Latitude :</td>
+                            <td class="champ">{{ lieu.latitude }}</td>
+                        </tr>
+                        <tr>
+                            <td class="champ">Longitude :</td>
+                            <td class="champ">{{ lieu.longitude }}</td>
+                        </tr>
+                    </table>
+                </div>
+
             </div>
         </div>
-        <br/><br/><br/><br/>
+        <br/><br/>
 
         <div class="form">
             {{ form_widget(sortieForm) }}
         </div>
+
         {% set inscrit=0 %}
+
         <div class="container">
             <h3>Liste des participants inscrits :</h3>
             <div class="container-fluid">
@@ -96,23 +121,21 @@
             </div>
         </div>
         <br/><br/>
+    <div class="boutons">
         {% if sortie.nbInscriptionMax > inscrits|length and app.user not in inscrits %}
-            <div class="row">
-                <button>S'inscrire à cette sortie</button>
-            </div>
+            <button>S'inscrire à cette sortie</button>
         {% endif %}
+    </div>
     {{ form_end(sortieForm) }}
-
-    {% if inscrit==1 %}
-        <div class="row">
+    <div class="boutons">
+        {% if inscrit==1 %}
             <a href="{{ path('participation_desistement', {'id' : sortie.id}) }}"><button type="submit" >Se désister de cette sortie</button></a>
-        </div>
-        {% set inscrit=0 %}
-    {% endif %}
-    {% if app.user == sortie.organisateur %}
-        <a href="{{ path('sortie_modifier', {'id' : sortie.id}) }}"><button>Modifier la sortie</button></a>
-        <a href="{{ path('sortie_annuler', {'id' : sortie.id}) }}"><button>Annuler la sortie</button></a>
-        <a href="{{ path('sortie_publier', {'id' : sortie.id}) }}"><button>Publier la sortie</button></a>
+        {% endif %}
+        {% if app.user == sortie.organisateur %}
+            <a href="{{ path('sortie_modifier', {'id' : sortie.id}) }}"><button>Modifier la sortie</button></a>
+            <a href="{{ path('sortie_annuler', {'id' : sortie.id}) }}"><button>Annuler la sortie</button></a>
+            <a href="{{ path('sortie_publier', {'id' : sortie.id}) }}"><button>Publier la sortie</button></a>
 
-    {% endif %}
+        {% endif %}
+    </div>
 {% endblock %}
