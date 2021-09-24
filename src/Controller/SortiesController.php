@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use App\Entity\Etat;
 use App\Entity\Sorties;
+use App\Form\AnnulerSortieType;
 use App\Form\SortieType;
 use App\Repository\EtatRepository;
 use App\Repository\SortiesRepository;
@@ -172,19 +173,13 @@ class SortiesController extends AbstractController
     ): Response
     {
         $sortie = $sortiesRepository->participate($id);
-        $sortieForm = $this->createForm(SortieType::class, $sortie);
-        $sortieForm->handleRequest($request);
-        $formFactory = Forms::createFormFactory();
-        $annulationForm = $formFactory->createBuilder()
-            ->add('motifAnnulation', TextType::class)
-            ->getForm();
-        $annulationForm->handleRequest($request);
+        $annulationSortieForm = $this->createForm(AnnulerSortieType::class, $sortie);
+        $annulationSortieForm->handleRequest($request);
 
-        if($sortieForm->isSubmitted() && $sortieForm->isValid()) {
+        if($annulationSortieForm->isSubmitted() && $annulationSortieForm->isValid()) {
 
             $etat = $etatRepository->findOneBy(['libelle' => 'Annulée']);
             $sortie->setEtat($etat);
-            dd($annulationForm->getData()  );
             $entityManager->persist($sortie);
             $entityManager->flush();
             $this->addFlash('success', 'Votre sortie a bien été annulée !');
@@ -193,13 +188,7 @@ class SortiesController extends AbstractController
 
         return $this->render('sortie/annulerSortie.html.twig', [
             'sortie' => $sortie,
-            'sortieForm' =>  $sortieForm->createView(),
-            'annulationForm' => $annulationForm->createView(),
-            'campus' => $sortie->getCampus(),
-            'organisateur' => $sortie->getOrganisateur(),
-            'inscrits' => $sortie->getInscrits(),
-            'lieu' => $sortie->getLieu(),
-            'ville' => $sortie->getLieu()->getVille(),
+            'annulationSortieForm' =>  $annulationSortieForm->createView(),
         ]);
     }
 }

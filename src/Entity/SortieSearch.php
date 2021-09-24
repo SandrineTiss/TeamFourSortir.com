@@ -6,6 +6,7 @@ use App\Entity\Campus;
 
 class SortieSearch
 {
+
     private ?Campus $campus = null;
     private ?string $nom = null;
     private ?\DateTime $dateMin = null;
