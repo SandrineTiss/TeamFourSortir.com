@@ -16,13 +16,13 @@
                 <nav class="navbar navbar-light">
                     <div class="col-md-12">
                         <div class="row g-0">
-                            <a class="col-lg-2 col-md-2 col-sm-3 col-4" href="{{ path('main_accueil') }}">Accueil</a>
+                                <a class="col-lg-2 col-md-2 col-sm-3" href="{{ path('main_accueil') }}">Accueil</a>
                             {% if app.user %}
                                 <a class="col-lg-2 col-md-2 col-sm-3" href="{{ path('sortie_creer') }}">Creer une sortie</a>
                                 <a class="col-lg-2 col-md-2 col-sm-3" href="{{ path('campus_campus') }}">Gestion des Campus</a>
                                 <a class="col-lg-2 col-md-2 col-sm-3" href="{{ path('profil_user') }}">Mon profil</a>
                                 <a class="col-lg-2 col-md-2 col-sm-3" href="{{ path('app_register') }}">Créer un utilisateur</a> {# pour Admin #}
-                                <a class="col-lg-2 col-md-2 col-sm-3" href="{{ path('app_logout') }}">Déconnection</a>
+                                <a class="col-lg-2 col-md-2 col-sm-3" href="{{ path('app_logout') }}">Déconnexion</a>
                             {% endif %}
                         </div>
                     </div>
