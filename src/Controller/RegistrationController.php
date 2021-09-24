@@ -2,16 +2,15 @@
 
 namespace App\Controller;
 
+use App\Entity\ProfilImage;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Repository\UserRepository;
 use App\Security\AppAuthentificatorAuthenticator;
 use App\Security\EmailVerifier;
-use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
@@ -26,20 +25,36 @@ class RegistrationController extends AbstractController
         $this->emailVerifier = $emailVerifier;
     }
 
-
-
-
-
     /**
      * @Route("/register", name="app_register")
      */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, AppAuthentificatorAuthenticator $authenticator): Response
+    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder,
+                             GuardAuthenticatorHandler $guardHandler,
+                             AppAuthentificatorAuthenticator $authenticator): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            // recupération de l'image de profil
+
+            $image = $form->get('image')->getData();
+            // generation nom fichier
+            $file = md5(uniqid()).'.'.$image->gessExtension();
+            // copie du fichier dans le dossier public/img/uploads/imageProfil
+            $image->move(
+                $this->getParameter('profil_images'),
+                $file
+            );
+
+            // stocker le nom du fichier dans la BDD
+            $img = new ProfilImage();
+            $img->setName($file);
+            $user->addImage($img);
+
+
             // encode the plain password
             $user->setPassword(
                 $passwordEncoder->encodePassword(
@@ -76,17 +91,45 @@ class RegistrationController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/modifierProfil", name = "modifier_profil")
-     */
 
-    public function modifierProfil(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, AppAuthentificatorAuthenticator $authenticator): Response
+    /**
+     * @param Request $request
+     * @param UserPasswordEncoderInterface $passwordEncoder
+     * @param GuardAuthenticatorHandler $guardHandler
+     * @param AppAuthentificatorAuthenticator $authenticator
+     * @return Response
+     * @Route("/modifierProfil/", name = "modifier_profil")
+     */
+    public function modifierProfil(Request $request, UserPasswordEncoderInterface $passwordEncoder,
+                                   GuardAuthenticatorHandler $guardHandler,
+                                   AppAuthentificatorAuthenticator $authenticator): Response
     {
         $user = $this->getUser();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
+
         if ($form->isSubmitted() && $form->isValid()) {
+
+
+
+            // recupération de l'image de profil
+
+            $image = $form->get('image')->getData();
+            // generation nom fichier
+            $file = md5(uniqid()).'.'.$image->guessExtension();
+            // copie du fichier dans le dossier public/img/uploads/imageProfil
+            $image->move(
+              $this->getParameter('profil_images'),
+                $file
+            );
+
+            // stocker le nom du fichier dans la BDD
+            $img = new ProfilImage();
+            $img->setName($file);
+            $user->addImage($img);
+
+
             // encode the plain password
             $user->setPassword(
                 $passwordEncoder->encodePassword(
