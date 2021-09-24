@@ -86,7 +86,9 @@
                             <td class="pseudo"><a href="{{ path('profil_participant', {'id': participant.id}) }}">{{ participant.pseudo }}</a></td>
                             <td class="nom">{{ participant.prenom }} {{ participant.nom }}</td>
                             {% if participant == app.user %}
-                                {% set inscrit=1 %}
+                                {% if app.user != sortie.organisateur %}
+                                    {% set inscrit=1 %}
+                                {% endif %}
                             {% endif %}
                         </tr>
                     {% endfor %}
@@ -107,5 +109,10 @@
         </div>
         {% set inscrit=0 %}
     {% endif %}
+    {% if app.user == sortie.organisateur %}
+        <a href="{{ path('sortie_modifier', {'id' : sortie.id}) }}"><button>Modifier la sortie</button></a>
+        <a href="{{ path('sortie_annuler', {'id' : sortie.id}) }}"><button>Annuler la sortie</button></a>
+        <a href="{{ path('sortie_publier', {'id' : sortie.id}) }}"><button>Publier la sortie</button></a>
 
+    {% endif %}
 {% endblock %}

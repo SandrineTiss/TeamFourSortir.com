@@ -93,16 +93,21 @@ class SortiesController extends AbstractController
     public function modifySortie(
         Request $request,
         EntityManagerInterface $entityManager,
+        SortiesRepository $sortiesRepository,
         int $id
     ): Response
     {
-        $sortie = new Sorties();
-        $user = $this->security->getUser();
-        $sortie->setOrganisateur($user);
-        $entityManager->persist($sortie);
-        $entityManager->flush();
-        $this->addFlash('success', 'Votre sortie a bien été modifiée !');
-        return $this->redirectToRoute('main_accueil');
+        $sortie = $sortiesRepository->find($id);
+        $sortieForm = $this->createForm(SortieType::class, $sortie);
+        $sortieForm->handleRequest($request);
+
+        if($sortieForm->isSubmitted() && $sortieForm->isValid()) {
+
+            $entityManager->persist($sortie);
+            $entityManager->flush();
+            $this->addFlash('success', 'Votre sortie a bien été modifiée !');
+            return $this->redirectToRoute('main_accueil');
+        }
 
     }
 
@@ -110,9 +115,9 @@ class SortiesController extends AbstractController
      * @Route("/publier/{id}", name="publier")
      */
     public function publierSortie(
-        Request $request,
-        EntityManagerInterface $entityManager,
-        int $id
+        int $id,
+        SortiesRepository $sortiesRepository,
+        EntityManagerInterface $entityManager
     ): Response
     {
         $sortie = new Sorties();
@@ -131,14 +136,14 @@ class SortiesController extends AbstractController
      * @Route("/annuler/{id}", name="annuler")
      */
     public function annulateSortie(
-        Request $request,
-        EntityManagerInterface $entityManager,
-        int $id
+        int $id,
+        SortiesRepository $sortiesRepository,
+        EntityManagerInterface $entityManager
     ): Response
     {
         $sortie = new Sorties();
         $sortieForm = $this->createForm(SortieType::class, $sortie);
-        $sortieForm->handleRequest($request);
+        //$sortieForm->handleRequest($request);
         if($sortieForm->isSubmitted() && $sortieForm->isValid()){
             // TODO : ouvrir une modale pour demander la raison de l'annulation
 

@@ -35,8 +35,7 @@
                 <th scope="col"> {{ sortie.inscrits.count }}/{{ sortie.nbInscriptionMax }}</th>
                 <th scope="col">{{ sortie.etat.libelle }}</th>
                 <th scope="col">{% if app.user in sortie.inscrits %} X {% endif %}</th>
-                <th scope="col">{{ sortie.organisateur.nom }}</th>
-                 <th scope="col"><a href="{{ path('participation_sortie', {'id' : sortie.id}) }}" title="">détails</a> </th>
+                <th scope="col">{{ sortie.organisateur.nom }}</th><th scope="col"><a href="{{ path('participation_sortie', {'id' : sortie.id}) }}" title="">détails</a> </th>
              </tr>
           {% endfor %}
        </table>

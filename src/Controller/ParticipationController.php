@@ -29,20 +29,6 @@ class ParticipationController extends AbstractController
         $nbMax = $sortie->getNbInscriptionMax();
         $inscrits = $sortie->getInscrits();
 
-        if($user == $sortie->getOrganisateur()) {
-            return $this->render('sortie/creerSortie.html.twig', [
-                'sortie' => $sortie,
-                'sortieForm' =>  $inscriptionForm->createView(),
-                'campus' => $sortie->getCampus(),
-                'organisateur' => $sortie->getOrganisateur(),
-                'inscrits' => $inscrits,
-                'lieu' => $sortie->getLieu(),
-                'ville' => $sortie->getLieu()->getVille(),
-                'modifier' => true,
-                'creer' => false
-            ]);
-        }
-
 
         if($inscriptionForm->isSubmitted() && $inscriptionForm->isValid() && $nbMax > $nbreInscrits ){
 
