@@ -1,10 +1,8 @@
 /* espacement */
 
 .table-sorties {
-    display: flex;
     align-items: center;
     width: 80%;
-    border: 3px solid purple;
     margin: 8%;
     border-radius: 8px;
 }
@@ -25,6 +23,18 @@ tbody tr:nth-child(even) {
 .table {
     color : lawngreen;
 }
+
+@media all and (max-width: 2000px) and (min-width: 686px ) {
+    #petitEcran{ display: none}
+}
+
+@media all and (max-device-width: 686px) {
+    #grandEcran{ display: none}
+}
+
+
+
+
 
 
 

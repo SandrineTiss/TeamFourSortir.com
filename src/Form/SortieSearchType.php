@@ -39,7 +39,7 @@ class SortieSearchType extends AbstractType
 
             ->add('nom', TextType::class, [
                 'attr' => ['placeholder' => 'Rechercher '],
-                'label'=>'Le nom de la sortie contient:',
+                'label'=>'Le nom de la sortie contient :',
                 'required'=>false
             ])
 
