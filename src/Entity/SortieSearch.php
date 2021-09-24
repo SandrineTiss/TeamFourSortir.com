@@ -2,47 +2,19 @@
 
 namespace App\Entity;
 
+use App\Entity\Campus;
+
 class SortieSearch
 {
-    /**
-     * @var Campus|null
-     */
-    private $campus;
+    private ?Campus $campus = null;
+    private ?string $nom = null;
+    private ?\DateTime $dateMin = null;
+    private ?\DateTime $datemax = null;
 
-    /**
-     *@var boolean|null
-     */
-    private $organisateur;
-
-    /**
-     * @var string|null
-     */
-    private $nom;
-
-    /**
-     * @var \DateTime|null
-     */
-    private $date;
-
-    /**
-     * @var \DateTime|null
-     */
-    private $date2;
-
-    /**
-     * @var boolean|null
-     */
-    private $inscrit;
-
-    /**
-     * @var boolean|null
-     */
-    private $ended;
-
-    /**
-     * @var boolean|null
-     */
-    private $notInscrit;
+    private ?bool $organisateur = false;
+    private ?bool $inscrit = false;
+    private ?bool $ended = false;
+    private ?bool $notInscrit = false;
 
     /**
      * @return Campus|null
@@ -59,24 +31,6 @@ class SortieSearch
     public function setCampus(?Campus $campus): SortieSearch
     {
         $this->campus = $campus;
-        return $this;
-    }
-
-    /**
-     * @return bool|null
-     */
-    public function getOrganisateur(): ?bool
-    {
-        return $this->organisateur;
-    }
-
-    /**
-     * @param bool|null $organisateur
-     * @return SortieSearch
-     */
-    public function setOrganisateur(?bool $organisateur): SortieSearch
-    {
-        $this->organisateur = $organisateur;
         return $this;
     }
 
@@ -101,36 +55,54 @@ class SortieSearch
     /**
      * @return \DateTime|null
      */
-    public function getDate(): ?\DateTime
+    public function getDateMin(): ?\DateTime
     {
-        return $this->date;
+        return $this->dateMin;
     }
 
     /**
-     * @param \DateTime|null $date
+     * @param \DateTime|null $dateMin
      * @return SortieSearch
      */
-    public function setDate(?\DateTime $date): SortieSearch
+    public function setDateMin(?\DateTime $dateMin): SortieSearch
     {
-        $this->date = $date;
+        $this->dateMin = $dateMin;
         return $this;
     }
 
     /**
      * @return \DateTime|null
      */
-    public function getDate2(): ?\DateTime
+    public function getDatemax(): ?\DateTime
     {
-        return $this->date2;
+        return $this->datemax;
     }
 
     /**
-     * @param \DateTime|null $date2
+     * @param \DateTime|null $datemax
      * @return SortieSearch
      */
-    public function setDate2(?\DateTime $date2): SortieSearch
+    public function setDatemax(?\DateTime $datemax): SortieSearch
     {
-        $this->date2 = $date2;
+        $this->datemax = $datemax;
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getOrganisateur(): ?bool
+    {
+        return $this->organisateur;
+    }
+
+    /**
+     * @param bool|null $organisateur
+     * @return SortieSearch
+     */
+    public function setOrganisateur(?bool $organisateur): SortieSearch
+    {
+        $this->organisateur = $organisateur;
         return $this;
     }
 
@@ -189,7 +161,20 @@ class SortieSearch
     }
 
 
+    public function getFiltres()
+    {
+        return $this->filtres;
+    }
 
+    public function setFiltres($tableau): void
+    {
+        $this->filtres[] = array();
+        $this->filtres[] = $tableau;
+    }
 
+    public function setFiltre(string $clef, bool $valeur): void
+    {
+        $this->filtres[$clef] = $valeur;
+    }
 
 }

@@ -53,6 +53,7 @@ class SortiesRepository extends ServiceEntityRepository
 
     public function findByFilters(SortieSearch $sortie, User $utilisateur)
     {
+        /*
         $queryBuilder = $this -> createQueryBuilder('s');
 
         $queryBuilder->join('s.etat', 'etat')->addSelect('etat');
@@ -91,13 +92,15 @@ class SortiesRepository extends ServiceEntityRepository
         }
 
         // TODO: regler probleme sorties non inscrit
-        /*
+
         if($sortie->getNotInscrit()){
             $queryBuilder->andWhere('inscrits.id <> :user')
                 ->setParameter('user', $utilisateur->getId());
 
         }
-        */
+
+
+
 
 
         if ($sortie->getOrganisateur()){
@@ -113,5 +116,75 @@ class SortiesRepository extends ServiceEntityRepository
         }
 
         return $queryBuilder -> getQuery()-> getResult();
+        */
+
+        $queryBuilder = $this->createQueryBuilder('s')
+            ->groupBy('s.id')
+            ->join('s.etat', 'e')
+            ->addOrderBy('s.dateHeureDebut', 'DESC')
+            ->addOrderBy('e.id', 'ASC')
+            ->leftJoin('s.inscrits', 'p')
+            ->join('s.organisateur', 'o')
+            ->select('s', 'p', 'e', 'o')
+            //Pour ne pas afficher les sorties archivées (plus d'un mois)
+            ->andWhere('s.dateHeureDebut >= :dernierMois')
+            ->setParameter('dernierMois', new \DateTime('-1 month'));
+
+        if ($sortie->getNotInscrit()) {
+            $subQueryBuilder = $this->createQueryBuilder('s2')
+                ->leftJoin('s2.inscrits', 'p2')
+                ->andWhere('p2 = :user');
+            $queryBuilder
+                //->andWhere(:user member of s.inscrits)
+                ->andWhere($queryBuilder->expr()->notIn('s.id', $subQueryBuilder->getDQL()))
+                ->orWhere(':user = s.organisateur')
+                ->setParameter('user', $utilisateur);
+        }
+
+        if ($sortie->getNom()) {
+            $queryBuilder
+                ->andWhere('s.nom LIKE :rechercheNom')
+                ->setParameter('rechercheNom', '%'.$sortie->getNom().'%');
+        }
+
+        if ($sortie->getDateMin()) {
+            $queryBuilder
+                ->andWhere('s.dateHeureDebut >= :dateMin')
+                ->setParameter('dateMin', $sortie->getDateMin());
+        }
+
+        if ($sortie->getDateMax()) {
+            $queryBuilder
+                ->andWhere('s.dateHeureDebut <= :dateMax')
+                ->setParameter('dateMax', $sortie->getDateMax());
+        }
+
+        if ($sortie->getOrganisateur()) {
+            $queryBuilder
+                ->andWhere('s.organisateur = :user')
+                ->setParameter('user', $utilisateur);
+        }
+
+        if ($sortie->getInscrit()) {
+            $queryBuilder
+                ->andWhere(':user = p')
+                ->setParameter('user', $utilisateur);
+        }
+
+        if ($sortie->getEnded()) {
+            $queryBuilder
+                ->andWhere('s.dateHeureDebut <= CURRENT_DATE()');
+        }
+
+        if($sortie->getCampus()) {
+            $queryBuilder
+                ->andWhere('s.campus = :campus')
+                ->setParameter('campus', $sortie->getCampus());
+        }
+
+        $query = $queryBuilder->getQuery();
+
+        return $query->getResult();
+
     }
 }

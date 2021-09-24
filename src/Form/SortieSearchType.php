@@ -30,32 +30,32 @@ class SortieSearchType extends AbstractType
             ->add('campus', EntityType::class, [
                 'class'=> Campus::class,
                 'choice_label'=>'nom',
-                'attr' => ['filtreSearch'],
+                'label' => 'Campus ',
+                'placeholder' => 'Tous les campus',
                 'required'=>false
             ])
 
             ->add('organisateur', CheckboxType::class, [
-                'attr' => ['filtreSearch'],
-                'label' => 'Je suis l\'organisateur',
+                'label' => 'Je suis l\'organisateur/trice',
                 'required'=>false
             ])
 
             ->add('nom', TextType::class, [
-                'attr' => ['filtreSearch'],
+                'attr' => ['placeholder' => 'Rechercher '],
                 'label'=>'Le nom de la sortie contient:',
                 'required'=>false
             ])
 
-            ->add('date', DateType::class, [
+            ->add('dateMin', DateType::class, [
                 'html5' => true,
                 'widget' => 'single_text',
-                'label' => 'Entre le:',
+                'label' => 'Entre le: ',
                 'required'=>false
             ])
-            ->add('date2', DateType::class, [
+            ->add('datemax', DateType::class, [
                 'html5' => true,
                 'widget' => 'single_text',
-                'label' => 'et le:',
+                'label' => ' et le: ',
                 'required'=>false
             ])
 
@@ -65,16 +65,14 @@ class SortieSearchType extends AbstractType
             ])
 
             ->add('notInscrit', CheckboxType::class, [
-                'attr' => ['filtreSearch'],
                 'label'=>'Sorties auxquelles je ne suis pas inscrit/e',
                 'required'=>false
             ])
 
             ->add('ended', CheckboxType::class, [
-                'attr' => ['filtreSearch'],
-                'label'=>'Sorties passées',
+                'label' => 'Sorties passées',
                 'value' => 'Cloturée',
-                'required'=>false
+                'required' => false
             ])
         ;
     }
