@@ -8,8 +8,8 @@
     <div class="filtres">
         <div class="filtre-form filtres">
             {{ form_start(form) }}
-                {{ form(form) }}
-                <button>Rechercher</button>
+                {{ form_widget(form) }}
+                <button type="submit">Rechercher</button>
             {{ form_end(form) }}
         </div>
     </div>
@@ -62,6 +62,3 @@
    </div>
 {% endblock %}
 
-{% block js %}
-   <script src="{{ asset('js/filters.js') }}"></script>
-{% endblock %}

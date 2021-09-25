@@ -127,18 +127,11 @@ class SortiesRepository extends ServiceEntityRepository
             ->select('s', 'p', 'e', 'o')
             //Pour ne pas afficher les sorties archivées (plus d'un mois)
             ->andWhere('s.dateHeureDebut >= :dernierMois')
-            // ne pas afficher les sorties annulées
-            //->andWhere('e.libelle IN ("Ouverte", "Cloturée", "Passée", "En cours")') ... ne fonctionne pas ...
             ->setParameter('dernierMois', new \DateTime('-1 month'));
 
         if ($sortie->getNotInscrit()) {
-            $subQueryBuilder = $this->createQueryBuilder('s2')
-                ->leftJoin('s2.inscrits', 'p2')
-                ->andWhere('p2 = :user');
             $queryBuilder
-                //->andWhere(:user member of s.inscrits)
-                ->andWhere($queryBuilder->expr()->notIn('s.id', $subQueryBuilder->getDQL()))
-                ->orWhere(':user = s.organisateur')
+                ->andWhere('s NOT IN ('.$this->createQueryBuilder('s2')->leftJoin('s2.inscrits','i')->where('i = :user').')')
                 ->setParameter('user', $utilisateur);
         }
 
@@ -163,8 +156,6 @@ class SortiesRepository extends ServiceEntityRepository
         if ($sortie->getOrganisateur()) {
             $queryBuilder
                 ->andWhere('s.organisateur = :user')
-                // si c'est l'organisateur, alors les sorties créées mais non ouvertes s'affichent aussi...
-
                 ->setParameter('user', $utilisateur);
         }
 

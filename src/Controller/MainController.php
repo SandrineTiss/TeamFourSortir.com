@@ -23,10 +23,13 @@ class MainController extends AbstractController
             $search = new SortieSearch();
             $form = $this->createForm(SortieSearchType::class, $search);
             $form->handleRequest($request);
+            $sortie = $sortiesRepository->findAll();
 
-               $user = $this->getUser();
-               $sortie = $sortiesRepository->findByFilters($search, $user);
-
+            if($form->isSubmitted())
+            {
+                $user = $this->getUser();
+                $sortie = $sortiesRepository->findByFilters($search, $user);
+            }
             return $this->render('main/accueil.html.twig', [
                 'sorties' => $sortie,
                 'form' => $form->createView(),
