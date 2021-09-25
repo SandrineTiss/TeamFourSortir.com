@@ -22,21 +22,6 @@ h1
     overflow: scroll;
 }
 
-button
-{
-    align-content: center;
-    align-items: center;
-    padding: 20px;
-    margin: 20px;
-    border: black;
-    border-style: solid;
-    border-width: 1px;
-    text-align: center;
-    font-size: 28px;
-    width: content-box;
-
-}
-
 .form
 {
     display: none;

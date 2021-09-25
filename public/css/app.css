@@ -14,6 +14,10 @@ body {
     background-image: linear-gradient(rgba(220, 220, 220,0.9), rgba(255, 255, 255, 0.5)), url("../css/img/sortie.png");
 }
 
+label {
+    color: royalblue;
+}
+
 .test-wp {
     display: block;
     position: relative;
@@ -85,6 +89,10 @@ button
     text-align: center;
     font-size: 28px;
     width: 100%;
+    color: royalblue;
+    background-color: mediumspringgreen;
+    border-radius: 10px;
+    box-shadow: 10px 5px;
 }
 
 .filtres

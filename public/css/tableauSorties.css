@@ -12,9 +12,7 @@
     color: brown;
 }
 
-label {
-    color: royalblue;
-}
+
 
 tbody tr:nth-child(odd) {
     background-color: rgb(49, 59, 217);
