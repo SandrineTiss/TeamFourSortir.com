@@ -2,12 +2,15 @@
 
 namespace App\Controller;
 
+use App\Entity\ProfilImage;
+use App\Entity\User;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class ProfilController extends AbstractController
+class profilController extends AbstractController
 {
     /**
      * @Route("/profil", name="profil_user")
@@ -28,4 +31,5 @@ class ProfilController extends AbstractController
             'participant' => $participant,
         ]);
     }
+
 }

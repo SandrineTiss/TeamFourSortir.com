@@ -88,10 +88,49 @@ class User implements UserInterface
      */
     private $pseudo;
 
+    /**
+     * @ORM\OneToOne(targetEntity=ProfilImage::class, mappedBy="utilisateur",
+     *     orphanRemoval=true, cascade={"persist"})
+     */
+    private $image;
+
     public function __construct()
     {
         $this->estOrganisateur = new ArrayCollection();
         $this->estInscrit = new ArrayCollection();
+        $this->image = new ProfilImage();
+    }
+
+    /**
+     * @return ProfilImage
+     */
+    public function getImage(): ProfilImage
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param ProfilImage $image
+     */
+    public function setImage($image): void
+    {
+        $this->image = $image;
+    }
+
+    public function addImage(ProfilImage $image): self
+    {
+        $image->setUtilisateur($this);
+
+        return $this;
+    }
+
+    public function removeImage(ProfilImage $image):self
+    {
+        if($image->getUtilisateur() === $this) {
+            $image->setUtilisateur(null);
+        }
+
+        return $this;
     }
 
     public function getId(): ?int
