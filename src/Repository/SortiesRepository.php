@@ -50,6 +50,14 @@ class SortiesRepository extends ServiceEntityRepository
 
     public function findByFilters(SortieSearch $sortie, User $utilisateur)
     {
+        /*
+         * Documentation :
+         * Les Alias des entités en requête et sous-requête :
+         * s, s2 : sorties
+         * p,i : inscrits
+         * e : etat
+         * o : organisateur
+         */
         $queryBuilder = $this->createQueryBuilder('s')
             ->groupBy('s.id')
             ->join('s.etat', 'e')
