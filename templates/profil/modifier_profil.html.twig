@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/profil.css') }}">
+{% endblock %}
+
+{% block title %}Mon profil{% endblock %}
+
+{% block body %}
+    {% for flashError in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+    {% endfor %}
+
+        <div class="profil-informations">
+            <h1 class="form-title">Mettre à jour ses informations</h1>
+
+            <img src="{{ asset('img/uploads/imageProfil/'~ user.getImage().getName()) }}">
+       </div>
+
+        <div class="profil-formulaire">
+            {{ form_start(registrationForm) }}
+            {{ form_widget(registrationForm) }}
+
+            <button type="submit">Enregistrer les modifications</button>
+            {{ form_end(registrationForm) }}
+        </div>
+
+{% endblock %}

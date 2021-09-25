@@ -1,0 +1,13 @@
+.profil-informations {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+    grid-auto-rows: minmax(1px, auto);
+
+}
+
+.form-title {
+    grid-column: 1 / 4;
+    grid-row: 1;
+}
+

@@ -39,23 +39,6 @@ class RegistrationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            // recupération de l'image de profil
-
-            $image = $form->get('image')->getData();
-            // generation nom fichier
-            $file = md5(uniqid()).'.'.$image->gessExtension();
-            // copie du fichier dans le dossier public/img/uploads/imageProfil
-            $image->move(
-                $this->getParameter('profil_images'),
-                $file
-            );
-
-            // stocker le nom du fichier dans la BDD
-            $img = new ProfilImage();
-            $img->setName($file);
-            $user->addImage($img);
-
-
             // encode the plain password
             $user->setPassword(
                 $passwordEncoder->encodePassword(
@@ -113,28 +96,6 @@ class RegistrationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-
-            // recupération de l'image de profil
-
-            $image = $form->get('image')->getData();
-            // generation nom fichier
-            $file = md5(uniqid()).'.'.$image->guessExtension();
-            // copie du fichier dans le dossier public/img/uploads/imageProfil
-            $image->move(
-              $this->getParameter('profil_images'),
-                $file
-            );
-
-            // stocker le nom du fichier dans la BDD
-            $img = new ProfilImage();
-            $img->setName($file);
-            $img->getUtilisateur();
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($img);
-            $entityManager->flush($img);
-            $user->addImage($img);
-
-
             // encode the plain password
             $user->setPassword(
                 $passwordEncoder->encodePassword(
@@ -152,14 +113,11 @@ class RegistrationController extends AbstractController
                 $request,
                 $authenticator,
                 'main' // firewall name in security.yaml
-
             );
-
-    }
+        }
         return $this->render('registration/modifier_profil.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
-
     }
 
     /**

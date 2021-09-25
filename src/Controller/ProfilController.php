@@ -49,19 +49,16 @@ class ProfilController extends AbstractController
             $entityManager->flush($img);
             $user->addImage($img);
 
-
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
 
-
         }
-        return $this->render('registration/modifier_profil.html.twig', [
+        return $this->render('profil/modifier_profil.html.twig', [
             'registrationForm' => $form->createView(),
+            'user' => $user
         ]);
-
     }
-
 
     /**
      * @Route("/profil/{id}", name="profil_participant")
