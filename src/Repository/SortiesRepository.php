@@ -33,9 +33,6 @@ class SortiesRepository extends ServiceEntityRepository
     }
 
     public function participate(int $id){
-
-        //$user = $this->security->getUser();
-
         $queryBuilder = $this->createQueryBuilder('s');
         $queryBuilder->join('s.etat', 'etat')->addSelect('etat');
         $queryBuilder->join('s.lieu', 'lieu')->addSelect('lieu');
@@ -53,70 +50,6 @@ class SortiesRepository extends ServiceEntityRepository
 
     public function findByFilters(SortieSearch $sortie, User $utilisateur)
     {
-        /*
-        $queryBuilder = $this -> createQueryBuilder('s');
-
-        $queryBuilder->join('s.etat', 'etat')->addSelect('etat');
-
-        $queryBuilder->join('s.lieu', 'lieu')->addSelect('lieu');
-
-        $queryBuilder->join('lieu.ville', 'ville')->addSelect('ville');
-
-        $queryBuilder->join('s.campus', 'campus')->addSelect('campus');
-
-        $queryBuilder->join('s.organisateur', 'organisateur')->addSelect('organisateur');
-
-        $queryBuilder->leftJoin('s.inscrits', 'inscrits')->addSelect('inscrits');
-
-
-        if ($sortie->getCampus()){
-            $queryBuilder->andWhere('s.campus = :campus')
-                ->setParameter('campus', $sortie->getCampus()->getId());
-        }
-
-
-        if ($sortie->getNom()){
-            $queryBuilder->andWhere('s.nom LIKE \'%'.$sortie->getNom().'%\'');
-        }
-
-
-        if ($sortie->getEnded()){
-            $queryBuilder->andWhere('etat.libelle = :ended')
-                ->setParameter('ended', 'Cloturée');
-        }
-
-
-        if ($sortie->getInscrit()){
-            $queryBuilder->andWhere('inscrits.id = :user')
-                ->setParameter('user', $utilisateur->getId());
-        }
-
-        // TODO: regler probleme sorties non inscrit
-
-        if($sortie->getNotInscrit()){
-
-
-        }
-
-
-
-
-
-        if ($sortie->getOrganisateur()){
-            $queryBuilder->andWhere('s.organisateur = :organisateur')
-                ->setParameter('organisateur', $utilisateur->getId());
-        }
-
-        if ($sortie->getDate() && $sortie->getDate2()) {
-            $queryBuilder->andWhere('s.dateHeureDebut > :date')
-                ->setParameter('date', $sortie->getDate())
-                ->andWhere('s.dateHeureDebut < :date2')
-                ->setParameter('date2', $sortie->getDate2());
-        }
-
-        return $queryBuilder -> getQuery()-> getResult();
-        */
-
         $queryBuilder = $this->createQueryBuilder('s')
             ->groupBy('s.id')
             ->join('s.etat', 'e')
