@@ -5,11 +5,12 @@
 }
 
 body {
+    //font-family: 'Roboto Mono', monospace;
+    font-family: 'Merriweather', serif;
     background-attachment: fixed;
     background-position: center center;
     background-size: cover;
     color: #EEE;
-    font-family: 'Crimson Text', serif;
     background-image: linear-gradient(rgba(220, 220, 220, 1), rgba(255, 255, 255, 0)), url("../css/img/sortie.png");
 }
 
