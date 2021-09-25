@@ -8,6 +8,7 @@ use App\Form\RegistrationFormType;
 use App\Repository\UserRepository;
 use App\Security\AppAuthentificatorAuthenticator;
 use App\Security\EmailVerifier;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -102,7 +103,8 @@ class RegistrationController extends AbstractController
      */
     public function modifierProfil(Request $request, UserPasswordEncoderInterface $passwordEncoder,
                                    GuardAuthenticatorHandler $guardHandler,
-                                   AppAuthentificatorAuthenticator $authenticator): Response
+                                   AppAuthentificatorAuthenticator $authenticator,
+                                   EntityManagerInterface $entityManager): Response
     {
         $user = $this->getUser();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -110,7 +112,6 @@ class RegistrationController extends AbstractController
 
 
         if ($form->isSubmitted() && $form->isValid()) {
-
 
 
             // recupération de l'image de profil
@@ -127,6 +128,10 @@ class RegistrationController extends AbstractController
             // stocker le nom du fichier dans la BDD
             $img = new ProfilImage();
             $img->setName($file);
+            $img->getUtilisateur();
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($img);
+            $entityManager->flush($img);
             $user->addImage($img);
 
 
