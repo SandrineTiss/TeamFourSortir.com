@@ -9,19 +9,27 @@
 
 .titre {
     padding: 3px;
-    color: darkkhaki;
+    color: brown;
+}
+
+label {
+    color: royalblue;
 }
 
 tbody tr:nth-child(odd) {
-    background-color: rgba(0, 15, 250, 0.5);
+    background-color: rgb(49, 59, 217);
 }
 
 tbody tr:nth-child(even) {
-    background-color: rgba(0, 50, 150, 0.8);
+    background-color: rgb(1, 74, 166);
+}
+
+tbody a {
+    color: yellow;
 }
 
 .table {
-    color : lawngreen;
+    color : yellow;
 }
 
 @media all and (max-width: 2000px) and (min-width: 686px ) {

@@ -11,7 +11,7 @@ body {
     background-position: center center;
     background-size: cover;
     color: #EEE;
-    background-image: linear-gradient(rgba(220, 220, 220, 1), rgba(255, 255, 255, 0)), url("../css/img/sortie.png");
+    background-image: linear-gradient(rgba(220, 220, 220,0.9), rgba(255, 255, 255, 0.5)), url("../css/img/sortie.png");
 }
 
 .test-wp {
@@ -53,12 +53,12 @@ img {
     background-color: rgba(255,255,255, .2);
     font-weight: bold;
     text-align: center;
-    color: black;
+    color: orangered;
 
 }
 
 .navbar a{
-    color : black;
+    color : orangered;
 }
 
 a:hover {
