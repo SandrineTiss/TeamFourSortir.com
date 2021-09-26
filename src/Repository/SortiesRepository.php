@@ -47,6 +47,27 @@ class SortiesRepository extends ServiceEntityRepository
 
     }
 
+    public function findAllRecents()
+    {
+        // afficher sur la page d'accueil toutes les sorties depuis un mois
+
+        $queryBuilder = $this->createQueryBuilder('s')
+            ->groupBy('s.id')
+            ->join('s.etat', 'e')
+            ->addOrderBy('s.dateHeureDebut', 'DESC')
+            ->addOrderBy('e.id', 'ASC')
+            ->leftJoin('s.inscrits', 'p')
+            ->join('s.organisateur', 'o')
+            ->select('s', 'p', 'e', 'o')
+            //Pour ne pas afficher les sorties archivées (plus d'un mois)
+            ->andWhere('s.dateHeureDebut >= :dernierMois')
+            ->setParameter('dernierMois', new \DateTime('-1 month'));
+        $query = $queryBuilder->getQuery();
+
+        return $query->getResult();
+    }
+
+
 
     public function findByFilters(SortieSearch $sortie, User $utilisateur)
     {

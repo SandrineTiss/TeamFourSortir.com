@@ -4,7 +4,7 @@
 {% block stylesheets %}<link href="{{ asset('css/tableauSorties.css') }}" rel="stylesheet"> {% endblock %}
 
 {% block body %}
-
+<div class="container-fluid">
     <div class="filtres">
         <div class="filtre-form filtres">
             {{ form_start(form) }}
@@ -13,7 +13,8 @@
             {{ form_end(form) }}
         </div>
     </div>
-   <div class="table-sorties">
+    <div class="afficheResultat"> {{ sorties|length }} résultat{% if sorties|length >1 %}s{% endif %} correspond{% if sorties|length >1 %}ent{% endif %} à votre recherche{% if sorties|length >= 1 %} :{% else %}.{% endif %}</div>
+    <div class="table-sorties">
        <div id="grandEcran">
            <table class="table">
                <thead>
@@ -41,6 +42,28 @@
                {% endfor %}
            </table>
        </div>
+       <div id="moyenEcran">
+           <table class="table">
+               <thead>
+               <tr class="titre">
+                   <th scope="col">Nom de la sortie</th>
+                   <th scope="col">Date de la sortie</th>
+                   <th scope="col">Cloture</th>
+                   <th scope="col">Inscrit</th>
+                   <th scope="col">Etat</th>
+               </tr>
+               </thead>
+               {% for sortie in sorties %}
+                   <tr>
+                       <th scope="col">{{ sortie.nom }}</th>
+                       <th scope="col">{{ sortie.dateHeureDebut.format('d/m/Y h:m') }}</th>
+                       <th scope="col">{{ sortie.dateLimiteInscription.format('d/m/Y') }}</th>
+                       <th scope="col">{% if app.user in sortie.inscrits %} X {% endif %}</th>
+                       <th scope="col"><a href="{{ path('participation_sortie', {'id' : sortie.id}) }}" title="">{{ sortie.etat.libelle }}</a> </th>
+                   </tr>
+               {% endfor %}
+           </table>
+       </div>
        <div id="petitEcran">
            <table class="table">
                <thead>
@@ -60,5 +83,6 @@
            </table>
        </div>
    </div>
+</div>
 {% endblock %}
 

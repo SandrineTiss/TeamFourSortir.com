@@ -12,6 +12,11 @@
     color: brown;
 }
 
+.afficheResultat {
+    color : chocolate;
+    text-align: center;
+    font-size: 30px;
+}
 
 
 tbody tr:nth-child(odd) {
@@ -30,12 +35,19 @@ tbody a {
     color : yellow;
 }
 
-@media all and (max-width: 2000px) and (min-width: 686px ) {
+@media all and (max-width: 2000px) and (min-width: 950px ) {
     #petitEcran{ display: none}
+    #moyenEcran{ display: none}
 }
 
-@media all and (max-device-width: 686px) {
+@media all and (max-width: 950px) and (min-width: 600px ) {
+    #petitEcran{ display: none}
     #grandEcran{ display: none}
+}
+
+@media all and (max-device-width: 600px) {
+    #grandEcran{ display: none}
+    #moyenEcran{ display: none}
 }
 
 

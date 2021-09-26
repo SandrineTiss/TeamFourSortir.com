@@ -23,7 +23,7 @@ class MainController extends AbstractController
             $search = new SortieSearch();
             $form = $this->createForm(SortieSearchType::class, $search);
             $form->handleRequest($request);
-            $sortie = $sortiesRepository->findAll();
+            $sortie = $sortiesRepository->findAllRecents();
 
             if($form->isSubmitted())
             {
