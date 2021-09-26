@@ -53,6 +53,7 @@ class SortiesController extends AbstractController
      */
     public function createSortie(
         Request $request,
+        EtatRepository $etatRepository,
         EntityManagerInterface $entityManager
         ): Response
     {
@@ -64,13 +65,15 @@ class SortiesController extends AbstractController
         if($sortieForm->isSubmitted() && $sortieForm->isValid()){
 
             $user = $this->security->getUser();
+            $etat = $etatRepository->findOneBy(['libelle' => 'Créée']);
 
             $sortie->setOrganisateur($user);
+            $sortie->setEtat($etat);
             $sortie->addInscrit($user);
             $entityManager->persist($sortie);
             $entityManager->flush();
 
-            $this->addFlash('success', 'Votre sortie a bien été créée');
+            $this->addFlash('success', 'Votre sortie a bien été créée, n\'oubliez pas de la publier pour l\'ouvrir aux inscriptions !');
 
             return $this->redirectToRoute('main_accueil');
         }

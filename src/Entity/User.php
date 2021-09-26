@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\DomCrawler\Image;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -106,7 +107,16 @@ class User implements UserInterface
      */
     public function getImage(): ProfilImage
     {
-        return $this->image;
+        if ($this->image != null)
+        {
+            return $this->image;
+        }
+        else{
+            $img = new ProfilImage();
+            $img->setName('imageParDefaut.png');
+            return $img;
+        }
+
     }
 
     /**

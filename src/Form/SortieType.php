@@ -45,12 +45,12 @@ class SortieType extends AbstractType
             ->add('infoSortie', null, [
                 'label' => 'Description et infos :'
             ]);
-            $builder->add('etat', EntityType::class, [
-                'label' => 'Etat :',
-                'class' => Etat::class,
-                'choice_label' => 'libelle',
-                'multiple' => false
-            ]);
+//            $builder->add('etat', EntityType::class, [
+//                'label' => 'Etat :',
+//                'class' => Etat::class,
+//                'choice_label' => 'libelle',
+//                'multiple' => false
+//            ]);
 
             $builder->add('campus', EntityType::class, [
                 'label' => 'Campus :',

@@ -33,21 +33,25 @@ class ProfilController extends AbstractController
 
             $image = $form->get('image')->getData();
             // generation nom fichier
-            $file = md5(uniqid()) . '.' . $image->guessExtension();
-            // copie du fichier dans le dossier public/img/uploads/imageProfil
-            $image->move(
-                $this->getParameter('profil_images'),
-                $file
-            );
+            if($image != null)
+            {
+                $file = md5(uniqid()) . '.' . $image->guessExtension();
+                // copie du fichier dans le dossier public/img/uploads/imageProfil
+                $image->move(
+                    $this->getParameter('profil_images'),
+                    $file
+                );
+                // stocker le nom du fichier dans la BDD
+                $img = new ProfilImage();
+                $img->setName($file);
+                $img->getUtilisateur();
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($img);
+                $entityManager->flush($img);
+                $user->addImage($img);
 
-            // stocker le nom du fichier dans la BDD
-            $img = new ProfilImage();
-            $img->setName($file);
-            $img->getUtilisateur();
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($img);
-            $entityManager->flush($img);
-            $user->addImage($img);
+            }
+
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);

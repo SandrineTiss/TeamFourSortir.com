@@ -11,3 +11,15 @@
     grid-row: 1;
 }
 
+.imageProfil {
+    max-width: 300px;
+    border-radius: 20px;
+    border-color: royalblue;
+    border-style: solid;
+}
+
+h1 {
+    text-align: center;
+    color: royalblue;
+}
+

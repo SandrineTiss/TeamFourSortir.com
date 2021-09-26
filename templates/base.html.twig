@@ -44,10 +44,10 @@
             {% endfor %}
         {% endfor %}
 
-        {% block body %}{% endblock %}
-
+        <div class="container-fluid">
+            {% block body %}{% endblock %}
+        </div>
         {% block js %}{% endblock %}
-
         {% block footer %}
             <footer class="py-3 footer">
                 <div class="container">

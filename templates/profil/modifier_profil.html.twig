@@ -14,15 +14,25 @@
         <div class="profil-informations">
             <h1 class="form-title">Mettre à jour ses informations</h1>
 
-            <img src="{{ asset('img/uploads/imageProfil/'~ user.getImage().getName()) }}">
+
        </div>
+        <div class="row">
+            <div class="col-md-4 col-sm-12">
+                {% if app.user.getImage() is not null %}<img class="imageProfil" src="{{ asset('img/uploads/imageProfil/'~ user.getImage().getName()) }}">{% endif %}
+            </div>
+            <div class="col-md-8  col-sm-12">
+                <div class="profil-formulaire">
+                    {{ form_start(registrationForm) }}
+                    {{ form_widget(registrationForm) }}
 
-        <div class="profil-formulaire">
-            {{ form_start(registrationForm) }}
-            {{ form_widget(registrationForm) }}
+                    <button type="submit">Enregistrer les modifications</button>
+                    {{ form_end(registrationForm) }}
+                </div>
+            </div>
 
-            <button type="submit">Enregistrer les modifications</button>
-            {{ form_end(registrationForm) }}
+
         </div>
+
+
 
 {% endblock %}
