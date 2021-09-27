@@ -4,8 +4,8 @@ namespace App\DataFixtures;
 
 use App\Entity\Campus;
 use App\Entity\Etat;
+use App\Entity\Image;
 use App\Entity\Lieu;
-use App\Entity\ProfilImage;
 use App\Entity\Sorties;
 use App\Entity\User;
 use App\Entity\Ville;
@@ -39,12 +39,12 @@ class AppFixtures extends Fixture
         $manager->flush($campus2);
         $manager->flush($campus3);
 
-        $image=new ProfilImage();
+        $image=new Image();
         $image->setName('imageParDefaut.png');
 
         // ajout des user
         for ($i = 0; $i < 8; $i++){
-            $user = new User();
+            $user = new User($image);
             $user->setNom('user '.$i);
             $user->setPrenom('prenom '.$i);
             $user->setPseudo('pseudo'.$i);
@@ -56,13 +56,13 @@ class AppFixtures extends Fixture
             $user->setTelephone(mt_rand(01, 100));
             $user->setIsVerified('true');
             $manager->persist($user);
-            $image->setUtilisateur($user);
+            $image->getUtilisateur($user);
             $manager->persist($image);
             $manager->flush($user);
             $manager->flush($image);
         }
         for ($i = 8; $i < 16; $i++){
-            $user = new User();
+            $user = new User($image);
             $user->setNom('user '.$i);
             $user->setPrenom('prenom '.$i);
             $user->setPseudo('pseudo'.$i);
@@ -74,13 +74,13 @@ class AppFixtures extends Fixture
             $user->setTelephone(mt_rand(01, 100));
             $user->setIsVerified('true');
             $manager->persist($user);
-            $image->setUtilisateur($user);
+            $image->getUtilisateur($user);
             $manager->persist($image);
             $manager->flush($user);
             $manager->flush($image);
         }
         for ($i = 16; $i < 24; $i++){
-            $user = new User();
+            $user = new User($image);
             $user->setNom('user '.$i);
             $user->setPrenom('prenom '.$i);
             $user->setPseudo('pseudo'.$i);
@@ -92,10 +92,10 @@ class AppFixtures extends Fixture
             $user->setTelephone(mt_rand(01, 100));
             $user->setIsVerified('true');
             $manager->persist($user);
-            $image->setUtilisateur($user);
-            $manager->persist($image);
+            $image->getUtilisateur($user);
+
             $manager->flush($user);
-            $manager->flush($image);
+
         }
 
 

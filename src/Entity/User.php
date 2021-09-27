@@ -7,7 +7,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\DomCrawler\Image;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -90,58 +89,17 @@ class User implements UserInterface
     private $pseudo;
 
     /**
-     * @ORM\OneToOne(targetEntity=ProfilImage::class, mappedBy="utilisateur",
-     *     orphanRemoval=true, cascade={"persist"})
-     *@ORM\JoinColumn(nullable=true)
+     * @ORM\ManyToOne(targetEntity=Image::class, inversedBy="utilisateur")
      */
     private $image;
 
-    public function __construct()
+
+    public function __construct($image)
     {
         $this->estOrganisateur = new ArrayCollection();
         $this->estInscrit = new ArrayCollection();
-        $this->image = new ProfilImage();
-    }
-
-    /**
-     * @return ProfilImage
-     */
-    public function getImage(): ProfilImage
-    {
-        if ($this->image != null)
-        {
-            return $this->image;
-        }
-        else{
-            $img = new ProfilImage();
-            $img->setName('imageParDefaut.png');
-            return $img;
-        }
-
-    }
-
-    /**
-     * @param ProfilImage $image
-     */
-    public function setImage($image): void
-    {
-        $this->image = $image;
-    }
-
-    public function addImage(ProfilImage $image): self
-    {
-        $image->setUtilisateur($this);
-
-        return $this;
-    }
-
-    public function removeImage(ProfilImage $image):self
-    {
-        if($image->getUtilisateur() === $this) {
-            $image->setUtilisateur(null);
-        }
-
-        return $this;
+        $image->setName('imageParDefaut.png');
+        $this->setImage($image);
     }
 
     public function getId(): ?int
@@ -363,6 +321,18 @@ class User implements UserInterface
     public function setPseudo(string $pseudo): self
     {
         $this->pseudo = $pseudo;
+
+        return $this;
+    }
+
+    public function getImage(): ?Image
+    {
+        return $this->image;
+    }
+
+    public function setImage(?Image $image): self
+    {
+        $this->image = $image;
 
         return $this;
     }
