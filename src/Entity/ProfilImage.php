@@ -23,7 +23,7 @@ class ProfilImage
     private $name;
 
     /**
-     * @ORM\OneToOne(targetEntity=User::class, inversedBy="image")
+     * @ORM\OneToOne(targetEntity=User::class, inversedBy="image", cascade={"persist"})
      *@ORM\JoinColumn(nullable=true)
      */
     private $utilisateur;
