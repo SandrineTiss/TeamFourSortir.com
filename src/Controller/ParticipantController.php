@@ -31,13 +31,11 @@ class ParticipantController extends AbstractController
      * @Route("/participants/supprimer/{id}", name="participants_suppression")
      */
     public function supprimerParticipant(Request $request,
-                             ImageRepository $imageRepository,
                              UserRepository $userRepository,
-                             int $id,
-                             AppAuthentificatorAuthenticator $authenticator): Response
+                             int $id
+    ): Response
     {
         $user = $userRepository->findOneBy(['id'=> $id]);
-        $user->setPassword('pa$$w0rd');
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
@@ -52,6 +50,34 @@ class ParticipantController extends AbstractController
         }
 
         return $this->render('participants/supprimerParticipant.html.twig', [
+            'participant' => $form->createView(),
+        ]);
+
+    }
+
+    /**
+     * @Route("/participants/sommeil/{id}", name="participants_sommeil")
+     */
+    public function sommeilParticipant(Request $request,
+                                         UserRepository $userRepository,
+                                         int $id
+                                         ): Response
+    {
+        $user = $userRepository->findOneBy(['id'=> $id]);
+        $form = $this->createForm(RegistrationFormType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $user->setActif(false);
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('participants_gestion');
+        }
+
+        return $this->render('participants/sommeilParticipant.html.twig', [
             'participant' => $form->createView(),
         ]);
 

@@ -8,15 +8,15 @@
 
 {% block body %}
 
-    <h1>Etes-vous sûr de vouloir supprimer ce participant?</h1>
+    <h1>Etes-vous sûr de vouloir mettre ce participant en sommeil ?</h1>
 
     {{ form_start(participant) }}
-        <div class="cache">
-            {{ form_row(participant.image) }}
-        </div>
+    <div class="cache">
+        {{ form_row(participant.image) }}
+    </div>
 
-        {{ form_widget(participant) }}
-        <button>Supprimer définitivement</button>
+    {{ form_widget(participant) }}
+    <button>Mettre en sommeil ce participant</button>
     {{ form_end(participant) }}
 
 {% endblock %}

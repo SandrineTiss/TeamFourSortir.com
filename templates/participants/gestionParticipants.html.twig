@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{  asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{  asset('css/participation.css') }}">
 {% endblock %}
 
 {% block title %}Gestion des Participants{% endblock %}
@@ -11,7 +11,7 @@
     <h1>Gestion des Participants</h1>
 
     {% for participant in participants %}
-        - {{ participant.nom }} {{ participant.prenom }} du campus de {{ participant.campus.nom }} <a class="petit" href="{{ path('participants_suppression', {'id': participant.id}) }}" > Supprimer </a> <br/>
+        - {{ participant.nom }} {{ participant.prenom }} du campus de {{ participant.campus.nom }}  <a class="petit" href="{{ path('participants_sommeil', {'id': participant.id}) }}" > Mettre en sommeil </a> - <a class="petit" href="{{ path('participants_suppression', {'id': participant.id}) }}" > Supprimer </a> <br/>
     {% endfor %}
 
     <a href="{{ path('app_register') }}"><button>Ajouter un participant</button></a>
