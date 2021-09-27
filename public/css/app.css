@@ -4,6 +4,10 @@
     padding: 0;
 }
 
+h1, .text {
+    color:royalblue;
+}
+
 body {
     //font-family: 'Roboto Mono', monospace;
     //font-family: 'Merriweather', serif;
