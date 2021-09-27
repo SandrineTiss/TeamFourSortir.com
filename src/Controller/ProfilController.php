@@ -7,6 +7,7 @@ use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Proxies\__CG__\App\Entity\Image;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -65,17 +66,18 @@ class ProfilController extends AbstractController
                     $file
                 );
 
-                $image = new ProfilImage();
+                $image = new Image();
                 $image->setName($file);
-                $image->setUtilisateur($user);
 
                 // récuperer l'image de profil
                 $user->getImage();
                 // update de l'image
                 $user->getImage()->setName($file);
-
                 $user->setImage($image);
+
                 $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($image);
+                $entityManager->flush($image);
                 $entityManager->persist($user);
                 $entityManager->flush($user);
 
