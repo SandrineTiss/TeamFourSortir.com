@@ -90,7 +90,7 @@ class SortiesRepository extends ServiceEntityRepository
             ->andWhere('s.dateHeureDebut >= :dernierMois')
             ->setParameter('dernierMois', new \DateTime('-1 month'));
 
-        if ($sortie->getNotInscrit()) {
+        if ($sortie->getNotInscrit() && !$sortie->getInscrit()) {
             $queryBuilder
                 ->andWhere('s NOT IN ('.$this->createQueryBuilder('s2')->leftJoin('s2.inscrits','i')->where('i = :user').')')
                 ->setParameter('user', $utilisateur);
@@ -114,13 +114,13 @@ class SortiesRepository extends ServiceEntityRepository
                 ->setParameter('dateMax', $sortie->getDateMax());
         }
 
-        if ($sortie->getOrganisateur()) {
+        if ($sortie->getOrganisateur() && !$sortie->getInscrit()) {
             $queryBuilder
                 ->andWhere('s.organisateur = :user')
                 ->setParameter('user', $utilisateur);
         }
 
-        if ($sortie->getInscrit()) {
+        if ($sortie->getInscrit() && !$sortie->getNotInscrit()) {
             $queryBuilder
                 ->andWhere(':user = p')
                 ->setParameter('user', $utilisateur);
