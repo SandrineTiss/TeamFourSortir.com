@@ -122,3 +122,11 @@ button
     text-align: center;
 }
 
+.cache
+{
+    display:none;
+}
+
+.petit{
+    font-size: small;
+}

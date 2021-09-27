@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Image;
 use App\Entity\ProfilImage;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
+use App\Repository\ImageRepository;
 use App\Repository\UserRepository;
 use App\Security\AppAuthentificatorAuthenticator;
 use App\Security\EmailVerifier;
@@ -31,9 +33,11 @@ class RegistrationController extends AbstractController
      */
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder,
                              GuardAuthenticatorHandler $guardHandler,
+                             ImageRepository $imageRepository,
                              AppAuthentificatorAuthenticator $authenticator): Response
     {
-        $user = new User();
+        $image= $imageRepository->findOneBy(['id' => 1]);
+        $user = new User($image);
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 

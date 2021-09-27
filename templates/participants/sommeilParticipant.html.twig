@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{  asset('css/participation.css') }}">
+{% endblock %}
+
+{% block title %}Suppression participants{% endblock %}
+
+{% block body %}
+
+    <h1>Etes-vous sûr de vouloir mettre ce participant en sommeil ?</h1>
+
+    {{ form_start(participant) }}
+    <div class="cache">
+        {{ form_row(participant.image) }}
+    </div>
+
+    {{ form_widget(participant) }}
+    <button>Mettre en sommeil ce participant</button>
+    {{ form_end(participant) }}
+
+{% endblock %}
