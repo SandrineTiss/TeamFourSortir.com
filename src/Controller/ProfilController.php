@@ -82,32 +82,6 @@ class ProfilController extends AbstractController
                 $entityManager->flush($user);
 
             }
-//            else
-//                //traitement form
-//
-//            // generation nom fichier
-//            if($image != null)
-//            {
-//                $file = md5(uniqid()) . '.' . $image->guessExtension();
-//                // copie du fichier dans le dossier public/img/uploads/imageProfil
-//                $image->move(
-//                    $this->getParameter('profil_images'),
-//                    $file
-//                );
-//                // stocker le nom du fichier dans la BDD
-//                $img = new ProfilImage();
-//                $img->setName($file);
-//                $img->getUtilisateur();
-//                $entityManager = $this->getDoctrine()->getManager();
-//                $entityManager->persist($img);
-//                $entityManager->flush($img);
-//                $user->addImage($img);
-//            }
-//
-//            $entityManager = $this->getDoctrine()->getManager();
-//            $entityManager->persist($user);
-//            $entityManager->flush();
-
         }
         return $this->render('profil/modifier_profil.html.twig', [
             'registrationForm' => $form->createView(),

@@ -4,19 +4,21 @@ namespace App\Form;
 
 use App\Entity\Lieu;
 use App\Entity\Sorties;
-use App\Entity\Etat;
-use App\Entity\Campus;
+use App\Entity\Ville;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\User\User;
+use function Sodium\add;
 
 class SortieType extends AbstractType
 {
@@ -44,7 +46,7 @@ class SortieType extends AbstractType
             ])
             ->add('infoSortie', null, [
                 'label' => 'Description et infos :'
-            ]);
+            ])
 //            $builder->add('etat', EntityType::class, [
 //                'label' => 'Etat :',
 //                'class' => Etat::class,
@@ -52,20 +54,41 @@ class SortieType extends AbstractType
 //                'multiple' => false
 //            ]);
 
-            $builder->add('campus', EntityType::class, [
-                'label' => 'Campus :',
-                'class' => Campus::class,
+            ->add('ville', EntityType::class, [
+                'mapped' => false,
+                'class' => Ville::class,
                 'choice_label' => 'nom',
-                'multiple' => false
-            ]);
+                'placeholder' => 'Ville',
+                'label' => 'Ville',
+                'required' => false
+            ])
 
-             $builder->add('lieu', EntityType::class, [
-                'class' => Lieu::class,
-                 'choice_label'=>'nom',
-                 'multiple' => false
-                     ]
-            )
-        ;
+             ->add('lieu', ChoiceType::class, [
+                 'placeholder' => 'Lieu (Choisir une ville)',
+                 'required' => false
+             ]);
+
+             $formModifier = function (FormInterface $form, Ville $ville = null) {
+                 $lieu = null === $ville ? [] : $ville->getNom();
+
+
+                 $form->add('lieu', EntityType::class, [
+                     'class' => Lieu::class,
+                     'choice_label' => 'nom',
+                     'choices' => $lieu,
+                     'placeholder' => 'Lieu (choisir une ville)',
+                     'label' => 'Lieu: ',
+                     'required' => false
+                 ]);
+             };
+
+             $builder->get('ville')->addEventListener(
+                 FormEvents::POST_SUBMIT,
+                 function (FormEvent $event) use ($formModifier){
+                     $ville = $event->getForm()->getData();
+                     $formModifier($event->getForm()->getParent(), $ville);
+                 }
+             );
     }
 
     public function configureOptions(OptionsResolver $resolver)
