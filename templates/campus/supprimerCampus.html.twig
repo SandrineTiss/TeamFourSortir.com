@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{  asset('css/participation.css') }}">
+{% endblock %}
+
+{% block title %}Suppression Campus{% endblock %}
+
+{% block body %}
+
+    <h1>Etes-vous sûr de vouloir supprimer ce campus ?</h1>
+
+    {{ form_start(campusForm) }}
+    {{ form_widget(campusForm) }}
+    <button>Supprimer définitivement</button>
+    {{ form_end(campusForm) }}
+
+
+
+
+
+{% endblock %}

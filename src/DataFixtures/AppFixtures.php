@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\Campus;
 use App\Entity\Etat;
 use App\Entity\Lieu;
+use App\Entity\ProfilImage;
 use App\Entity\Sorties;
 use App\Entity\User;
 use App\Entity\Ville;
@@ -38,24 +39,63 @@ class AppFixtures extends Fixture
         $manager->flush($campus2);
         $manager->flush($campus3);
 
+        $image=new ProfilImage();
+        $image->setName('imageParDefaut.png');
+
         // ajout des user
-        for ($i = 0; $i < 20; $i++){
+        for ($i = 0; $i < 8; $i++){
             $user = new User();
             $user->setNom('user '.$i);
             $user->setPrenom('prenom '.$i);
             $user->setPseudo('pseudo'.$i);
-            $user->setEmail('test@user'.$i);
+            $user->setEmail('test'.$i.'@user.com');
             $user->setCampus($campus1);
             $user->setPassword($this->passwordEncoder->encodePassword($user,'test'));
             $user->setRoles(["ROLE_USER"]);
             $user->setActif('true');
-            $user->setAdmin('false');
-            $user->setTelephone(mt_rand(01, 06));
+            $user->setTelephone(mt_rand(01, 100));
             $user->setIsVerified('true');
-
-
             $manager->persist($user);
+            $image->setUtilisateur($user);
+            $manager->persist($image);
             $manager->flush($user);
+            $manager->flush($image);
+        }
+        for ($i = 8; $i < 16; $i++){
+            $user = new User();
+            $user->setNom('user '.$i);
+            $user->setPrenom('prenom '.$i);
+            $user->setPseudo('pseudo'.$i);
+            $user->setEmail('test'.$i.'@user.com');
+            $user->setCampus($campus2);
+            $user->setPassword($this->passwordEncoder->encodePassword($user,'test'));
+            $user->setRoles(["ROLE_USER"]);
+            $user->setActif('true');
+            $user->setTelephone(mt_rand(01, 100));
+            $user->setIsVerified('true');
+            $manager->persist($user);
+            $image->setUtilisateur($user);
+            $manager->persist($image);
+            $manager->flush($user);
+            $manager->flush($image);
+        }
+        for ($i = 16; $i < 24; $i++){
+            $user = new User();
+            $user->setNom('user '.$i);
+            $user->setPrenom('prenom '.$i);
+            $user->setPseudo('pseudo'.$i);
+            $user->setEmail('test'.$i.'@user.com');
+            $user->setCampus($campus1);
+            $user->setPassword($this->passwordEncoder->encodePassword($user,'test'));
+            $user->setRoles(["ROLE_USER"]);
+            $user->setActif('true');
+            $user->setTelephone(mt_rand(01, 100));
+            $user->setIsVerified('true');
+            $manager->persist($user);
+            $image->setUtilisateur($user);
+            $manager->persist($image);
+            $manager->flush($user);
+            $manager->flush($image);
         }
 
 
@@ -103,7 +143,7 @@ class AppFixtures extends Fixture
         $manager->flush($etat6);
 
         // Ajout des Lieu
-        for ($i = 0; $i < 20; $i++){
+        for ($i = 0; $i < 5; $i++){
             $lieu = new Lieu();
             $lieu->setNom('lieu'.$i);
             $lieu->setVille($ville1);
@@ -113,22 +153,76 @@ class AppFixtures extends Fixture
             $manager->persist($lieu);
             $manager->flush($lieu);
         }
+        for ($i = 5; $i < 10; $i++){
+            $lieu = new Lieu();
+            $lieu->setNom('lieu'.$i);
+            $lieu->setVille($ville2);
+            $lieu->setRue('rue_de_'.$i);
+            $lieu->setLatitude(mt_rand(10,10000));
+            $lieu->setLongitude(mt_rand(10,10000));
+            $manager->persist($lieu);
+            $manager->flush($lieu);
+        }
+        for ($i = 10; $i < 15; $i++){
+            $lieu = new Lieu();
+            $lieu->setNom('lieu'.$i);
+            $lieu->setVille($ville3);
+            $lieu->setRue('rue_de_'.$i);
+            $lieu->setLatitude(mt_rand(10,10000));
+            $lieu->setLongitude(mt_rand(10,10000));
+            $manager->persist($lieu);
+            $manager->flush($lieu);
+        }
 
         // Ajout de sorties
-        for ($i = 0; $i < 20; $i++){
+        for ($i = 5; $i < 15; $i++){
             $sortie = new Sorties();
             $sortie->setNom('nom_sortie'.$i);
             $sortie->setCampus($campus1);
             $sortie->setOrganisateur($user);
             $sortie->setLieu($lieu);
             $date = new \DateTime();
-            $sortie->setDateHeureDebut($date->setDate(2021,10,01));
+            $sortie->setDateHeureDebut($date->setDate(2021,10,5));
+            $sortie->setDateLimiteInscription($date->setDate(2021,10,1));
+            $sortie->setDuree(mt_rand(60, 240));
+            $sortie->setEtat($etat1);
+            $sortie->addInscrit($user);
+            $sortie->setInfoSortie('une info sur la sortie_'.$i);
+            $sortie->setNbInscriptionMax(mt_rand(1, 8));
+            $manager->persist($sortie);
+            $manager->flush($sortie);
+        }
+        for ($i = 0; $i < 5; $i++){
+            $sortie = new Sorties();
+            $sortie->setNom('nom_sortie'.$i);
+            $sortie->setCampus($campus1);
+            $sortie->setOrganisateur($user);
+            $sortie->setLieu($lieu);
+            $date = new \DateTime();
+            $sortie->setDateHeureDebut($date->setDate(2021,9,25));
+            $sortie->setDateLimiteInscription($date->setDate(2021,9,20));
+            $sortie->setDuree(mt_rand(60, 240));
+            $sortie->setEtat($etat1);
+            $sortie->addInscrit($user);
+            $sortie->setInfoSortie('une info sur la sortie_'.$i);
+            $sortie->setNbInscriptionMax(mt_rand(1, 8));
+            $manager->persist($sortie);
+            $manager->flush($sortie);
+        }
+        for ($i = 0; $i < 5; $i++){
+            $sortie = new Sorties();
+            $sortie->setNom('nom_sortie'.$i);
+            $sortie->setCampus($campus1);
+            $sortie->setOrganisateur($user);
+            $sortie->setLieu($lieu);
+            $date = new \DateTime();
+            $sortie->setDateHeureDebut($date->setDate(2021,9,29));
             $sortie->setDateLimiteInscription($date->setDate(2021,9,28));
             $sortie->setDuree(mt_rand(60, 240));
             $sortie->setEtat($etat1);
             $sortie->addInscrit($user);
             $sortie->setInfoSortie('une info sur la sortie_'.$i);
-            $sortie->setNbInscriptionMax(2);
+            $sortie->setNbInscriptionMax(mt_rand(1, 8));
             $manager->persist($sortie);
             $manager->flush($sortie);
         }
