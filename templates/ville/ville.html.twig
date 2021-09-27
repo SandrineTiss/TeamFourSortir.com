@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{  asset('css/campus.css') }}">
+{% endblock %}
+
+{% block title %}Gestion des villes{% endblock %}
+
+{% block body %}
+
+    <h1>Gestion des villes</h1>
+
+    {% for ville in listeVilles %}
+        - {{ ville.nom }} - {{ ville.codePostal }} - <a class="petit" href="{{ path('ville_suppression', {'id': ville.id }) }}" > Supprimer </a> <br/>
+    {% endfor %}
+
+    <a href="{{ path('ville_creation') }}"><button>Ajouter une Ville</button></a>
+
+{% endblock %}

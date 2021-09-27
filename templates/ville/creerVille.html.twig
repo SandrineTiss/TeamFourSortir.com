@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{  asset('css/participation.css') }}">
+{% endblock %}
+
+{% block title %}Création Ville{% endblock %}
+
+{% block body %}
+
+    <h1>Créer une nouvelle ville</h1>
+
+    {{ form_start(villeForm) }}
+    {{ form_widget(villeForm) }}
+    <button>Créer ville</button>
+    {{ form_end(villeForm) }}
+
+
+
+
+
+{% endblock %}
