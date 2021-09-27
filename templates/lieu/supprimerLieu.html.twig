@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{  asset('css/participation.css') }}">
+{% endblock %}
+
+{% block title %}Suppression Lieu{% endblock %}
+
+{% block body %}
+
+    <h1>Etes-vous sûr de vouloir supprimer ce lieu ?</h1>
+
+    {{ form_start(lieuForm) }}
+    {{ form_widget(lieuForm) }}
+    <button>Supprimer définitivement</button>
+    {{ form_end(lieuForm) }}
+
+
+
+
+
+{% endblock %}
