@@ -50,3 +50,10 @@ body{
     font-weight: bold;
     font-size: large;
 }
+
+.imageProfil {
+    max-width: 300px;
+    border-radius: 20px;
+    border-color: royalblue;
+    border-style: solid;
+}

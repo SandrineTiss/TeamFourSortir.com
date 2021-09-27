@@ -10,28 +10,35 @@
     <h1>{{ participant.pseudo }}</h1>
     <div class="container">
         <div class="row">
-            <table>
-                <tr>
-                    <td class="champ">Prénom :</td>
-                    <td class="champ">{{ participant.prenom }}</td>
-                </tr>
-                <tr>
-                    <td class="champ">Nom :</td>
-                    <td class="champ">{{ participant.nom }}</td>
-                </tr>
-                <tr>
-                    <td class="champ">Téléphone :</td>
-                    <td class="champ">{{ participant.telephone }}</td>
-                </tr>
-                <tr>
-                    <td class="champ">Email :</td>
-                    <td class="champ">{{ participant.email }}</td>
-                </tr>
-                <tr>
-                    <td class="champ">Campus :</td>
-                    <td class="champ">{{ participant.campus.nom }}</td>
-                </tr>
-            </table>
+            <div class="col-md-4">
+                <div class="col-md-4 col-sm-12">
+                    {% if participant.getImage() is not null %}<img class="imageProfil" src="{{ asset('img/uploads/imageProfil/'~ participant.getImage().getName()) }}">{% endif %}
+                </div>
+            </div>
+            <div class="col-md-8">
+                <table>
+                    <tr>
+                        <td class="champ">Prénom :</td>
+                        <td class="champ">{{ participant.prenom }}</td>
+                    </tr>
+                    <tr>
+                        <td class="champ">Nom :</td>
+                        <td class="champ">{{ participant.nom }}</td>
+                    </tr>
+                    <tr>
+                        <td class="champ">Téléphone :</td>
+                        <td class="champ">{{ participant.telephone }}</td>
+                    </tr>
+                    <tr>
+                        <td class="champ">Email :</td>
+                        <td class="champ">{{ participant.email }}</td>
+                    </tr>
+                    <tr>
+                        <td class="champ">Campus :</td>
+                        <td class="champ">{{ participant.campus.nom }}</td>
+                    </tr>
+                </table>
+            </div>
         </div>
     </div>
 
