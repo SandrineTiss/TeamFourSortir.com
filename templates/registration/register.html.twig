@@ -1,17 +1,27 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{  asset('css/app.css') }}">
+{% endblock %}
+
+{% block title %}Créer un utilisateur{% endblock %}
+
+
 
 {% block body %}
     {% for flashError in app.flashes('verify_email_error') %}
         <div class="alert alert-danger" role="alert">{{ flashError }}</div>
     {% endfor %}
 
-    <h1>Register</h1>
+    <h1>Créer un participant</h1>
 
     {{ form_start(registrationForm) }}
-    {{ form_widget(registrationForm) }}
 
-        <button type="submit">Register</button>
+        <div class="cache">
+            {{ form_row(registrationForm.image) }}
+        </div>
+        {{ form_widget(registrationForm) }}
+
+        <button type="submit">Créer</button>
     {{ form_end(registrationForm) }}
 {% endblock %}
