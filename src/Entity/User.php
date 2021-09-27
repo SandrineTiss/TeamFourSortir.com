@@ -67,7 +67,7 @@ class User implements UserInterface
     private $isVerified = false;
 
     /**
-     * @ORM\OneToMany(targetEntity=Sorties::class, mappedBy="organisateur", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Sorties::class, mappedBy="organisateur", orphanRemoval=true, cascade={"persist"})
      */
     private $estOrganisateur;
 
@@ -92,6 +92,7 @@ class User implements UserInterface
     /**
      * @ORM\OneToOne(targetEntity=ProfilImage::class, mappedBy="utilisateur",
      *     orphanRemoval=true, cascade={"persist"})
+     *@ORM\JoinColumn(nullable=true)
      */
     private $image;
 

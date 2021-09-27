@@ -62,7 +62,6 @@ class RegistrationFormType extends AbstractType
                 'mapped' => false,
                 'required' => false
             ]);
-        ;
     }
 
     public function configureOptions(OptionsResolver $resolver)

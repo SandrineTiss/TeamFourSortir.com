@@ -24,7 +24,7 @@ class ProfilImage
 
     /**
      * @ORM\OneToOne(targetEntity=User::class, inversedBy="image", cascade={"persist"})
-     *@ORM\JoinColumn(nullable=true)
+     *@ORM\JoinColumn(nullable=false)
      */
     private $utilisateur;
 
