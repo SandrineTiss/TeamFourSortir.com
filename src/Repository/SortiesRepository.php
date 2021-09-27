@@ -51,16 +51,15 @@ class SortiesRepository extends ServiceEntityRepository
     {
         // afficher sur la page d'accueil toutes les sorties depuis un mois
 
-        $queryBuilder = $this->createQueryBuilder('s')
-            ->groupBy('s.id')
-            ->join('s.etat', 'e')
-            ->addOrderBy('s.dateHeureDebut', 'DESC')
-            ->addOrderBy('e.id', 'ASC')
-            ->leftJoin('s.inscrits', 'p')
-            ->join('s.organisateur', 'o')
-            ->select('s', 'p', 'e', 'o')
+        $queryBuilder = $this->createQueryBuilder('s');
+        $queryBuilder->join('s.etat', 'etat')->addSelect('etat');
+        $queryBuilder->join('s.lieu', 'lieu')->addSelect('lieu');
+        $queryBuilder->join('lieu.ville', 'ville')->addSelect('ville');
+        $queryBuilder->join('s.campus', 'campus')->addSelect('campus');
+        $queryBuilder->join('s.organisateur', 'organisateur')->addSelect('organisateur');
+        $queryBuilder->leftjoin('s.inscrits', 'inscrits')->addSelect('inscrits');
             //Pour ne pas afficher les sorties archivées (plus d'un mois)
-            ->andWhere('s.dateHeureDebut >= :dernierMois')
+        $queryBuilder->andWhere('s.dateHeureDebut >= :dernierMois')
             ->setParameter('dernierMois', new \DateTime('-1 month'));
         $query = $queryBuilder->getQuery();
 
