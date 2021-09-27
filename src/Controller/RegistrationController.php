@@ -46,6 +46,8 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
+            $user->setRoles(['ROLE_USER']);
+            $user->setActif(true);
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
@@ -60,6 +62,8 @@ class RegistrationController extends AbstractController
 //                    ->htmlTemplate('registration/confirmation_email.html.twig')
 //            );
             // do anything else you need here, like send an email
+
+
 
             return $guardHandler->authenticateUserAndHandleSuccess(
                 $user,

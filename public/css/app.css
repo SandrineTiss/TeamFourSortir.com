@@ -15,7 +15,7 @@ body {
     background-position: center center;
     background-size: cover;
     color: #EEE;
-    background-image: linear-gradient(rgba(220, 220, 220,0.9), rgba(255, 255, 255, 0.5)), url("../css/img/sortie.png");
+    background-image: linear-gradient(rgba(220, 220, 220,0.9), rgba(255, 255, 255, 0.5)), url("../img/sortie.png");
 }
 
 label {

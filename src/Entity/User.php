@@ -260,17 +260,6 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getAdmin(): ?bool
-    {
-        return $this->admin;
-    }
-
-    public function setAdmin(bool $admin): self
-    {
-        $this->admin = $admin;
-
-        return $this;
-    }
 
     public function getActif(): ?bool
     {

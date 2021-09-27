@@ -40,7 +40,7 @@ class Sorties
     private $duree;
 
     /**
-     * @Assert\GreaterThan("+4 hours")
+     * @Assert\GreaterThan("-1 days")
      * @Assert\LessThan(propertyPath="dateHeureDebut")
      * @ORM\Column(type="date")
      */
