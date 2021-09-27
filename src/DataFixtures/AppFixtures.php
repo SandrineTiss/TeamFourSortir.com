@@ -4,10 +4,10 @@ namespace App\DataFixtures;
 
 use App\Entity\Campus;
 use App\Entity\Etat;
-use App\Entity\Image;
 use App\Entity\Lieu;
 use App\Entity\Sorties;
 use App\Entity\User;
+use App\Entity\Image;
 use App\Entity\Ville;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -56,7 +56,6 @@ class AppFixtures extends Fixture
             $user->setTelephone(mt_rand(01, 100));
             $user->setIsVerified('true');
             $manager->persist($user);
-            $image->getUtilisateur($user);
             $manager->persist($image);
             $manager->flush($user);
             $manager->flush($image);
@@ -74,7 +73,6 @@ class AppFixtures extends Fixture
             $user->setTelephone(mt_rand(01, 100));
             $user->setIsVerified('true');
             $manager->persist($user);
-            $image->getUtilisateur($user);
             $manager->persist($image);
             $manager->flush($user);
             $manager->flush($image);
@@ -92,10 +90,9 @@ class AppFixtures extends Fixture
             $user->setTelephone(mt_rand(01, 100));
             $user->setIsVerified('true');
             $manager->persist($user);
-            $image->getUtilisateur($user);
-
+            $manager->persist($image);
             $manager->flush($user);
-
+            $manager->flush($image);
         }
 
 

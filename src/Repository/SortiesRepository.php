@@ -126,7 +126,7 @@ class SortiesRepository extends ServiceEntityRepository
                 ->setParameter('user', $utilisateur);
         }
 
-        if ($sortie->getEnded()) {
+        if ($sortie->getEnded() && !$sortie->getNotInscrit() && !$sortie->getInscrit()) {
             $queryBuilder
                 ->andWhere('s.dateHeureDebut <= CURRENT_DATE()');
         }

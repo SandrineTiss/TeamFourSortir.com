@@ -23,12 +23,14 @@
                     <div class="col-md-12">
                         <div class="row g-0">
                             {% if app.user %}
-                                <a class="col-lg-2 col-md-2 col-sm-3" href="{{ path('main_accueil') }}"><img class="logo" src="{{ asset('img/logo1.png') }}" alt="Accueil"></a>
-                                <a class="col-lg-2 col-md-2 col-sm-3" href="{{ path('sortie_creer') }}">Creer une sortie</a>
-                                <a class="col-lg-2 col-md-2 col-sm-3" href="{{ path('campus_affichage') }}">Gestion des Campus</a>
-                                <a class="col-lg-2 col-md-2 col-sm-3" href="{{ path('profil_user') }}">Mon profil</a>
-                                <a class="col-lg-2 col-md-2 col-sm-3" href="{{ path('app_register') }}">Créer un utilisateur</a> {# pour Admin #}
-                                <a class="col-lg-2 col-md-2 col-sm-3" href="{{ path('app_logout') }}">Déconnexion</a>
+                                <a class="col-lg-2 col-md-1 col-sm-3" href="{{ path('main_accueil') }}"><img class="logo" src="{{ asset('img/logo1.png') }}" alt="Accueil"></a>
+                                <a class="col-lg-1 col-md-1 col-sm-3" href="{{ path('sortie_creer') }}">Creer une sortie</a>
+                                <a class="col-lg-1 col-md-1 col-sm-3" href="{{ path('campus_affichage') }}">Gestion des Campus</a>
+                                <a class="col-lg-1 col-md-1 col-sm-3" href="">Gestion des Villes</a>
+                                <a class="col-lg-1 col-md-1 col-sm-3" href="">Gestion des Lieux</a>
+                                <a class="col-lg-1 col-md-1 col-sm-3" href="{{ path('profil_user') }}">Mon profil</a>
+                                <a class="col-lg-1 col-md-1 col-sm-3" href="{{ path('app_register') }}">Créer un utilisateur</a>
+                                <a class="col-lg-1 col-md-1 col-sm-3" href="{{ path('app_logout') }}">Déconnexion</a>
                             {% endif %}
                         </div>
                     </div>
