@@ -11,7 +11,7 @@
     <h1>Gestion des Participants</h1>
 
     {% for participant in participants %}
-        - {{ participant.nom }} {{ participant.prenom }} du campus de {{ participant.campus.nom }} <a class="petit" href="" > Supprimer </a> <br/>
+        - {{ participant.nom }} {{ participant.prenom }} du campus de {{ participant.campus.nom }} <a class="petit" href="{{ path('participants_suppression', {'id': participant.id}) }}" > Supprimer </a> <br/>
     {% endfor %}
 
     <a href="{{ path('app_register') }}"><button>Ajouter un participant</button></a>

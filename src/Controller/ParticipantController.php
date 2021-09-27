@@ -37,49 +37,24 @@ class ParticipantController extends AbstractController
                              AppAuthentificatorAuthenticator $authenticator): Response
     {
         $user = $userRepository->findOneBy(['id'=> $id]);
+        $user->setPassword('pa$$w0rd');
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            // encode the plain password
-            $user->setPassword(
-                $passwordEncoder->encodePassword(
-                    $user,
-                    $form->get('plainPassword')->getData()
-                )
-            );
-            $user->setRoles(['ROLE_USER']);
-            $user->setActif(true);
-
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($user);
+
+            $entityManager->remove($user);
             $entityManager->flush();
 
-            // generate a signed url and email it to the user
-//            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
-//                (new TemplatedEmail())
-//                    ->from(new Address('mc.baloons@gmail.com', 'Sortir.com'))
-//                    ->to($user->getEmail())
-//                    ->subject('Please Confirm your Email')
-//                    ->htmlTemplate('registration/confirmation_email.html.twig')
-//            );
-            // do anything else you need here, like send an email
-
-
-
-            return $guardHandler->authenticateUserAndHandleSuccess(
-                $user,
-                $request,
-                $authenticator,
-                'main' // firewall name in security.yaml
-
-            );
+            return $this->redirectToRoute('participants_gestion');
         }
 
-        return $this->render('registration/register.html.twig', [
-            'registrationForm' => $form->createView(),
+        return $this->render('participants/supprimerParticipant.html.twig', [
+            'participant' => $form->createView(),
         ]);
+
     }
 
 }
