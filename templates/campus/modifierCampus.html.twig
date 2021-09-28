@@ -4,20 +4,16 @@
     <link rel="stylesheet" href="{{  asset('css/participation.css') }}">
 {% endblock %}
 
-{% block title %}Création campus{% endblock %}
+{% block title %}Modification Campus{% endblock %}
 
 {% block body %}
-
-    <h1>Créer un nouveau Campus</h1>
+    <h1>Modifier ce campus ?</h1>
 
     {{ form_start(campusForm) }}
-    {{ form_start(campusForm.nom) }}
+
     {{ form_label(campusForm.nom) }}<sup>*</sup>
-    <button>Créer campus</button>
+    {{ form_widget(campusForm.nom) }}
+    <button>Modifier</button>
     {{ form_end(campusForm) }}
-
-
-
-
 
 {% endblock %}

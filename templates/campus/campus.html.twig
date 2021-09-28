@@ -11,7 +11,7 @@
     <h1>Gestion des campus</h1>
 
     {% for campus in listeCampus %}
-        - {{ campus.nom }} - <a class="petit" href="{{ path('campus_suppression', {'id': campus.id }) }}" > Supprimer </a> <br/>
+        - {{ campus.nom }} - <a class="petit" href="{{ path('campus_modifier', {'id': campus.id }) }}" > Modifier </a> - <a class="petit" href="{{ path('campus_suppression', {'id': campus.id }) }}" > Supprimer </a> <br/>
     {% endfor %}
 
     <a href="{{ path('campus_creation') }}"><button>Ajouter un campus</button></a>

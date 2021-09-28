@@ -78,4 +78,32 @@ class CampusController extends AbstractController
             'campusForm' => $campusForm->createView(),
         ]);
     }
+
+    /**
+     * @Route("/campus/modifier/{id}", name="campus_modifier")
+     */
+    public function modifyCampus(EntityManagerInterface $entityManager,
+                                 Request $request,
+                                 CampusRepository $campusRepository,
+                                 int $id
+    ): Response
+    {
+        $campus = $campusRepository->findOneBy(['id' => $id]);
+        $campusForm = $this->createForm(CampusFormType::class, $campus);
+        $campusForm->handleRequest($request);
+
+        if($campusForm->isSubmitted() && $campusForm->isValid()){
+
+            $entityManager->persist($campus);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Le campus a bien été modifié !');
+
+            return $this->redirectToRoute('campus_affichage');
+        }
+
+        return $this->render('campus/modifierCampus.html.twig', [
+            'campusForm' => $campusForm->createView(),
+        ]);
+    }
 }

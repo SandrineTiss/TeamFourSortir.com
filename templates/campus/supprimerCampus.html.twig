@@ -11,12 +11,9 @@
     <h1>Etes-vous sûr de vouloir supprimer ce campus ?</h1>
 
     {{ form_start(campusForm) }}
-    {{ form_widget(campusForm) }}
+    {{ form_label(campusForm.nom) }}<sup>*</sup>
+    {{ form_widget(campusForm.nom) }}
     <button>Supprimer définitivement</button>
     {{ form_end(campusForm) }}
-
-
-
-
 
 {% endblock %}

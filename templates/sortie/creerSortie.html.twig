@@ -20,8 +20,22 @@
 
 
             {{ form_start(sortieForm) }}
-
-            {{ form_widget(sortieForm) }}
+            {{ form_label(sortieForm.nom) }}<sup>*</sup>
+            {{ form_widget(sortieForm.nom) }}
+            {{ form_label(sortieForm.dateHeureDebut) }}<sup>*</sup>
+            {{ form_widget(sortieForm.dateHeureDebut) }}
+            {{ form_label(sortieForm.duree) }}<sup>*</sup>
+            {{ form_widget(sortieForm.duree) }}
+            {{ form_label(sortieForm.dateLimiteInscription) }}<sup>*</sup>
+            {{ form_widget(sortieForm.dateLimiteInscription) }}
+            {{ form_label(sortieForm.nbInscriptionMax) }}<sup>*</sup>
+            {{ form_widget(sortieForm.nbInscriptionMax) }}
+            {{ form_label(sortieForm.infoSortie) }}<sup>*</sup>
+            {{ form_widget(sortieForm.infoSortie) }}
+            {{ form_label(sortieForm.ville) }}<sup>*</sup>
+            {{ form_widget(sortieForm.ville) }}
+            {{ form_label(sortieForm.lieu) }}<sup>*</sup>
+            {{ form_widget(sortieForm.lieu) }}
 
                 <button>Créer la sortie</button>
 
