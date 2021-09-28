@@ -22,7 +22,7 @@ class Sorties
 
     /**
      * @Assert\NotBlank(message="Merci de renseigner un nom à votre sortie")
-     * @Assert\Length(max=255)
+     * @Assert\Length(min=10, max=255)
      * @ORM\Column(type="string", length=255)
      */
     private $nom;
@@ -53,7 +53,7 @@ class Sorties
     private $nbInscriptionMax;
 
     /**
-     * @Assert\Length(min=5)
+     * @Assert\Length(min=5, max=500)
      * @ORM\Column(type="text")
      */
     private $infoSortie;

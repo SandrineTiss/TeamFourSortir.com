@@ -25,6 +25,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\Length(min=5, max=180)
      */
     private $email;
 
@@ -41,17 +42,20 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min=3, max=255)
      *
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min=3, max=255)
      */
     private $prenom;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Length(min=10, max=10)
      */
     private $telephone;
 
