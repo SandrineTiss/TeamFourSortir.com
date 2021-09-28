@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\ProfilImage;
 use App\Entity\User;
+use App\Form\ParticipantType;
 use App\Form\RegistrationFormType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -48,7 +49,7 @@ class ProfilController extends AbstractController
         //TODO: ajouter enregistrement en BDD des modif profil
 
         $user = $this->getUser();
-        $form = $this->createForm(RegistrationFormType::class, $user);
+        $form = $this->createForm(ParticipantType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
