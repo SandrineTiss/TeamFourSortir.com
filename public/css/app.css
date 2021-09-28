@@ -22,6 +22,10 @@ body {
     background-image: linear-gradient(rgba(220, 220, 220,0.9), rgba(255, 255, 255, 0.5)), url("../img/sortie.png");
 }
 
+a {
+    color: chocolate;
+}
+
 label {
     color: royalblue;
 }

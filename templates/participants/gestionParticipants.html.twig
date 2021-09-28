@@ -14,6 +14,9 @@
         - {{ participant.nom }} {{ participant.prenom }} du campus de {{ participant.campus.nom }} - <a class="petit" href="{{ path('participants_modification', {'id': participant.id}) }}" > Modifier </a> - <a class="petit" href="{{ path('participants_sommeil', {'id': participant.id}) }}" > Mettre en sommeil </a> - <a class="petit" href="{{ path('participants_suppression', {'id': participant.id}) }}" > Supprimer </a> <br/>
     {% endfor %}
 
+    <br/><br/>
+    <a class="col-lg-1 col-md-1 col-sm-3" href="{{ path('admin_access') }}">Retour</a><br/>
+
     <a href="{{ path('app_register') }}"><button>Ajouter un participant</button></a>
 
 {% endblock %}

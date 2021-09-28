@@ -14,6 +14,9 @@
         - {{ lieu.nom }} - {{ lieu.ville.nom}} <a class="petit" href="{{ path('lieu_modification', {'id': lieu.id }) }}" > Modifier </a> - <a class="petit" href="{{ path('lieu_suppression', {'id': lieu.id }) }}" > Supprimer </a> <br/>
     {% endfor %}
 
+    <br/><br/>
+    <a class="col-lg-1 col-md-1 col-sm-3" href="{{ path('admin_access') }}">Retour</a><br/>
+
     <a href="{{ path('lieu_creation') }}"><button>Ajouter un lieu</button></a>
 
 {% endblock %}
