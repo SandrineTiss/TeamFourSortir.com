@@ -12,7 +12,7 @@
     {% endfor %}
 
         <div class="profil-informations">
-            <h1 class="form-title">Mettre à jour ses informations</h1>
+            <h1 class="form-title">Mettre à jour son profil</h1>
 
 
        </div>
@@ -22,11 +22,27 @@
             </div>
             <div class="col-md-8  col-sm-12">
                 <div class="profil-formulaire">
-                    {{ form_start(registrationForm) }}
-                    {{ form_widget(registrationForm) }}
+                    {{ form_start(profilForm) }}
+
+                    {{ form_label(profilForm.email) }}<sup>*</sup>
+                    {{ form_widget(profilForm.email) }}
+                    {{ form_label(profilForm.pseudo) }}<sup>*</sup>
+                    {{ form_widget(profilForm.pseudo) }}
+                    {{ form_label(profilForm.nom) }}<sup>*</sup>
+                    {{ form_widget(profilForm.nom) }}
+                    {{ form_label(profilForm.prenom) }}<sup>*</sup>
+                    {{ form_widget(profilForm.prenom) }}
+                    {{ form_label(profilForm.telephone) }}<sup>*</sup>
+                    {{ form_widget(profilForm.telephone) }}
+                    {{ form_label(profilForm.campus) }}<sup>*</sup>
+                    {{ form_widget(profilForm.campus) }}
+                    <br/>
+                    {{ form_label(profilForm.image) }}
+                    {{ form_widget(profilForm.image) }}
+
 
                     <button type="submit">Enregistrer les modifications</button>
-                    {{ form_end(registrationForm) }}
+                    {{ form_end(profilForm) }}
                 </div>
             </div>
 
