@@ -99,9 +99,9 @@ class AppAuthentificatorAuthenticator extends AbstractFormLoginAuthenticator imp
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $providerKey)
     {
         if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
-            if ($this->getUser()->getActif()) {
+
                 return new RedirectResponse($targetPath);
-            }
+
 
         }
 
