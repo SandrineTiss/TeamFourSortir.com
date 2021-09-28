@@ -219,7 +219,9 @@ class User implements UserInterface
         return $this;
     }
 
-
+    /**
+     * @see UserInterface
+     */
     public function getActif(): ?bool
     {
         return $this->actif;

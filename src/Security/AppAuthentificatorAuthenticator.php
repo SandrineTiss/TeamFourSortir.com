@@ -11,6 +11,7 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
+use Symfony\Component\Security\Core\Exception\UserNotFoundException;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
@@ -70,7 +71,13 @@ class AppAuthentificatorAuthenticator extends AbstractFormLoginAuthenticator imp
         $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $credentials['email']]);
 
         if (!$user) {
-            throw new UsernameNotFoundException('Email could not be found.');
+            throw new UserNotFoundException('Email could not be found.');
+
+        }
+
+        if (!$user->getActif()) {
+            throw new UserNotFoundException('Le compte a été désactivé !.');
+
         }
 
         return $user;
@@ -92,7 +99,10 @@ class AppAuthentificatorAuthenticator extends AbstractFormLoginAuthenticator imp
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $providerKey)
     {
         if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
-            return new RedirectResponse($targetPath);
+            if ($this->getUser()->getActif()) {
+                return new RedirectResponse($targetPath);
+            }
+
         }
 
         return new RedirectResponse($this->urlGenerator->generate('main_accueil'));

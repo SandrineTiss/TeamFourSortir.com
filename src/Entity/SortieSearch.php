@@ -7,15 +7,14 @@ use App\Entity\Campus;
 class SortieSearch
 {
 
-    private ?Campus $campus = null;
-    private ?string $nom = null;
-    private ?\DateTime $dateMin = null;
-    private ?\DateTime $datemax = null;
-
-    private ?bool $organisateur = false;
-    private ?bool $inscrit = false;
-    private ?bool $ended = false;
-    private ?bool $notInscrit = false;
+    public  $campus = null;
+    private $nom = null;
+    private $dateMin = null;
+    private $datemax = null;
+    private $organisateur = false;
+    private $inscrit = false;
+    private $ended = false;
+    private $notInscrit = false;
 
     /**
      * @return Campus|null
