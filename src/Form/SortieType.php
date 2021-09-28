@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Lieu;
 use App\Entity\Sorties;
 use App\Entity\Ville;
+use App\Repository\LieuRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -63,32 +64,35 @@ class SortieType extends AbstractType
                 'required' => false
             ])
 
-             ->add('lieu', ChoiceType::class, [
-                 'placeholder' => 'Lieu (Choisir une ville)',
+             ->add('lieu', EntityType::class, [
+                 'class' => Lieu::class,
+                 'choice_label' => 'nom',
+                 'placeholder' => 'Lieu',
                  'required' => false
              ]);
 
-             $formModifier = function (FormInterface $form, Ville $ville = null) {
-                 $lieu = null === $ville ? [] : $ville->getNom();
-
-
-                 $form->add('lieu', EntityType::class, [
-                     'class' => Lieu::class,
-                     'choice_label' => 'nom',
-                     'choices' => $lieu,
-                     'placeholder' => 'Lieu (choisir une ville)',
-                     'label' => 'Lieu: ',
-                     'required' => false
-                 ]);
-             };
-
-             $builder->get('ville')->addEventListener(
-                 FormEvents::POST_SUBMIT,
-                 function (FormEvent $event) use ($formModifier){
-                     $ville = $event->getForm()->getData();
-                     $formModifier($event->getForm()->getParent(), $ville);
-                 }
-             );
+//             $formModifier = function (FormInterface $form, Ville $ville) {
+//                 $lieu = null === $ville ? [] : $ville->getNom();
+//                 //$lieu = $lieuRepository->findBy(['ville' => $ville]);
+//
+//                 $form->add('lieu', EntityType::class, [
+//                     'mapped' => false,
+//                     'class' => Lieu::class,
+//                     'choice_label' => 'nom',
+//                     'choices' => $lieu,
+//                     'placeholder' => 'Lieu (choisir une ville)',
+//                     'label' => 'Lieu: ',
+//                     'required' => false
+//                 ]);
+//             };
+//
+//             $builder->get('ville')->addEventListener(
+//                 FormEvents::PRE_SUBMIT,
+//                 function (FormEvent $event) use ($formModifier){
+//                     $ville = $event->getForm()->getData();
+//                     $formModifier($event->getForm()->getParent(), $ville);
+//                 }
+//             );
     }
 
     public function configureOptions(OptionsResolver $resolver)
