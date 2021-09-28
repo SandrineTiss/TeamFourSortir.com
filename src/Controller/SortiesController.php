@@ -70,6 +70,7 @@ class SortiesController extends AbstractController
             $sortie->setOrganisateur($user);
             $sortie->setEtat($etat);
             $sortie->addInscrit($user);
+            $sortie->setCampus($user->getCampus());
             $entityManager->persist($sortie);
             $entityManager->flush();
 

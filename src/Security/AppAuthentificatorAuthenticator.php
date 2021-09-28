@@ -71,7 +71,7 @@ class AppAuthentificatorAuthenticator extends AbstractFormLoginAuthenticator imp
         $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $credentials['email']]);
 
         if (!$user) {
-            throw new UserNotFoundException('Email could not be found.');
+            throw new UserNotFoundException('Email non trouvé.');
 
         }
 
