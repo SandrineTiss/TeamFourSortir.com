@@ -1,18 +1,20 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{  asset('css/participation.css') }}">
+{% endblock %}
+
 {% block body %}
     <section>
         {% for sortie in sorties %}
         <p>
-            <a href="{{ path('participation_inscription', {'id': sortie.id} ) }}" title="voir les détails">
-                {{ sortie.nom }}
-            </a>
+            {{ sortie.nom }} - <a class="petit" href="{{ path('sortie_details', {'id': sortie.id} ) }}" title="voir la sortie">détails</a>
         </p>
         {% endfor %}
     </section>
 {% endblock %}
 
 {% block title %}
-    {{ parent() }} | liste
+    {{ parent() }} | liste des Sorties
 {% endblock %}
 

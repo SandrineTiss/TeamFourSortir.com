@@ -21,7 +21,6 @@
 
     <h5>Cette sortie est {{ etat.libelle }}</h5>
 
-    {{ form_start(sortieForm) }}
 
         <div class="container">
             <div class="row">
@@ -71,9 +70,6 @@
         </div>
         <br/><br/><br/><br/>
 
-        <div class="form">
-            {{ form_widget(sortieForm) }}
-        </div>
         {% set inscrit=0 %}
         <div class="container">
             <h3>Liste des participants inscrits :</h3>
@@ -98,7 +94,7 @@
             </div>
         </div>
         <br/><br/>
-    {{ form_end(sortieForm) }}
+
     <div class="row">
         <a href="{{ path('main_accueil') }}"><button>Retour</button></a>
     </div>

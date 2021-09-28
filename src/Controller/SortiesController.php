@@ -38,12 +38,12 @@ class SortiesController extends AbstractController
 
 
     /**
-     * @Route("/", name="liste")
+     * @Route("/liste", name="liste")
      */
-    public function findAll(SortiesRepository $sortiesRepository): Response
+    public function listeSorties(SortiesRepository $sortiesRepository): Response
     {
         $sorties = $sortiesRepository->findAll();
-        return $this->render('main/accueil.html.twig', [
+        return $this->render('sortie/liste.html.twig', [
             'sorties' => $sorties
         ]);
     }
@@ -85,13 +85,21 @@ class SortiesController extends AbstractController
     }
 
     /**
-     * @Route("/details/{id}", name="sortie_details")
+     * @Route("/details/{id}", name="details")
      */
     public function details(int $id, SortiesRepository $sortiesRepository): Response
     {
         $sortie = $sortiesRepository->find($id);
 
-        return $this->render('sortie/details', ['sortie' => $sortie]);
+        return $this->render('sortie/detailSortie.html.twig', [
+            'sortie' => $sortie,
+            'etat' => $sortie->getEtat(),
+            'lieu'=>$sortie->getLieu(),
+            'ville'=>$sortie->getLieu()->getVille(),
+            'campus' =>$sortie->getCampus(),
+            'organisateur' => $sortie->getOrganisateur(),
+            'inscrits' => $sortie->getInscrits()
+        ]);
     }
 
     /**
