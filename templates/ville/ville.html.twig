@@ -11,7 +11,7 @@
     <h1>Gestion des villes</h1>
 
     {% for ville in listeVilles %}
-        - {{ ville.nom }} - {{ ville.codePostal }} - <a class="petit" href="{{ path('ville_suppression', {'id': ville.id }) }}" > Supprimer </a> <br/>
+        - {{ ville.nom }} - {{ ville.codePostal }} - <a class="petit" href="{{ path('ville_modification', {'id': ville.id }) }}" > Modifier </a> - <a class="petit" href="{{ path('ville_suppression', {'id': ville.id }) }}" > Supprimer </a> <br/>
     {% endfor %}
 
     <a href="{{ path('ville_creation') }}"><button>Ajouter une Ville</button></a>

@@ -78,4 +78,32 @@ class VilleController extends AbstractController
             'villeForm' => $villeForm->createView(),
         ]);
     }
+
+    /**
+     * @Route("/ville/modifier/{id}", name="ville_modification")
+     */
+    public function modifierVille(EntityManagerInterface $entityManager,
+                                Request $request,
+                                VilleRepository $villeRepository,
+                                int $id
+    ): Response
+    {
+        $ville = $villeRepository->findOneBy(['id' => $id]);
+        $villeForm = $this->createForm(VilleType::class, $ville);
+        $villeForm->handleRequest($request);
+
+        if($villeForm->isSubmitted() && $villeForm->isValid()){
+
+            $entityManager->persist($ville);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'La ville a bien été modifiée !');
+
+            return $this->redirectToRoute('ville_affichage');
+        }
+
+        return $this->render('ville/modifierVille.html.twig', [
+            'villeForm' => $villeForm->createView(),
+        ]);
+    }
 }

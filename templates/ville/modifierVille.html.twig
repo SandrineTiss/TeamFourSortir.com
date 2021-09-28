@@ -4,11 +4,11 @@
     <link rel="stylesheet" href="{{  asset('css/participation.css') }}">
 {% endblock %}
 
-{% block title %}Création Ville{% endblock %}
+{% block title %}Modification Ville{% endblock %}
 
 {% block body %}
 
-    <h1>Créer une nouvelle ville</h1>
+    <h1>Modifier cette ville</h1>
 
     {{ form_start(villeForm) }}
 
@@ -17,11 +17,7 @@
     {{ form_label(villeForm.codePostal) }}<sup>*</sup>
     {{ form_widget(villeForm.codePostal) }}
 
-    <button>Créer ville</button>
+    <button>Modifier</button>
     {{ form_end(villeForm) }}
-
-
-
-
 
 {% endblock %}
