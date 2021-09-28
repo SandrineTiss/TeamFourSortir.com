@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\ParticipantType;
 use App\Form\RegistrationFormType;
 use App\Repository\ImageRepository;
 use App\Repository\UserRepository;
@@ -35,15 +36,16 @@ class ParticipantController extends AbstractController
                              int $id
     ): Response
     {
-        $user = $userRepository->findOneBy(['id'=> $id]);
-        $form = $this->createForm(RegistrationFormType::class, $user);
+        $participant = $userRepository->findOneBy(['id'=> $id]);
+        $form = $this->createForm(ParticipantType::class, $participant);
         $form->handleRequest($request);
+
 
         if ($form->isSubmitted() && $form->isValid()) {
 
             $entityManager = $this->getDoctrine()->getManager();
 
-            $entityManager->remove($user);
+            $entityManager->remove($participant);
             $entityManager->flush();
 
             return $this->redirectToRoute('participants_gestion');
@@ -63,21 +65,50 @@ class ParticipantController extends AbstractController
                                          int $id
                                          ): Response
     {
-        $user = $userRepository->findOneBy(['id'=> $id]);
-        $form = $this->createForm(RegistrationFormType::class, $user);
+        $participant = $userRepository->findOneBy(['id'=> $id]);
+        $form = $this->createForm(ParticipantType::class, $participant);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
             $entityManager = $this->getDoctrine()->getManager();
-            $user->setActif(false);
-            $entityManager->persist($user);
+            $participant->setActif(false);
+            $entityManager->persist($participant);
             $entityManager->flush();
 
             return $this->redirectToRoute('participants_gestion');
         }
 
         return $this->render('participants/sommeilParticipant.html.twig', [
+            'participant' => $form->createView(),
+        ]);
+
+    }
+
+    /**
+     * @Route("/participants/modifier/{id}", name="participants_modification")
+     */
+    public function modifierParticipant(Request $request,
+                                         UserRepository $userRepository,
+                                         int $id
+    ): Response
+    {
+        $participant = $userRepository->findOneBy(['id'=> $id]);
+        $form = $this->createForm(ParticipantType::class, $participant);
+        $form->handleRequest($request);
+
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $entityManager = $this->getDoctrine()->getManager();
+
+            $entityManager->persist($participant);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('participants_gestion');
+        }
+
+        return $this->render('participants/modifierParticipant.html.twig', [
             'participant' => $form->createView(),
         ]);
 

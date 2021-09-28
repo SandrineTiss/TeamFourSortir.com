@@ -11,8 +11,8 @@
     <h1>Créer un nouveau Campus</h1>
 
     {{ form_start(campusForm) }}
-    {{ form_start(campusForm.nom) }}
     {{ form_label(campusForm.nom) }}<sup>*</sup>
+    {{ form_widget(campusForm.nom) }}
     <button>Créer campus</button>
     {{ form_end(campusForm) }}
 

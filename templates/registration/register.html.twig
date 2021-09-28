@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{  asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{  asset('css/participation.css') }}">
 {% endblock %}
 
 {% block title %}Créer un utilisateur{% endblock %}
@@ -20,7 +20,21 @@
         <div class="cache">
             {{ form_row(registrationForm.image) }}
         </div>
-        {{ form_widget(registrationForm) }}
+
+    {{ form_label(registrationForm.email) }}<sup>*</sup>
+    {{ form_widget(registrationForm.email) }}
+    {{ form_label(registrationForm.pseudo) }}<sup>*</sup>
+    {{ form_widget(registrationForm.pseudo) }}
+    {{ form_label(registrationForm.nom) }}<sup>*</sup>
+    {{ form_widget(registrationForm.nom) }}
+    {{ form_label(registrationForm.prenom) }}<sup>*</sup>
+    {{ form_widget(registrationForm.prenom) }}
+    {{ form_label(registrationForm.telephone) }}<sup>*</sup>
+    {{ form_widget(registrationForm.telephone) }}
+    {{ form_label(registrationForm.campus) }}<sup>*</sup>
+    {{ form_widget(registrationForm.campus) }}
+    {{ form_label(registrationForm.plainPassword) }}<sup>*</sup>
+    {{ form_widget(registrationForm.plainPassword) }}
 
         <button type="submit">Créer</button>
     {{ form_end(registrationForm) }}
