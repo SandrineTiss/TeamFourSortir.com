@@ -37,9 +37,15 @@ class Ville
      */
     private $lieux;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Sorties::class, mappedBy="ville", orphanRemoval=true)
+     */
+    private $sorties;
+
     public function __construct()
     {
         $this->lieux = new ArrayCollection();
+        $this->sorties = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -72,9 +78,9 @@ class Ville
     }
 
     /**
-     * @return Collection|Lieu[]
+     * @return ArrayCollection|Lieu[]
      */
-    public function getLieux(): Collection
+    public function getLieux(): ArrayCollection
     {
         return $this->lieux;
     }
@@ -95,6 +101,36 @@ class Ville
             // set the owning side to null (unless already changed)
             if ($lieux->getVille() === $this) {
                 $lieux->setVille(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Sorties[]
+     */
+    public function getSorties(): Collection
+    {
+        return $this->sorties;
+    }
+
+    public function addSorty(Sorties $sorty): self
+    {
+        if (!$this->sorties->contains($sorty)) {
+            $this->sorties[] = $sorty;
+            $sorty->setVille($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSorty(Sorties $sorty): self
+    {
+        if ($this->sorties->removeElement($sorty)) {
+            // set the owning side to null (unless already changed)
+            if ($sorty->getVille() === $this) {
+                $sorty->setVille(null);
             }
         }
 

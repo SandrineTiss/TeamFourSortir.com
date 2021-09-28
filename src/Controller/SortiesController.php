@@ -8,6 +8,7 @@ use App\Entity\Sorties;
 use App\Form\AnnulerSortieType;
 use App\Form\SortieType;
 use App\Repository\EtatRepository;
+use App\Repository\LieuRepository;
 use App\Repository\SortiesRepository;
 use Doctrine\DBAL\Types\TextType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -67,6 +68,7 @@ class SortiesController extends AbstractController
             $user = $this->security->getUser();
             $etat = $etatRepository->findOneBy(['libelle' => 'Créée']);
 
+            $sortie->setCampus($user->getCampus());
             $sortie->setOrganisateur($user);
             $sortie->setEtat($etat);
             $sortie->addInscrit($user);
@@ -74,9 +76,9 @@ class SortiesController extends AbstractController
             $entityManager->persist($sortie);
             $entityManager->flush();
 
-            $this->addFlash('success', 'Votre sortie a bien été créée, n\'oubliez pas de la publier pour l\'ouvrir aux inscriptions !');
+//            $this->addFlash('success', 'Votre sortie a bien été créée, n\'oubliez pas de la publier pour l\'ouvrir aux inscriptions !');
 
-            return $this->redirectToRoute('main_accueil');
+            return $this->redirectToRoute('sortie_liste');
         }
 
         return $this->render('sortie/creerSortie.html.twig', [

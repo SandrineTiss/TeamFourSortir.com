@@ -28,24 +28,6 @@ class ProfilController extends AbstractController
     {
 
 
-//        $entityManager = $this->getDoctrine()->getManager();
-//        $repository = $entityManager->getRepository(User::class);
-//        $user = $repository->find($id);
-//        $profilPic = $user->getImage();
-//
-//        $file = $form['image']->getData();
-//
-//        if (is_string($file)) {
-//            $fileName = $user->getImage()->getName();
-//
-//        $form = $this->createForm(RegistrationFormType::class, $user);
-//        $form->handleRequest($request);
-//
-//        if ($request->isMethod('post') && $form->isValid()){
-//            //insertion en BDD
-//
-//        }
-
         //TODO: ajouter enregistrement en BDD des modif profil
 
         $user = $this->getUser();

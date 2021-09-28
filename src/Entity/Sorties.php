@@ -90,6 +90,12 @@ class Sorties
      */
     private $inscrits;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Ville::class, inversedBy="sorties")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $ville;
+
     public function __construct()
     {
         $this->inscrits = new ArrayCollection();
@@ -239,6 +245,18 @@ class Sorties
     public function removeInscrit(User $inscrit): self
     {
         $this->inscrits->removeElement($inscrit);
+
+        return $this;
+    }
+
+    public function getVille(): ?Ville
+    {
+        return $this->ville;
+    }
+
+    public function setVille(?Ville $ville): self
+    {
+        $this->ville = $ville;
 
         return $this;
     }

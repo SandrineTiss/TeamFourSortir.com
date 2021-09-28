@@ -186,6 +186,7 @@ class AppFixtures extends Fixture
             $sortie->addInscrit($user);
             $sortie->setInfoSortie('une info sur la sortie_'.$i);
             $sortie->setNbInscriptionMax(mt_rand(1, 8));
+            $sortie->setVille($ville1);
             $manager->persist($sortie);
             $manager->flush($sortie);
         }
@@ -203,6 +204,7 @@ class AppFixtures extends Fixture
             $sortie->addInscrit($user);
             $sortie->setInfoSortie('une info sur la sortie_'.$i);
             $sortie->setNbInscriptionMax(mt_rand(1, 8));
+            $sortie->setVille($ville2);
             $manager->persist($sortie);
             $manager->flush($sortie);
         }
@@ -220,6 +222,7 @@ class AppFixtures extends Fixture
             $sortie->addInscrit($user);
             $sortie->setInfoSortie('une info sur la sortie_'.$i);
             $sortie->setNbInscriptionMax(mt_rand(1, 8));
+            $sortie->setVille($ville3);
             $manager->persist($sortie);
             $manager->flush($sortie);
         }
