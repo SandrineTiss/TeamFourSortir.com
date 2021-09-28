@@ -19,7 +19,7 @@ class LieuType extends AbstractType
             ->add('latitude')
             ->add('longitude')
             ->add('ville', EntityType::class, [
-        'label' => 'Ville :',
+        'label' => 'Ville ',
         'class' => Ville::class,
         'choice_label' => 'nom',
         'multiple' => false

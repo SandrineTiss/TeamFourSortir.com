@@ -11,7 +11,7 @@
     <h1>Gestion des lieux</h1>
 
     {% for lieu in listeLieux %}
-        - {{ lieu.nom }} - {{ lieu.ville.nom}} <a class="petit" href="{{ path('lieu_suppression', {'id': lieu.id }) }}" > Supprimer </a> <br/>
+        - {{ lieu.nom }} - {{ lieu.ville.nom}} <a class="petit" href="{{ path('lieu_modification', {'id': lieu.id }) }}" > Modifier </a> - <a class="petit" href="{{ path('lieu_suppression', {'id': lieu.id }) }}" > Supprimer </a> <br/>
     {% endfor %}
 
     <a href="{{ path('lieu_creation') }}"><button>Ajouter un lieu</button></a>

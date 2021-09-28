@@ -4,11 +4,11 @@
     <link rel="stylesheet" href="{{  asset('css/participation.css') }}">
 {% endblock %}
 
-{% block title %}Création Lieu{% endblock %}
+{% block title %}Modifier Lieu{% endblock %}
 
 {% block body %}
 
-    <h1>Créer un nouveau Lieu de sortie</h1>
+    <h1>Modifier ce lieu</h1>
 
     {{ form_start(lieuForm) }}
     {{ form_label(lieuForm.nom) }}<sup>*</sup>
@@ -21,7 +21,7 @@
     {{ form_widget(lieuForm.longitude) }}
     {{ form_label(lieuForm.ville) }}<sup>*</sup>
     {{ form_widget(lieuForm.ville) }}
-    <button>Créer Lieu</button>
+    <button>Modifier</button>
     {{ form_end(lieuForm) }}
 
 

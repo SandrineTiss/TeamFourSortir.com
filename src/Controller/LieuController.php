@@ -76,6 +76,34 @@ class LieuController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/lieu/modificatio,/{id}", name="lieu_modification")
+     */
+    public function modifierLieu(EntityManagerInterface $entityManager,
+                                 Request $request,
+                                 LieuRepository $lieuRepository,
+                                 int $id
+    ): Response
+    {
+        $lieu = $lieuRepository->findOneBy(['id' => $id]);
+        $lieuForm = $this->createForm(LieuType::class, $lieu);
+        $lieuForm->handleRequest($request);
+
+        if($lieuForm->isSubmitted() && $lieuForm->isValid()){
+
+            $entityManager->persist($lieu);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Le lieu de sortie a bien été modifié !');
+
+            return $this->redirectToRoute('lieu_affichage');
+        }
+
+        return $this->render('lieu/modifierLieu.html.twig', [
+            'lieuForm' => $lieuForm->createView(),
+        ]);
+    }
+
 
 
 
