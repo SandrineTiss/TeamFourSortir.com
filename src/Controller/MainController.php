@@ -28,10 +28,23 @@ class MainController extends AbstractController
             if($sortiesAArchiver != null) {
                 foreach ($sortiesAArchiver as $s) {
                     // pour chaque sortie à archiver
-                    $sortieArchive = new SortiesArchivees();
+                    $sortie = new SortiesArchivees();
+                    $sortie->setLieu($s->getLieu());
+                    $sortie->setNom($s->getNom());
+                    $sortie->setCampus($s->getCampus());
+                    $sortie->setEtat($s->getEtat());
+                    $sortie->setDateHeureDebut($s->getDateHeureDebut());
+                    $sortie->setDateLimiteInscription($s->getDateLimiteInscription());
+                    $sortie->setDuree($s->getDuree());
+                    $sortie->setInfoSortie($s->getInfoSortie());
+                    $sortie->setNbInscriptionMax($s->getNbInscriptionMax());
+                    $sortie->setOrganisateur($s->getOrganisateur());
+                    $sortie->setVille($s->getVille());
+
                     // archivage de la sortie dans la table SortiesArchivees
-                    $entityManager->persist($sortieArchive);
+                    $entityManager->persist($sortie);
                     $entityManager->flush();
+
                     // supression de la sortie archivée de la table Sorties
                     $entityManager->remove($s);
                     $entityManager->flush();
