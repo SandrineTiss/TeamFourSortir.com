@@ -76,7 +76,7 @@ class SortiesController extends AbstractController
             $entityManager->persist($sortie);
             $entityManager->flush();
 
-//            $this->addFlash('success', 'Votre sortie a bien été créée, n\'oubliez pas de la publier pour l\'ouvrir aux inscriptions !');
+    $this->addFlash('success', 'Votre sortie a bien été créée, n\'oubliez pas de la publier pour l\'ouvrir aux inscriptions !');
 
             return $this->redirectToRoute('sortie_liste');
         }
