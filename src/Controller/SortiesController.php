@@ -3,19 +3,17 @@
 namespace App\Controller;
 
 
-use App\Entity\Etat;
+
 use App\Entity\Sorties;
 use App\Form\AnnulerSortieType;
 use App\Form\SortieType;
 use App\Repository\EtatRepository;
-use App\Repository\LieuRepository;
+
 use App\Repository\SortiesRepository;
-use App\Repository\VilleRepository;
-use Doctrine\DBAL\Types\TextType;
+
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\Forms;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -78,7 +76,7 @@ class SortiesController extends AbstractController
             $entityManager->persist($sortie);
             $entityManager->flush();
 
-//            $this->addFlash('success', 'Votre sortie a bien été créée, n\'oubliez pas de la publier pour l\'ouvrir aux inscriptions !');
+    $this->addFlash('success', 'Votre sortie a bien été créée, n\'oubliez pas de la publier pour l\'ouvrir aux inscriptions !');
 
             return $this->redirectToRoute('sortie_liste');
         }

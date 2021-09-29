@@ -20,11 +20,11 @@
 
 
 tbody tr:nth-child(odd) {
-    background-color: rgb(49, 59, 217);
+    background-color: rgb(74, 157, 217);
 }
 
 tbody tr:nth-child(even) {
-    background-color: rgb(1, 74, 166);
+    background-color: rgb(109, 220, 211);
 }
 
 tbody a {
@@ -40,12 +40,12 @@ tbody a {
     #moyenEcran{ display: none}
 }
 
-@media all and (max-width: 950px) and (min-width: 600px ) {
+@media all and (max-width: 950px) and (min-width: 500px ) {
     #petitEcran{ display: none}
     #grandEcran{ display: none}
 }
 
-@media all and (max-device-width: 600px) {
+@media all and (max-device-width: 500px) {
     #grandEcran{ display: none}
     #moyenEcran{ display: none}
 }

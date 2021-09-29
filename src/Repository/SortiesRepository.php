@@ -32,6 +32,14 @@ class SortiesRepository extends ServiceEntityRepository
         $this->security = $security;
     }
 
+    public function archivage() {
+        // récupérer toutes les sorties qui ont eu lieu il y a plus d'1 mois
+        $queryBuilder = $this->createQueryBuilder('s');
+        $queryBuilder->andWhere('s.dateHeureDebut < :dernierMois')
+            ->setParameter('dernierMois', new \DateTime('-1 month'));
+        return $queryBuilder->getQuery()->getResult();
+    }
+
     public function participate(int $id){
         $queryBuilder = $this->createQueryBuilder('s');
         $queryBuilder->join('s.etat', 'etat')->addSelect('etat');

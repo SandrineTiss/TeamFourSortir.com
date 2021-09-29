@@ -48,6 +48,7 @@ class ParticipantController extends AbstractController
             $entityManager->remove($participant);
             $entityManager->flush();
 
+            $this->addFlash('success', 'Le participant a été supprimé');
             return $this->redirectToRoute('participants_gestion');
         }
 
@@ -65,7 +66,7 @@ class ParticipantController extends AbstractController
                                          int $id
                                          ): Response
     {
-        $participant = $userRepository->findOneBy(['id'=> $id]);
+        $participant = $userRepository->findOneBy(['id' => $id]);
         $form = $this->createForm(ParticipantType::class, $participant);
         $form->handleRequest($request);
 
@@ -75,11 +76,38 @@ class ParticipantController extends AbstractController
             $participant->setActif(false);
             $entityManager->persist($participant);
             $entityManager->flush();
-
+            $this->addFlash('success', 'Le participant '.$participant->getNom().' '.$participant->getPrenom().' a été mis en sommeil');
             return $this->redirectToRoute('participants_gestion');
         }
 
         return $this->render('participants/sommeilParticipant.html.twig', [
+            'participant' => $form->createView(),
+        ]);
+    }
+
+        /**
+         * @Route("/participants/reactiver/{id}", name="participants_reactivation")
+         */
+        public function activationParticipant(Request $request,
+                                           UserRepository $userRepository,
+                                           int $id
+        ): Response
+        {
+        $participant = $userRepository->findOneBy(['id'=> $id]);
+        $form = $this->createForm(ParticipantType::class, $participant);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $participant->setActif(true);
+            $entityManager->persist($participant);
+            $entityManager->flush();
+            $this->addFlash('success', 'Le participant '.$participant->getNom().' '.$participant->getPrenom().' a été réactivé');
+            return $this->redirectToRoute('participants_gestion');
+        }
+
+        return $this->render('participants/reactivationParticipant.html.twig', [
             'participant' => $form->createView(),
         ]);
 
@@ -104,7 +132,7 @@ class ParticipantController extends AbstractController
 
             $entityManager->persist($participant);
             $entityManager->flush();
-
+            $this->addFlash('success', 'Le participant '.$participant->getNom().' '.$participant->getPrenom().' a été modifié avec succès');
             return $this->redirectToRoute('participants_gestion');
         }
 

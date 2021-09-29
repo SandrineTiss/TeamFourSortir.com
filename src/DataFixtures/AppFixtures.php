@@ -87,7 +87,7 @@ class AppFixtures extends Fixture
             $user->setPassword($this->passwordEncoder->encodePassword($user,'test'));
             $user->setRoles(["ROLE_USER"]);
             $user->setActif('true');
-            $user->setTelephone('060504030201');
+            $user->setTelephone('0605040302');
             $user->setIsVerified('true');
             $manager->persist($user);
             $manager->persist($image);
@@ -179,8 +179,8 @@ class AppFixtures extends Fixture
             $sortie->setOrganisateur($user);
             $sortie->setLieu($lieu);
             $date = new \DateTime();
-            $sortie->setDateHeureDebut($date->setDate(2021,10,5));
-            $sortie->setDateLimiteInscription($date->setDate(2021,10,1));
+            $sortie->setDateHeureDebut($date->setDate(2021,10,$i+2));
+            $sortie->setDateLimiteInscription($date->setDate(2021,10,$i));
             $sortie->setDuree(mt_rand(60, 240));
             $sortie->setEtat($etat2);
             $sortie->addInscrit($user);
@@ -197,8 +197,8 @@ class AppFixtures extends Fixture
             $sortie->setOrganisateur($user);
             $sortie->setLieu($lieu);
             $date = new \DateTime();
-            $sortie->setDateHeureDebut($date->setDate(2021,9,25));
-            $sortie->setDateLimiteInscription($date->setDate(2021,9,20));
+            $sortie->setDateHeureDebut($date->setDate(2021,9,25+$i));
+            $sortie->setDateLimiteInscription($date->setDate(2021,9,22+$i));
             $sortie->setDuree(mt_rand(60, 240));
             $sortie->setEtat($etat2);
             $sortie->addInscrit($user);
@@ -208,7 +208,7 @@ class AppFixtures extends Fixture
             $manager->persist($sortie);
             $manager->flush($sortie);
         }
-        for ($i = 0; $i < 5; $i++){
+        for ($i = 15; $i < 20; $i++){
             $sortie = new Sorties();
             $sortie->setNom('nom_sortie'.$i);
             $sortie->setCampus($campus1);
@@ -223,6 +223,24 @@ class AppFixtures extends Fixture
             $sortie->setInfoSortie('une info sur la sortie_'.$i);
             $sortie->setNbInscriptionMax(mt_rand(1, 8));
             $sortie->setVille($ville3);
+            $manager->persist($sortie);
+            $manager->flush($sortie);
+        }
+        for ($i = 0; $i < 12; $i++){
+            $sortie = new Sorties();
+            $sortie->setNom('nom_sortie'.($i+20));
+            $sortie->setCampus($campus1);
+            $sortie->setOrganisateur($user);
+            $sortie->setLieu($lieu);
+            $date = new \DateTime();
+            $sortie->setDateHeureDebut($date->setDate(2021,8,20+$i));
+            $sortie->setDateLimiteInscription($date->setDate(2021,8,18+$i));
+            $sortie->setDuree(mt_rand(60, 240));
+            $sortie->setEtat($etat2);
+            $sortie->addInscrit($user);
+            $sortie->setInfoSortie('une info sur la sortie_'.($i+20));
+            $sortie->setNbInscriptionMax(mt_rand(1, 8));
+            $sortie->setVille($ville1);
             $manager->persist($sortie);
             $manager->flush($sortie);
         }

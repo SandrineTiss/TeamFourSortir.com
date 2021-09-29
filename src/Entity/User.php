@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
- * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
+ * @UniqueEntity(fields={"email", "pseudo", "telephone"}, message="Il y a un problème, merci de rééssayer")
  */
 class User implements UserInterface
 {
@@ -26,6 +26,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      * @Assert\Length(min=5, max=180)
+     * @Assert\Regex("/^((\w[^\W]+)[\.\-]?){1,}\@(([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/")
      */
     private $email;
 
@@ -37,13 +38,14 @@ class User implements UserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * @Assert\Regex("/^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){12,}$/")
      */
+    // password avec 1 chiffre, 1 majuscule, 1 majuscule et 1 caractère spécial minimums
     private $password;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Length(min=3, max=255)
-     *
      */
     private $nom;
 
@@ -55,7 +57,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string")
-     * @Assert\Length(min=10, max=10)
+     * @Assert\Length(min=9, max=10)
      */
     private $telephone;
 
@@ -93,7 +95,7 @@ class User implements UserInterface
     private $pseudo;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Image::class, inversedBy="utilisateur")
+     * @ORM\ManyToOne(targetEntity=Image::class, inversedBy="utilisateur", cascade={"persist"}))
      */
     private $image;
 
@@ -102,6 +104,7 @@ class User implements UserInterface
     {
         $this->estOrganisateur = new ArrayCollection();
         $this->estInscrit = new ArrayCollection();
+        $image = new Image();
         $image->setName('imageParDefaut.png');
         $this->setImage($image);
     }

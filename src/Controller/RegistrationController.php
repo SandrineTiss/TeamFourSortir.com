@@ -70,13 +70,15 @@ class RegistrationController extends AbstractController
 
 
 
-            return $guardHandler->authenticateUserAndHandleSuccess(
-                $user,
-                $request,
-                $authenticator,
-                'main' // firewall name in security.yaml
+//            return $guardHandler->authenticateUserAndHandleSuccess(
+//                $user,
+//                $request,
+//                $authenticator,
+//                'main' // firewall name in security.yaml
+//
+//            );
 
-            );
+            return $this->render('admin/admin.html.twig');
         }
 
         return $this->render('registration/register.html.twig', [
