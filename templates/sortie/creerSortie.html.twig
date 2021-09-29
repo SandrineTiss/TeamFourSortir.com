@@ -20,8 +20,6 @@
 
 
 
-
-
             {{ form_start(sortieForm) }}
             {{ form_label(sortieForm.nom) }}<sup>*</sup>
             {{ form_widget(sortieForm.nom) }}
@@ -43,6 +41,10 @@
                 <button>Créer la sortie</button>
 
             {{ form_end(sortieForm) }}</div>
+
+
+
+
 {% endblock %}
 
 {% block javascript %}<script src='{{ asset('js/createSortie.js') }}'></script>

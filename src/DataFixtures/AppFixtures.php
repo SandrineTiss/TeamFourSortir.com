@@ -53,7 +53,7 @@ class AppFixtures extends Fixture
             $user->setPassword($this->passwordEncoder->encodePassword($user,'test'));
             $user->setRoles(["ROLE_USER"]);
             $user->setActif('true');
-            $user->setTelephone(mt_rand(01, 100));
+            $user->setTelephone('0605040302');
             $user->setIsVerified('true');
             $manager->persist($user);
             $manager->persist($image);
@@ -70,7 +70,7 @@ class AppFixtures extends Fixture
             $user->setPassword($this->passwordEncoder->encodePassword($user,'test'));
             $user->setRoles(["ROLE_USER"]);
             $user->setActif('true');
-            $user->setTelephone(mt_rand(01, 100));
+            $user->setTelephone('0605040302');
             $user->setIsVerified('true');
             $manager->persist($user);
             $manager->persist($image);
@@ -87,7 +87,7 @@ class AppFixtures extends Fixture
             $user->setPassword($this->passwordEncoder->encodePassword($user,'test'));
             $user->setRoles(["ROLE_USER"]);
             $user->setActif('true');
-            $user->setTelephone(mt_rand(01, 100));
+            $user->setTelephone('060504030201');
             $user->setIsVerified('true');
             $manager->persist($user);
             $manager->persist($image);
@@ -182,7 +182,7 @@ class AppFixtures extends Fixture
             $sortie->setDateHeureDebut($date->setDate(2021,10,5));
             $sortie->setDateLimiteInscription($date->setDate(2021,10,1));
             $sortie->setDuree(mt_rand(60, 240));
-            $sortie->setEtat($etat1);
+            $sortie->setEtat($etat2);
             $sortie->addInscrit($user);
             $sortie->setInfoSortie('une info sur la sortie_'.$i);
             $sortie->setNbInscriptionMax(mt_rand(1, 8));
@@ -200,7 +200,7 @@ class AppFixtures extends Fixture
             $sortie->setDateHeureDebut($date->setDate(2021,9,25));
             $sortie->setDateLimiteInscription($date->setDate(2021,9,20));
             $sortie->setDuree(mt_rand(60, 240));
-            $sortie->setEtat($etat1);
+            $sortie->setEtat($etat2);
             $sortie->addInscrit($user);
             $sortie->setInfoSortie('une info sur la sortie_'.$i);
             $sortie->setNbInscriptionMax(mt_rand(1, 8));
@@ -218,7 +218,7 @@ class AppFixtures extends Fixture
             $sortie->setDateHeureDebut($date->setDate(2021,9,29));
             $sortie->setDateLimiteInscription($date->setDate(2021,9,28));
             $sortie->setDuree(mt_rand(60, 240));
-            $sortie->setEtat($etat1);
+            $sortie->setEtat($etat2);
             $sortie->addInscrit($user);
             $sortie->setInfoSortie('une info sur la sortie_'.$i);
             $sortie->setNbInscriptionMax(mt_rand(1, 8));

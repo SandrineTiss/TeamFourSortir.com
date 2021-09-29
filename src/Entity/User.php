@@ -54,7 +54,7 @@ class User implements UserInterface
     private $prenom;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string")
      * @Assert\Length(min=10, max=10)
      */
     private $telephone;
