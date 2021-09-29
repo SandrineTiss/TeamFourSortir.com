@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
@@ -48,12 +49,6 @@ class SortieType extends AbstractType
             ->add('infoSortie', null, [
                 'label' => 'Description et infos'
             ])
-//            $builder->add('etat', EntityType::class, [
-//                'label' => 'Etat',
-//                'class' => Etat::class,
-//                'choice_label' => 'libelle',
-//                'multiple' => false
-//            ]);
 
             ->add('ville', EntityType::class, [
                 'mapped' => true,
@@ -65,22 +60,31 @@ class SortieType extends AbstractType
                 'required' => false
             ])
 
-             ->add('lieu', ChoiceType::class, [
-                 'placeholder' => 'Lieu (Choisir une ville)',
-                 'required' => false
-             ]);
+            ->add('lieu', ChoiceType::class, [
+                'placeholder' => 'Lieu (Choisir une ville)',
+                'required' => false,
+            ]);
 
+//            ->add('Valider', SubmitType::class);
+
+//             ->add('lieu', EntityType::class, [
+//                 'placeholder' => 'Lieu (Choisir une ville)',
+//                 'required' => false,
+//                 'class' => Lieu::class,
+//                 'choice_label' => 'nom',
+//                 'label' => 'Lieu: ',
+//             ]);
 
              $formModifier = function (FormInterface $form, Ville $ville = null) {
-                 $lieu = (null === $ville) ? [] : $ville->getLieux();
+                 $lieu = null === $ville ? [] : $ville->getLieux();
 
                  $form->add('lieu', EntityType::class, [
                      'class' => Lieu::class,
-                     'choice_label' => 'nom',
                      'choices' => $lieu,
-                     'choice_value' => 'nom',
+                     'choice_label' => 'nom',
                      'placeholder' => 'Lieu (choisir une ville)',
                      'label' => 'Lieu: ',
+                     'attr' => ['class' => 'custom_select'],
                      'required' => false
                  ]);
 

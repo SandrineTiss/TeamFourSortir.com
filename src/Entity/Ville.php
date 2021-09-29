@@ -78,9 +78,9 @@ class Ville
     }
 
     /**
-     * @return ArrayCollection|Lieu[]
+     * @return Collection|Lieu[]
      */
-    public function getLieux(): ArrayCollection
+    public function getLieux(): Collection
     {
         return $this->lieux;
     }

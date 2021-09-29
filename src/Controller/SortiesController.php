@@ -10,6 +10,7 @@ use App\Form\SortieType;
 use App\Repository\EtatRepository;
 use App\Repository\LieuRepository;
 use App\Repository\SortiesRepository;
+use App\Repository\VilleRepository;
 use Doctrine\DBAL\Types\TextType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -81,6 +82,7 @@ class SortiesController extends AbstractController
             return $this->redirectToRoute('sortie_liste');
         }
 
+
         return $this->render('sortie/creerSortie.html.twig', [
             'sortieForm' => $sortieForm->createView(),
         ]);
@@ -97,7 +99,7 @@ class SortiesController extends AbstractController
             'sortie' => $sortie,
             'etat' => $sortie->getEtat(),
             'lieu'=>$sortie->getLieu(),
-            'ville'=>$sortie->getLieu()->getVille(),
+            'ville'=>$sortie->getVille(),
             'campus' =>$sortie->getCampus(),
             'organisateur' => $sortie->getOrganisateur(),
             'inscrits' => $sortie->getInscrits()
