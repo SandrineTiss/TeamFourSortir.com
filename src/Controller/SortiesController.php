@@ -3,19 +3,17 @@
 namespace App\Controller;
 
 
-use App\Entity\Etat;
+
 use App\Entity\Sorties;
 use App\Form\AnnulerSortieType;
 use App\Form\SortieType;
 use App\Repository\EtatRepository;
-use App\Repository\LieuRepository;
+
 use App\Repository\SortiesRepository;
-use App\Repository\VilleRepository;
-use Doctrine\DBAL\Types\TextType;
+
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\Forms;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
