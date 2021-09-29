@@ -55,6 +55,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string")
+
      * @Assert\Length(min=10, max=10)
      */
     private $telephone;
@@ -102,6 +103,7 @@ class User implements UserInterface
     {
         $this->estOrganisateur = new ArrayCollection();
         $this->estInscrit = new ArrayCollection();
+        $image = new Image();
         $image->setName('imageParDefaut.png');
         $this->setImage($image);
     }
