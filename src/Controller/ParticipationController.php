@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Form\SortieParticipationType;
 use App\Form\SortieType;
 use App\Repository\EtatRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -25,7 +26,7 @@ class ParticipationController extends AbstractController
     {
         $sortie = $sortiesRepository->participate($id);
         $user = $this->getUser();
-        $inscriptionForm = $this->createForm(SortieType::class, $sortie);
+        $inscriptionForm = $this->createForm(SortieParticipationType::class, $sortie);
         $inscriptionForm->handleRequest($request);
         $nbreInscrits = sizeof($sortie->getInscrits());
         $nbMax = $sortie->getNbInscriptionMax();
@@ -91,7 +92,7 @@ class ParticipationController extends AbstractController
                     'organisateur' => $sortie->getOrganisateur(),
                     'inscrits' => $inscrits,
                     'lieu' => $sortie->getLieu(),
-                    'ville' => $sortie->getLieu()->getVille(),
+                    'ville' => $sortie->getVille(),
                 ]);
             } else {
                 $this->addFlash('warning', 'Cette sortie a déjà atteint son maximum de participants');
@@ -102,7 +103,7 @@ class ParticipationController extends AbstractController
                     'organisateur' => $sortie->getOrganisateur(),
                     'inscrits' => $inscrits,
                     'lieu' => $sortie->getLieu(),
-                    'ville' => $sortie->getLieu()->getVille(),
+                    'ville' => $sortie->getVille(),
                 ]);
             }
         }
