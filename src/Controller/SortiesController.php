@@ -56,7 +56,7 @@ class SortiesController extends AbstractController
     public function createSortie(
         Request $request,
         EtatRepository $etatRepository,
-        EntityManagerInterface $entityManager,
+        EntityManagerInterface $entityManager
         ): Response
     {
         $sortie = new Sorties();
