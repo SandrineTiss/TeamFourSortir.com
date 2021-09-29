@@ -26,10 +26,6 @@ class ProfilController extends AbstractController
                                    Request $request): Response
 
     {
-
-
-        //TODO: ajouter enregistrement en BDD des modif profil
-
         $user = $this->getUser();
         $form = $this->createForm(ParticipantType::class, $user);
         $form->handleRequest($request);
@@ -64,6 +60,9 @@ class ProfilController extends AbstractController
             }
             $entityManager->persist($user);
             $entityManager->flush($user);
+
+            $this->addFlash('success', 'Votre profil a bien été modifié !');
+            return $this->redirectToRoute('main_accueil');
         }
         return $this->render('profil/modifier_profil.html.twig', [
             'profilForm' => $form->createView(),
