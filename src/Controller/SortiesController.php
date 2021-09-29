@@ -56,11 +56,14 @@ class SortiesController extends AbstractController
     public function createSortie(
         Request $request,
         EtatRepository $etatRepository,
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        VilleRepository $villeRepository,
+        LieuRepository $lieuRepository
         ): Response
     {
         $sortie = new Sorties();
         $sortieForm = $this->createForm(SortieType::class, $sortie);
+
 
         $sortieForm->handleRequest($request);
 
@@ -85,6 +88,7 @@ class SortiesController extends AbstractController
 
         return $this->render('sortie/creerSortie.html.twig', [
             'sortieForm' => $sortieForm->createView(),
+            'lieux' =>$sortie->getLieu(),
         ]);
     }
 
