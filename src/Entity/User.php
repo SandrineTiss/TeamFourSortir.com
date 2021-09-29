@@ -94,7 +94,7 @@ class User implements UserInterface
     private $pseudo;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Image::class, inversedBy="utilisateur")
+     * @ORM\ManyToOne(targetEntity=Image::class, inversedBy="utilisateur", cascade={"persist"}))
      */
     private $image;
 
