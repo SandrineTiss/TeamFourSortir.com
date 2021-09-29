@@ -61,15 +61,6 @@ class SortieType extends AbstractType
                 'required' => false,
             ]);
 
-//            ->add('Valider', SubmitType::class);
-
-//             ->add('lieu', EntityType::class, [
-//                 'placeholder' => 'Lieu (Choisir une ville)',
-//                 'required' => false,
-//                 'class' => Lieu::class,
-//                 'choice_label' => 'nom',
-//                 'label' => 'Lieu: ',
-//             ]);
 
              $formModifier = function (FormInterface $form, Ville $ville = null) {
                  $lieu = null === $ville ? [] : $ville->getLieux();

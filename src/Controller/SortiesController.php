@@ -57,8 +57,6 @@ class SortiesController extends AbstractController
         Request $request,
         EtatRepository $etatRepository,
         EntityManagerInterface $entityManager,
-        VilleRepository $villeRepository,
-        LieuRepository $lieuRepository
         ): Response
     {
         $sortie = new Sorties();
