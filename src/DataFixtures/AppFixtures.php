@@ -87,7 +87,7 @@ class AppFixtures extends Fixture
             $user->setPassword($this->passwordEncoder->encodePassword($user,'test'));
             $user->setRoles(["ROLE_USER"]);
             $user->setActif('true');
-            $user->setTelephone('060504030201');
+            $user->setTelephone('0605040302');
             $user->setIsVerified('true');
             $manager->persist($user);
             $manager->persist($image);
