@@ -63,8 +63,9 @@ class ProfilController extends AbstractController
                     $entityManager->persist($image);
                     $entityManager->flush($image);
                 } else {
-                    // affichage message erreur format
-                    $this->addFlash('error', 'format png/jpg/jpeg uniquement');
+                    // affichage message erreur format et rechargement de la page
+                    $this->addFlash('danger', 'Merci de choisir une image au format png/jpg/jpeg');
+                    return $this->redirectToRoute('profil_user');
                 }
             }
             $entityManager->persist($user);

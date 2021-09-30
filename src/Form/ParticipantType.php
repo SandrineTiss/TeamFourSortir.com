@@ -31,7 +31,7 @@ class ParticipantType extends AbstractType
                 'multiple' => false])
 
             ->add('image', FileType::class, [
-                'label' => 'Télécharger une photo de profil',
+                'label' => 'Télécharger une photo de profil (format png, jpg ou jpeg) ',
                 'multiple' => false,
                 'empty_data' => '',
                 'mapped' => false,

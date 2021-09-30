@@ -28,31 +28,4 @@ class AdminAccess extends AbstractController
         return $this->render('admin/admin.html.twig');
     }
 
-//    /**
-//     * @Route("/gestion_utilisateur", name="gestion_utilisateur")
-//     * @param $request
-//     * @return Response
-//     */
-//    public function gestionUser(SortiesRepository $sortiesRepository, Request $request): Response
-//    {
-////        if ($this->getUser()) {
-////            $search = new SortieSearch();
-////            $form = $this->createForm(RegistrationFormType::class, $search);
-////            $form->handleRequest($request);
-////            $sortie = $sortiesRepository->findAllRecents();
-////
-////            if($form->isSubmitted())
-////            {
-////                $user = $this->getUser();
-////                $sortie = $sortiesRepository->findByFilters($search, $user);
-////            }
-////            return $this->render('main/accueil.html.twig', [
-////                'sorties' => $sortie,
-////                'form' => $form->createView(),
-////            ]);
-////        } else {
-////            return $this->redirectToRoute('app_login');
-////        }
-//        return $this->render('admin/gestion_utilisateur.html.twig');
-//    }
 }

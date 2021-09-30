@@ -58,26 +58,6 @@ class RegistrationController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            // generate a signed url and email it to the user
-//            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
-//                (new TemplatedEmail())
-//                    ->from(new Address('mc.baloons@gmail.com', 'Sortir.com'))
-//                    ->to($user->getEmail())
-//                    ->subject('Please Confirm your Email')
-//                    ->htmlTemplate('registration/confirmation_email.html.twig')
-//            );
-            // do anything else you need here, like send an email
-
-
-
-//            return $guardHandler->authenticateUserAndHandleSuccess(
-//                $user,
-//                $request,
-//                $authenticator,
-//                'main' // firewall name in security.yaml
-//
-//            );
-
             return $this->render('admin/admin.html.twig');
         }
 
@@ -85,51 +65,6 @@ class RegistrationController extends AbstractController
             'registrationForm' => $form->createView(),
         ]);
     }
-
-
-//    /**
-//     * @param Request $request
-//     * @param UserPasswordEncoderInterface $passwordEncoder
-//     * @param GuardAuthenticatorHandler $guardHandler
-//     * @param AppAuthentificatorAuthenticator $authenticator
-//     * @return Response
-//     * @Route("/modifierProfil/", name = "modifier_profil")
-//     */
-//    public function modifierProfil(Request $request, UserPasswordEncoderInterface $passwordEncoder,
-//                                   GuardAuthenticatorHandler $guardHandler,
-//                                   AppAuthentificatorAuthenticator $authenticator,
-//                                   EntityManagerInterface $entityManager): Response
-//    {
-//        $user = $this->getUser();
-//        $form = $this->createForm(RegistrationFormType::class, $user);
-//        $form->handleRequest($request);
-//
-//
-//        if ($form->isSubmitted() && $form->isValid()) {
-//
-//            // encode the plain password
-//            $user->setPassword(
-//                $passwordEncoder->encodePassword(
-//                    $user,
-//                    $form->get('plainPassword')->getData()
-//                )
-//            );
-//
-//            $entityManager = $this->getDoctrine()->getManager();
-//            $entityManager->persist($user);
-//            $entityManager->flush();
-//
-//            return $guardHandler->authenticateUserAndHandleSuccess(
-//                $user,
-//                $request,
-//                $authenticator,
-//                'main' // firewall name in security.yaml
-//            );
-//        }
-//        return $this->render('registration/modifier_profil.html.twig', [
-//            'registrationForm' => $form->createView(),
-//        ]);
-//    }
 
     /**
      * @Route("/verify/email", name="app_verify_email")
