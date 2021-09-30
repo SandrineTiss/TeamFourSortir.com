@@ -20,11 +20,9 @@
 
         <div class="profil-informations">
             <h1 class="form-title">Mettre à jour son profil</h1>
-
-
        </div>
         <div class="row">
-            <div class="col-md-4 col-sm-12">
+            <div class="col-md-4 grandEcran">
                 {% if app.user.getImage() is not null %}<img class="imageProfil" src="{{ asset('img/uploads/imageProfil/'~ user.getImage().getName()) }}">{% endif %}
             </div>
             <div class="col-md-8  col-sm-12">
@@ -52,8 +50,6 @@
                     {{ form_end(profilForm) }}
                 </div>
             </div>
-
-
         </div>
 
 
