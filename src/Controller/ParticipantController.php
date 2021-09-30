@@ -87,7 +87,7 @@ class ParticipantController extends AbstractController
                 $entityManager->persist($sortie);
             }
             $entityManager->flush();
-            $this->addFlash('success', 'Le participant '.$participant->getNom().' '.$participant->getPrenom().' a été mis en sommeil');
+            $this->addFlash('success', 'Le participant '.$participant->getNom().' '.$participant->getPrenom().' a été mis en sommeil et ses sorties annulées.');
             return $this->redirectToRoute('participants_gestion');
         }
 
