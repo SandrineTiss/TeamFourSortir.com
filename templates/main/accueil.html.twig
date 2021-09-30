@@ -29,7 +29,7 @@
                    </tr>
                </thead>
                {% for sortie in sorties %}
-                   <tr>
+                   <tr {% if sortie.etat.libelle == 'Annulée' %}class="annulee"{% endif %}>
                        <th scope="col">{{ sortie.nom }}</th>
                        <th scope="col">{{ sortie.dateHeureDebut.format('d/m/Y h:m') }}</th>
                        <th scope="col">{{ sortie.dateLimiteInscription.format('d/m/Y') }}</th>

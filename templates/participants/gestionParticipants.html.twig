@@ -15,8 +15,8 @@
         Actif ? {% if participant.actif %}Oui - <a class="petit" href="{{ path('participants_sommeil', {'id': participant.id}) }}" > Mettre en sommeil </a>
                 {% else %}Non - <a class="petit" href="{{ path('participants_reactivation', {'id': participant.id}) }}" > Réactiver </a>
                 {% endif %} -
-        <a class="petit" href="{{ path('participants_modification', {'id': participant.id}) }}" > Modifier </a> -
-        <a class="petit" href="{{ path('participants_suppression', {'id': participant.id}) }}" > Supprimer </a> <br/>
+        <a class="petit" href="{{ path('participants_modification', {'id': participant.id}) }}" > Modifier </a><br/>
+{#        <a class="petit" href="{{ path('participants_suppression', {'id': participant.id}) }}" > Supprimer </a> #}
     {% endfor %}
 
     <br/><br/>

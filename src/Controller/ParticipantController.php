@@ -5,7 +5,9 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\ParticipantType;
 use App\Form\RegistrationFormType;
+use App\Repository\EtatRepository;
 use App\Repository\ImageRepository;
+use App\Repository\SortiesRepository;
 use App\Repository\UserRepository;
 use App\Security\AppAuthentificatorAuthenticator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -63,6 +65,8 @@ class ParticipantController extends AbstractController
      */
     public function sommeilParticipant(Request $request,
                                          UserRepository $userRepository,
+                                         SortiesRepository $sortiesRepository,
+                                         EtatRepository $etatRepository,
                                          int $id
                                          ): Response
     {
@@ -75,6 +79,13 @@ class ParticipantController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $participant->setActif(false);
             $entityManager->persist($participant);
+            $annulations = $participant->getEstOrganisateur();
+            $etat = $etatRepository->findOneBy(['libelle' => 'Annulée']);
+            foreach ($annulations as $sortie)
+            {
+                $sortie->setEtat($etat);
+                $entityManager->persist($sortie);
+            }
             $entityManager->flush();
             $this->addFlash('success', 'Le participant '.$participant->getNom().' '.$participant->getPrenom().' a été mis en sommeil');
             return $this->redirectToRoute('participants_gestion');
