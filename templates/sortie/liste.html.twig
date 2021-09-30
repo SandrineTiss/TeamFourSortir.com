@@ -8,13 +8,19 @@
     <section>
         {% for sortie in sorties %}
         <p>
-            {{ sortie.nom }} - <a class="petit" href="{{ path('sortie_details', {'id': sortie.id} ) }}" title="voir la sortie">détails</a> -
+            {{ sortie.nom }} - <span class="petit">{{ sortie.etat.libelle }}</span> <a class="petit" href="{{ path('sortie_details', {'id': sortie.id} ) }}" title="voir la sortie">détails</a> -
 
-            <a class="petit" href="{{ path('sortie_supprimer_sortie', {'id':sortie.id}) }}">Supprimer</a>
+            <a class="petit" href="{{ path('sortie_annuler_sortie', {'id':sortie.id}) }}">Annuler</a>
         </p>
         {% endfor %}
     </section>
+
+    <br/><br/>
+    <a class="col-lg-1 col-md-1 col-sm-3" href="{{ path('admin_access') }}">Retour</a><br/>
+
 {% endblock %}
+
+
 
 {% block title %}
     {{ parent() }} | liste des Sorties

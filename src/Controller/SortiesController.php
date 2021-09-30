@@ -37,17 +37,21 @@ class SortiesController extends AbstractController
     }
 
     /**
-     * @Route("/supprimerSortie/{id}", name="supprimer_sortie")
+     * @Route("/annulerSortie/{id}", name="annuler_sortie")
      *
      * @return Response
      */
-    public function supprimerSortie(Sorties $sorties): Response
+    public function annulerSortie(int $id, EtatRepository $etatRepository, SortiesRepository $sortiesRepository): Response
     {
         $em = $this->getDoctrine()->getManager();
-        $em->remove($sorties);
+
+        $etat = $etatRepository->findOneBy(['libelle' => 'Annulée']);
+        $sortie = $sortiesRepository->findOneBy(['id' => $id]);
+        $sortie->setEtat($etat);
+        $em->persist($sortie);
         $em->flush();
 
-        $this->addFlash('success', 'Sortie supprimée');
+        $this->addFlash('success', 'Sortie annulée');
 
         return $this->redirectToRoute('sortie_liste');
     }
@@ -196,7 +200,7 @@ class SortiesController extends AbstractController
     /**
      * @Route("/annuler/{id}", name="annuler")
      */
-    public function annulerSortie(
+    public function annulerSaSortie(
         Request $request,
         EntityManagerInterface $entityManager,
         SortiesRepository $sortiesRepository,
