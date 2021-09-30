@@ -69,6 +69,7 @@ class SortiesRepository extends ServiceEntityRepository
             //Pour ne pas afficher les sorties archivées (plus d'un mois)
         $queryBuilder->andWhere('s.dateHeureDebut >= :dernierMois')
             ->setParameter('dernierMois', new \DateTime('-1 month'));
+        $queryBuilder->orderBy('etat.libelle');
         $query = $queryBuilder->getQuery();
 
         return $query->getResult();
