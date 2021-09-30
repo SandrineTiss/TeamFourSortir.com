@@ -36,6 +36,20 @@ class SortiesController extends AbstractController
         $this->security = $security;
     }
 
+    /**
+     * @Route("/supprimerSortie/{id}", name="supprimer_sortie")
+     *
+     * @return Response
+     */
+    public function supprimerSortie(Sorties $sorties): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($sorties);
+        $em->flush();
+
+        return new Response('Sortie Supprimée !');
+    }
+
 
     /**
      * @Route("/liste", name="liste")
@@ -207,4 +221,6 @@ class SortiesController extends AbstractController
             'annulationSortieForm' =>  $annulationSortieForm->createView(),
         ]);
     }
+
+
 }
