@@ -27,4 +27,9 @@ body{
     color:royalblue;
 }
 
+@media all and (max-width: 950px) {
+    .grandEcran {
+        display: none
+    }
+}
 
