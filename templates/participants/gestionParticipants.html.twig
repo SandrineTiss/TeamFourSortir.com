@@ -11,7 +11,7 @@
     <h1>Gestion des Participants</h1>
 
     {% for participant in participants %}
-        - {{ participant.nom }} {{ participant.prenom }} du campus de {{ participant.campus.nom }} -
+        {{ participant.pseudo }} - {{ participant.nom }} {{ participant.prenom }} du campus de {{ participant.campus.nom }} -
         Actif ? {% if participant.actif %}Oui - <a class="petit" href="{{ path('participants_sommeil', {'id': participant.id}) }}" > Mettre en sommeil </a>
                 {% else %}Non - <a class="petit" href="{{ path('participants_reactivation', {'id': participant.id}) }}" > Réactiver </a>
                 {% endif %} -
