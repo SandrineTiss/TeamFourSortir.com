@@ -47,7 +47,9 @@ class SortiesController extends AbstractController
         $em->remove($sorties);
         $em->flush();
 
-        return new Response('Sortie Supprimée !');
+        $this->addFlash('success', 'Sortie supprimée');
+
+        return $this->redirectToRoute('sortie_liste');
     }
 
 
