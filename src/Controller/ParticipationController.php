@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Form\SortieParticipationType;
-use App\Form\SortieType;
+
 use App\Repository\EtatRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 use App\Repository\SortiesRepository;
-use Symfony\Component\Validator\Constraints\DateTime;
+
 
 /**
  * @Route("/participation/", name="participation")

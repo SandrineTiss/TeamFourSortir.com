@@ -6,6 +6,7 @@ namespace App\Controller;
 
 use App\Entity\Sorties;
 use App\Form\AnnulerSortieType;
+use App\Form\SortieParticipationType;
 use App\Form\SortieType;
 use App\Repository\EtatRepository;
 
@@ -137,8 +138,9 @@ class SortiesController extends AbstractController
     ): Response
     {
         $sortie = $sortiesRepository->participate($id);
-        $sortieForm = $this->createForm(SortieType::class, $sortie);
+        $sortieForm = $this->createForm(SortieParticipationType::class, $sortie);
         $sortieForm->handleRequest($request);
+
 
         if($sortieForm->isSubmitted() && $sortieForm->isValid()) {
 
@@ -172,7 +174,7 @@ class SortiesController extends AbstractController
     ): Response
     {
         $sortie = $sortiesRepository->participate($id);
-        $sortieForm = $this->createForm(SortieType::class, $sortie);
+        $sortieForm = $this->createForm(SortieParticipationType::class, $sortie);
         $sortieForm->handleRequest($request);
 
         if($sortieForm->isSubmitted() && $sortieForm->isValid()) {
