@@ -38,25 +38,34 @@ class ProfilController extends AbstractController
                 // recupération de l'image uploadé
                 $image = $form->get('image')->getData();
                 $file = md5(uniqid()) . '.' . $image->guessExtension();
+                $ext = strlen($file);
+                $test = explode('.', $file);
 
-                // copie du fichier dans le dossier public/img/uploads/imageProfil
-                $image->move(
-                    $this->getParameter('profil_images'),
-                    $file
-                );
+                // test du fichier uploadé format + nom non vide
+                if (!empty($test[0]) && ( $test[1] === 'jpg' || $test[1] === 'jng' || $test[1] === 'jpeg') ) {
 
-                $image = new Image();
-                $image->setName($file);
+                    // copie du fichier dans le dossier public/img/uploads/imageProfil
+                    $image->move(
+                        $this->getParameter('profil_images'),
+                        $file
+                    );
 
-                // récuperer l'image de profil
-                $user->getImage();
-                // update de l'image
-                $user->getImage()->setName($file);
-                $user->setImage($image);
+                    $image = new Image();
+                    $image->setName($file);
 
-                $entityManager = $this->getDoctrine()->getManager();
-                $entityManager->persist($image);
-                $entityManager->flush($image);
+                    // récuperer l'image de profil
+                    $user->getImage();
+                    // update de l'image
+                    $user->getImage()->setName($file);
+                    $user->setImage($image);
+
+                    $entityManager = $this->getDoctrine()->getManager();
+                    $entityManager->persist($image);
+                    $entityManager->flush($image);
+                } else {
+                    // affichage message erreur format
+                    $this->addFlash('error', 'format png/jpg/jpeg uniquement');
+                }
             }
             $entityManager->persist($user);
             $entityManager->flush($user);
