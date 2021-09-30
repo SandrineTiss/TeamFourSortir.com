@@ -1,4 +1,7 @@
 security:
+    role_hierarchy:
+        ROLE_ADMIN: ROLE_USER
+
     encoders:
         App\Entity\User:
 
@@ -36,7 +39,8 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-
+       - { path: ^/appLogin, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+       - { path: ^/reset-password/*, roles: IS_AUTHENTICATED_ANONYMOUSLY }
        - { path: ^/campus/*, roles: ROLE_ADMIN }
        - { path: ^/sortie/annulerSortie/  , roles: ROLE_ADMIN }
        - { path: ^/lieu/*, roles: ROLE_ADMIN }
@@ -44,12 +48,10 @@ security:
        - { path: ^/ville/*, roles: ROLE_ADMIN }
        - { path: ^/register, roles: ROLE_ADMIN }
        - { path: ^/admin/*, roles: ROLE_ADMIN }
-
        - { path: ^/, roles: ROLE_USER }
        - { path: ^/participation/*, roles: ROLE_USER }
        - { path: ^/sortie/*, roles: ROLE_USER }
        - { path: ^/profil/*, roles: ROLE_USER }
-       - { path: ^/appLogin, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-       - { path: ^/reset-password/*, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+
 
 

@@ -76,7 +76,7 @@ class AppAuthentificatorAuthenticator extends AbstractFormLoginAuthenticator imp
         }
 
         if (!$user->getActif()) {
-            throw new UserNotFoundException('Le compte a été désactivé !.');
+            throw new UserNotFoundException('Ce compte a été désactivé ! Merci de contacter un administrateur');
         }
 
         return $user;

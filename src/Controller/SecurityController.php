@@ -34,7 +34,10 @@ class SecurityController extends AbstractController
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
-        $this->addFlash('danger', 'Merci de réessayer ou de contacter l\'administrateur');
+        if($error != null)
+        {
+            $this->addFlash('danger', $error->getMessage());
+        }
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
