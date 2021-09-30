@@ -57,7 +57,8 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string")
-     * @Assert\Length(min=9, max=10)
+     * @Assert\Length(min=10, max=10)
+     * @Assert\Regex("/^[0]{1}[1-7]{1}[0-9]{8}$/")
      */
     private $telephone;
 
@@ -214,12 +215,12 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getTelephone(): ?int
+    public function getTelephone(): ?string
     {
         return $this->telephone;
     }
 
-    public function setTelephone(int $telephone): self
+    public function setTelephone(string $telephone): self
     {
         $this->telephone = $telephone;
 

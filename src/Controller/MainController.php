@@ -41,6 +41,7 @@ class MainController extends AbstractController
                     $sortie->setNbInscriptionMax($s->getNbInscriptionMax());
                     $sortie->setOrganisateur($s->getOrganisateur());
                     $sortie->setVille($s->getVille());
+                    $sortie->addInscrit($s->getInscrits());
 
                     // archivage de la sortie dans la table SortiesArchivees
                     $entityManager->persist($sortie);
